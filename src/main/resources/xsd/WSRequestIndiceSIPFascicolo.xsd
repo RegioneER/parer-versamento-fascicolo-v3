@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified">
+
+  <!--  -->
+  <xs:complexType name="IntestazioneType">
+    <xs:sequence>
+      <xs:element name="Versatore" type="VersatoreType" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="SoggettoProduttore" type="SoggettoProduttoreType" maxOccurs="1" minOccurs="0"/>
+      <xs:element name="Chiave" type="ChiaveType" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="TipoFascicolo" type="TokenNonVuotoType" maxOccurs="1" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--  -->
+  <xs:complexType name="ConfigType">
+    <xs:sequence>
+      <xs:element name="VersioneIndiceSIPFascicolo" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="TipoConservazione" type="TipoConservazioneType" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="ForzaClassificazione" type="xs:boolean" maxOccurs="1" minOccurs="0"/>
+      <xs:element name="ForzaNumero" type="xs:boolean" maxOccurs="1" minOccurs="0"/>
+      <xs:element name="ForzaCollegamento" type="xs:boolean" maxOccurs="1" minOccurs="0"/>
+      <xs:element name="SimulaSalvataggioDatiInDB" type="xs:boolean" maxOccurs="1" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--  -->
+  <xs:complexType  name="VersatoreType">
+    <xs:sequence>
+      <xs:element name="Ambiente" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="Ente" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="Struttura" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="UserID" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--  -->
+  <xs:complexType  name="SoggettoProduttoreType">
+    <xs:sequence>
+      <xs:element name="Ambiente" type="StringNVMax100Type" maxOccurs="1" minOccurs="0"/>
+      <xs:element name="Codice" type="StringNVMax100Type" maxOccurs="1" minOccurs="0"/>
+      <xs:element name="Denominazione" type="StringNVMax254Type" maxOccurs="1" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--  -->
+  <xs:complexType name="ChiaveType">
+    <xs:sequence>
+      <xs:element name="Anno" type="IntMax4DgtType" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="Numero" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--  -->
+  <xs:complexType name="UnitaDocumentariaType">
+    <xs:sequence>
+      <xs:element name="Registro" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="Anno" type="IntMax4DgtType" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="Numero" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+	  <xs:element name="Posizione" type="xs:integer" maxOccurs="1" minOccurs="0"/>
+	  <xs:element name="DataInserimentoFascicolo" type="xs:date" maxOccurs="1" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!--  -->
+  <xs:complexType name="FascicoloType">
+    <xs:sequence>
+      <xs:element name="Anno" type="IntMax4DgtType" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="Numero" type="StringNVMax100Type" maxOccurs="1" minOccurs="1"/>
+	  <xs:element name="Posizione" type="xs:integer" maxOccurs="1" minOccurs="0"/>
+	  <xs:element name="DataInserimentoFascicolo" type="xs:date" maxOccurs="1" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--  -->
+  <xs:complexType name="ProfiloArchivisticoType">
+    <xs:sequence>
+      <xs:any processContents="skip"/>
+    </xs:sequence>
+	<xs:attribute name="versione" type="StringNVMax1024Type" use="required" />
+  </xs:complexType>
+  <!-- Profilo dettato da AGID, regole tecniche, normativo, ecc.. -->
+  <xs:complexType name="ProfiloNormativoType">
+    <xs:sequence>
+      <xs:any processContents="skip"/>
+    </xs:sequence>
+	<xs:attribute name="versione" type="StringNVMax1024Type" use="required" />
+  </xs:complexType>
+  <!--  -->
+  <xs:complexType name="ProfiloGeneraleType">
+    <xs:sequence>
+      <xs:any processContents="skip"/>
+    </xs:sequence>
+	<xs:attribute name="versione" type="StringNVMax1024Type" use="required" />
+  </xs:complexType>
+      <!--  -->
+  <xs:complexType name="ProfiloSpecificoType">
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+    </xs:sequence>
+	<xs:attribute name="versione" type="StringNVMax1024Type" use="required" />
+  </xs:complexType>
+  <!--  -->
+  <xs:complexType name="ContenutoType"> <!-- Qui bisogna ragionare se far saltare l'obbligatorietà o meno del dettaglio unità documentaria nel caso in cui si introduca un tag legato al contenuto di altri fascicoli Es: NumeroFascicoli e dettaglio fascicolo -->
+    <xs:sequence>
+      <xs:element name="UnitaDocumentarie" type="UnitaDocumentarieType" maxOccurs="1" minOccurs="0"/>
+	  <xs:element name="Fascicoli" type="FascicoliType" maxOccurs="1" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--  -->
+  <!--Parte relativa alle unità documentarie contenute nel fascicolo  -->
+  <xs:complexType name="UnitaDocumentarieType"> 
+    <xs:sequence>
+      <xs:element name="NumeroUnitaDocumentarie" type="IntMax4DgtType" maxOccurs="1" minOccurs="1"/>
+	  <xs:element name="DettaglioUnitaDocumentarie" type="DettaglioUnitaDocumentarieType" maxOccurs="1" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+   <!--  -->
+  <xs:complexType name="DettaglioUnitaDocumentarieType">
+    <xs:sequence>
+      <xs:element name="UnitaDocumentaria"  type="UnitaDocumentariaType" maxOccurs="unbounded" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--Parte relativa ai fascicoli contenuti nel fascicolo  -->
+  <xs:complexType name="FascicoliType"> <!-- Sono i sottofascicoli, cioè i fascicoli contenuti nel fascicolo che si sta conservando -->
+    <xs:sequence>
+      <xs:element name="NumeroFascicoli" type="IntMax4DgtType" maxOccurs="1" minOccurs="1"/>
+	  <xs:element name="DettaglioFascicoli" type="DettaglioFascicoliType" maxOccurs="1" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+ 
+  <!--  -->
+<xs:complexType name="DettaglioFascicoliType">
+    <xs:sequence>
+      <xs:element name="Fascicolo"  type="FascicoloType" maxOccurs="unbounded" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--  -->
+  <xs:simpleType name="TipoConservazioneType">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:enumeration value="IN_ARCHIVIO"  />
+      <xs:enumeration value="VERSAMENTO_ANTICIPATO"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+
+                                  <!-- TIPI DATO GENERICI -->
+  <!--  -->
+  <xs:simpleType name="TokenNonVuotoType">
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="TokenNVMax100Type">
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="TokenNVMax254Type">
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="254"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="TokenNVMax1024Type">
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="1024"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="StringNonVuotoType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="StringNVMax100Type">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="StringNVMax254Type">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="254"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="StringNVMax1024Type">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="1024"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="StringMax100Type">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="StringMax254Type">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="254"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="StringMax1024Type">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1024"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="StringMax4000Type">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="4000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="IntMax4DgtType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="9999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="IntMax5DgtType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="99999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+  <xs:simpleType name="PosIntMax12DgtType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="999999999999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  -->
+                                  <!-- ELEMENTI -->
+  <!--  -->
+  <xs:element name="IndiceSIPFascicolo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Parametri" type="ConfigType" maxOccurs="1" minOccurs="1"/>
+        <xs:element name="Intestazione" type="IntestazioneType"  maxOccurs="1" minOccurs="1" />
+        <xs:element name="ProfiloArchivistico" type="ProfiloArchivisticoType" maxOccurs="1" minOccurs="1" nillable="true"/>
+        <xs:element name="ProfiloNormativo" type="ProfiloNormativoType" maxOccurs="1" minOccurs="0" nillable="true"/>
+		<xs:element name="ProfiloGenerale" type="ProfiloGeneraleType" maxOccurs="1" minOccurs="1" nillable="true"/>
+        <xs:element name="ProfiloSpecifico" type="ProfiloSpecificoType" maxOccurs="1" minOccurs="0" nillable="true"/>
+        <xs:element name="Contenuto" type="ContenutoType" maxOccurs="1" minOccurs="1"/>
+    
+        <!--  -->
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!--  -->  
+</xs:schema>

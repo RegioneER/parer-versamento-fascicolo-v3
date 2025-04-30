@@ -1,0 +1,46 @@
+<ProfiloArchivistico versione="1.0">
+    <ProfiloArchivisticoFascicolo>
+        <SegnaturaArchivistica>
+            <Classificazione>
+                <IndiceClassificazione>08/06</IndiceClassificazione>
+                <DescrizioneIndiceClassificazione>
+                    <VoceClassificazione>
+                        <CodiceVoce>08</CodiceVoce>
+                        <DescrizioneVoce>Risorse finanziarie</DescrizioneVoce>
+                    </VoceClassificazione>
+                    <VoceClassificazione>
+                        <CodiceVoce>06</CodiceVoce>
+                        <DescrizioneVoce>Fatture attive</DescrizioneVoce>
+                    </VoceClassificazione>
+                </DescrizioneIndiceClassificazione>
+            </Classificazione>
+        </SegnaturaArchivistica>
+        <Collegamenti>
+            <FascicoloCollegato>
+                <ChiaveCollegamento>
+                    <Anno>2017</Anno>
+                    <Numero>1.1-2017-01</Numero>
+                </ChiaveCollegamento>
+                <DescrizioneCollegamento>primo collegamento ààà°àààçLùù§§ùùù`[#]°ç§#@</DescrizioneCollegamento>
+            </FascicoloCollegato>
+            <FascicoloCollegato>
+                <ChiaveCollegamento>
+                    <Anno>2017</Anno>
+                    <Numero>1.1-2017-01</Numero>
+                </ChiaveCollegamento>
+                <DescrizioneCollegamento>secondo collegamento</DescrizioneCollegamento>
+            </FascicoloCollegato>
+            <FascicoloCollegato>
+                <ChiaveCollegamento>
+                    <Anno>2017</Anno>
+                    <Numero>1.1-2017-01</Numero>
+                </ChiaveCollegamento>
+                <DescrizioneCollegamento>terzo collegamento</DescrizioneCollegamento>
+            </FascicoloCollegato>
+        </Collegamenti>
+        <PianoConservazione>
+		    <TempoConservazione>6756</TempoConservazione>
+    		<InfoPianoConservazione>Informazioni circa il piano di conservazione</InfoPianoConservazione>
+  		</PianoConservazione>
+    </ProfiloArchivisticoFascicolo>
+</ProfiloArchivistico>

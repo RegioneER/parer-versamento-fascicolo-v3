@@ -1,0 +1,1 @@
+Insert into DEC_ERR_SACER (ID_ERR_SACER,ID_CLASSE_ERR_SACER,CD_ERR,DS_ERR,DS_ERR_FILTRO,TI_ERR_SACER) values (1343,10,'666P','Errore imprevisto nella persistenza: {0}','Errore imprevisto nella persistenza','FATALE');

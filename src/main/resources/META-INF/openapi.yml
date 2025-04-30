@@ -1,0 +1,666 @@
+openapi: 3.0.3
+components:
+  schemas:
+    CodiceEsitoType:
+      enum:
+      - POSITIVO
+      - NEGATIVO
+      - WARNING
+      type: string
+    ECConfigurazioneSIPType:
+      type: object
+      properties:
+        tipoConservazione:
+          type: string
+          xml:
+            name: TipoConservazione
+        forzaClassificazione:
+          type: boolean
+          xml:
+            name: ForzaClassificazione
+        forzaNumero:
+          type: boolean
+          xml:
+            name: ForzaNumero
+        forzaCollegamento:
+          type: boolean
+          xml:
+            name: ForzaCollegamento
+    ECConfigurazioneType:
+      type: object
+      properties:
+        forzaClassificazione:
+          type: boolean
+          xml:
+            name: ForzaClassificazione
+        forzaNumero:
+          type: boolean
+          xml:
+            name: ForzaNumero
+        forzaCollegamento:
+          type: boolean
+          xml:
+            name: ForzaCollegamento
+        abilitaControlloClassificazione:
+          type: boolean
+          xml:
+            name: AbilitaControlloClassificazione
+        abilitaControlloFormatoNumero:
+          type: boolean
+          xml:
+            name: AbilitaControlloFormatoNumero
+        abilitaControlloCollegamenti:
+          type: boolean
+          xml:
+            name: AbilitaControlloCollegamenti
+        accettaControlloClassificazioneNegativo:
+          type: boolean
+          xml:
+            name: AccettaControlloClassificazioneNegativo
+        accettaControlloFormatoNumeroNegativo:
+          type: boolean
+          xml:
+            name: AccettaControlloFormatoNumeroNegativo
+        accettaControlloCollegamentiNegativo:
+          type: boolean
+          xml:
+            name: AccettaControlloCollegamentiNegativo
+    ECErroreType:
+      type: object
+      properties:
+        codiceErrore:
+          type: string
+          xml:
+            name: CodiceErrore
+        messaggioErrore:
+          type: string
+          xml:
+            name: MessaggioErrore
+    ECErroriUlterioriType:
+      type: object
+      properties:
+        errore:
+          type: array
+          items:
+            $ref: "#/components/schemas/ECErroreType"
+          xml:
+            name: Errore
+    ECEsitoChiamataWSType:
+      type: object
+      properties:
+        codiceEsito:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegNesType"
+          xml:
+            name: CodiceEsito
+        versioneWSCorretta:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegNesType"
+          xml:
+            name: VersioneWSCorretta
+        credenzialiOperatore:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegNesType"
+          xml:
+            name: CredenzialiOperatore
+    ECEsitoContenutoFascicoloType:
+      type: object
+      properties:
+        unitaDocumentariePresenti:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/SCUDTypePresenti"
+          xml:
+            name: UnitaDocumentariePresenti
+        unitaDocumentarieNonPresenti:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/SCUDTypeNonPresenti"
+          xml:
+            name: UnitaDocumentarieNonPresenti
+    ECEsitoPosNegNesType:
+      enum:
+      - POSITIVO
+      - NEGATIVO
+      - NON_ATTIVATO
+      - NON_ESEGUITO
+      type: string
+    ECEsitoPosNegType:
+      enum:
+      - POSITIVO
+      - NEGATIVO
+      - NON_ATTIVATO
+      type: string
+    ECEsitoPosNegWarType:
+      enum:
+      - POSITIVO
+      - NEGATIVO
+      - WARNING
+      - NON_ATTIVATO
+      type: string
+    ECEsitoXSDType:
+      type: object
+      properties:
+        codiceEsito:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: CodiceEsito
+    ECFascicoloType:
+      type: object
+      properties:
+        versatore:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/SCVersatoreType"
+          xml:
+            name: Versatore
+        soggettoProduttore:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/SCSoggettoProduttoreType"
+          xml:
+            name: SoggettoProduttore
+        chiave:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/SCChiaveType"
+          xml:
+            name: Chiave
+        tipoFascicolo:
+          type: string
+          xml:
+            name: TipoFascicolo
+        dataApertura:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/XMLGregorianCalendar"
+          xml:
+            name: DataApertura
+        dataChiusura:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/XMLGregorianCalendar"
+          xml:
+            name: DataChiusura
+        contenuto:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/SCContenutoType"
+          xml:
+            name: Contenuto
+        tempoConservazione:
+          format: int64
+          type: integer
+          xml:
+            name: TempoConservazione
+        esitoControlliFascicolo:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/EsitoControlliFascicolo"
+          xml:
+            name: EsitoControlliFascicolo
+        controlliContenutoFascicolo:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoContenutoFascicoloType"
+          xml:
+            name: ControlliContenutoFascicolo
+    ECStatoConsType:
+      enum:
+      - PRESA_IN_CARICO
+      - AIP_GENERATO
+      - ANNULLATA
+      - AIP_IN_AGGIORNAMENTO
+      type: string
+    ECWarningType:
+      type: object
+      properties:
+        codiceWarning:
+          type: string
+          xml:
+            name: CodiceWarning
+        messaggioWarning:
+          type: string
+          xml:
+            name: MessaggioWarning
+    ECWarningUlterioriType:
+      type: object
+      properties:
+        warning:
+          type: array
+          items:
+            $ref: "#/components/schemas/ECWarningType"
+          xml:
+            name: Warning
+    EsitoControlliFascicolo:
+      type: object
+      properties:
+        codiceEsito:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegWarType"
+          xml:
+            name: CodiceEsito
+        identificazioneVersatore:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: IdentificazioneVersatore
+        identificazioneSoggettoProduttore:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegWarType"
+          xml:
+            name: IdentificazioneSoggettoProduttore
+        univocitaChiave:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: UnivocitaChiave
+        verificaTipoFascicolo:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: VerificaTipoFascicolo
+        controlloProfiloArchivistico:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: ControlloProfiloArchivistico
+        controlloProfiloGenerale:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: ControlloProfiloGenerale
+        controlloProfiloSpecifico:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: ControlloProfiloSpecifico
+        controlloProfiloNormativo:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: ControlloProfiloNormativo
+        controlloConsistenzaUnitaDocumentarie:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: ControlloConsistenzaUnitaDocumentarie
+        controlloConsistenzaFascicoli:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegType"
+          xml:
+            name: ControlloConsistenzaFascicoli
+        controlloClassificazione:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegWarType"
+          xml:
+            name: ControlloClassificazione
+        controlloFormatoNumero:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegWarType"
+          xml:
+            name: ControlloFormatoNumero
+        controlloCollegamenti:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoPosNegWarType"
+          xml:
+            name: ControlloCollegamenti
+    EsitoGeneraleType:
+      type: object
+      properties:
+        codiceEsito:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/CodiceEsitoType"
+          xml:
+            name: CodiceEsito
+        codiceErrore:
+          type: string
+          xml:
+            name: CodiceErrore
+        messaggioErrore:
+          type: string
+          xml:
+            name: MessaggioErrore
+    EsitoVersamentoFascicolo:
+      type: object
+      properties:
+        versioneEsitoVersamentoFascicolo:
+          type: string
+          xml:
+            name: VersioneEsitoVersamentoFascicolo
+        versioneIndiceSIPFascicolo:
+          type: string
+          xml:
+            name: VersioneIndiceSIPFascicolo
+        dataEsitoVersamentoFascicolo:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/XMLGregorianCalendar"
+          xml:
+            name: DataEsitoVersamentoFascicolo
+        rapportoVersamentoFascicolo:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/RapportoVersamentoFascicoloType"
+          xml:
+            name: RapportoVersamentoFascicolo
+        esitoVersamentoNegativo:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/EsitoVersamentoNegativoType"
+          xml:
+            name: EsitoVersamentoNegativo
+    EsitoVersamentoNegativoType:
+      type: object
+      properties:
+        esitoGenerale:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/EsitoGeneraleType"
+          xml:
+            name: EsitoGenerale
+        erroriUlteriori:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECErroriUlterioriType"
+          xml:
+            name: ErroriUlteriori
+        warningUlteriori:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECWarningUlterioriType"
+          xml:
+            name: WarningUlteriori
+        esitoChiamataWS:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoChiamataWSType"
+          xml:
+            name: EsitoChiamataWS
+        esitoXSD:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoXSDType"
+          xml:
+            name: EsitoXSD
+        parametriVersamento:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECConfigurazioneSIPType"
+          xml:
+            name: ParametriVersamento
+        configurazioneStruttura:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECConfigurazioneType"
+          xml:
+            name: ConfigurazioneStruttura
+        fascicolo:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECFascicoloType"
+          xml:
+            name: Fascicolo
+        indiceSIP:
+          type: string
+          xml:
+            name: IndiceSIP
+        rapportoVersamento:
+          type: string
+          xml:
+            name: RapportoVersamento
+    QName:
+      type: object
+      properties:
+        namespaceURI:
+          type: string
+        localPart:
+          type: string
+        prefix:
+          type: string
+    RapportoVersamentoFascicoloType:
+      type: object
+      properties:
+        versioneRapportoVersamento:
+          type: string
+          xml:
+            name: VersioneRapportoVersamento
+        identificativoRapportoVersamento:
+          type: string
+          xml:
+            name: IdentificativoRapportoVersamento
+        dataRapportoVersamento:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/XMLGregorianCalendar"
+          xml:
+            name: DataRapportoVersamento
+        sip:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/SIPType"
+          xml:
+            name: SIP
+        esitoGenerale:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/EsitoGeneraleType"
+          xml:
+            name: EsitoGenerale
+        warningUlteriori:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECWarningUlterioriType"
+          xml:
+            name: WarningUlteriori
+        esitoChiamataWS:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoChiamataWSType"
+          xml:
+            name: EsitoChiamataWS
+        esitoXSD:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECEsitoXSDType"
+          xml:
+            name: EsitoXSD
+        parametriVersamento:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECConfigurazioneSIPType"
+          xml:
+            name: ParametriVersamento
+        configurazioneStruttura:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECConfigurazioneType"
+          xml:
+            name: ConfigurazioneStruttura
+        fascicolo:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/ECFascicoloType"
+          xml:
+            name: Fascicolo
+        statoConservazione:
+          type: string
+          allOf:
+          - $ref: "#/components/schemas/ECStatoConsType"
+          xml:
+            name: StatoConservazione
+    SCChiaveType:
+      type: object
+      properties:
+        anno:
+          format: int32
+          type: integer
+          xml:
+            name: Anno
+        numero:
+          type: string
+          xml:
+            name: Numero
+    SCChiaveUDType:
+      type: object
+      properties:
+        registro:
+          type: string
+          xml:
+            name: Registro
+        anno:
+          format: int32
+          type: integer
+          xml:
+            name: Anno
+        numero:
+          type: string
+          xml:
+            name: Numero
+    SCContenutoType:
+      type: object
+      properties:
+        numeroUnitaDocumentarie:
+          format: int32
+          type: integer
+          xml:
+            name: NumeroUnitaDocumentarie
+    SCSoggettoProduttoreType:
+      type: object
+      properties:
+        ambiente:
+          type: string
+          xml:
+            name: Ambiente
+        codice:
+          type: string
+          xml:
+            name: Codice
+        denominazione:
+          type: string
+          xml:
+            name: Denominazione
+    SCUDTypeNonPresenti:
+      type: object
+      properties:
+        numeroUnitaDocumentarieNonPresenti:
+          format: int32
+          type: integer
+          xml:
+            name: NumeroUnitaDocumentarieNonPresenti
+        unitaDocumentaria:
+          type: array
+          items:
+            $ref: "#/components/schemas/SCChiaveUDType"
+          xml:
+            name: UnitaDocumentaria
+    SCUDTypePresenti:
+      type: object
+      properties:
+        numeroUnitaDocumentariePresenti:
+          format: int32
+          type: integer
+          xml:
+            name: NumeroUnitaDocumentariePresenti
+        unitaDocumentaria:
+          type: array
+          items:
+            $ref: "#/components/schemas/SCChiaveUDType"
+          xml:
+            name: UnitaDocumentaria
+    SCVersatoreType:
+      type: object
+      properties:
+        ambiente:
+          type: string
+          xml:
+            name: Ambiente
+        ente:
+          type: string
+          xml:
+            name: Ente
+        struttura:
+          type: string
+          xml:
+            name: Struttura
+        userID:
+          type: string
+          xml:
+            name: UserID
+    SIPType:
+      type: object
+      properties:
+        urnsip:
+          type: string
+          xml:
+            name: URNSIP
+        urnIndiceSIP:
+          type: string
+          xml:
+            name: URNIndiceSIP
+        dataVersamento:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/XMLGregorianCalendar"
+          xml:
+            name: DataVersamento
+    XMLGregorianCalendar:
+      type: object
+      properties:
+        year:
+          format: int32
+          type: integer
+        month:
+          format: int32
+          type: integer
+        day:
+          format: int32
+          type: integer
+        timezone:
+          format: int32
+          type: integer
+        hour:
+          format: int32
+          type: integer
+        minute:
+          format: int32
+          type: integer
+        second:
+          format: int32
+          type: integer
+        millisecond:
+          format: int32
+          type: integer
+        fractionalSecond:
+          format: int32
+          type: number
+        eon:
+          format: int32
+          type: integer
+        eonAndYear:
+          format: int32
+          type: integer
+        xMLSchemaType:
+          $ref: "#/components/schemas/QName"
+        valid:
+          type: boolean

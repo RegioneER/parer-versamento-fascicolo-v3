@@ -1,0 +1,1 @@
+Insert into DEC_TITOL (ID_TITOL,ID_STRUT,NM_TITOL,DT_ISTITUZ,DT_SOPPRES,NI_LIVELLI,CD_SEP_FASCICOLO,DL_NOTE,TI_STATO_TITOL) values (361,3323,'Titolario test serie',parsedatetime('05-12-2017','dd-MM-yyyy'),parsedatetime('05-01-2019','dd-MM-yyyy'),3,'/','note','DA_VALIDARE');

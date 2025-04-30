@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xs:element name="EsitoVersamentoFascicolo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="VersioneEsitoVersamentoFascicolo" type="StringNVMax100Type" minOccurs="1"/>
+                <xs:element name="VersioneIndiceSIPFascicolo" type="StringNVMax100Type" minOccurs="1"/>
+                <xs:element name="DataEsitoVersamentoFascicolo" type="xs:dateTime" minOccurs="1"/>
+                <xs:choice>
+                    <xs:element name="RapportoVersamentoFascicolo" type="RapportoVersamentoFascicoloType" minOccurs="1"/>
+                    <xs:element name="EsitoVersamentoNegativo" type="EsitoVersamentoNegativoType" minOccurs="1"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="RapportoVersamentoFascicoloType">
+        <xs:sequence>
+            <xs:element name="VersioneRapportoVersamento" type="StringNVMax100Type" minOccurs="1"/>
+            <xs:element name="IdentificativoRapportoVersamento" type="xs:string" minOccurs="1"/>
+            <xs:element name="DataRapportoVersamento" type="xs:dateTime" minOccurs="1"/>
+            <xs:element name="SIP" type="SIPType" minOccurs="1"/>
+            <xs:element name="EsitoGenerale" type="EsitoGeneraleType" minOccurs="1"/>
+            <xs:element name="WarningUlteriori" type="ECWarningUlterioriType" minOccurs="0"/>
+            <xs:element name="EsitoChiamataWS" type="ECEsitoChiamataWSType" minOccurs="1"/>
+            <xs:element name="EsitoXSD" type="ECEsitoXSDType" minOccurs="1"/>
+            <xs:element name="ParametriVersamento" type="ECConfigurazioneSIPType" minOccurs="0"/>
+            <xs:element name="ConfigurazioneStruttura" type="ECConfigurazioneType" minOccurs="0"/>
+            <xs:element name="Fascicolo" type="ECFascicoloType" minOccurs="1"/>
+            <xs:element name="StatoConservazione" type="ECStatoConsType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+	  
+	 <!--  -->
+    <xs:complexType name="EsitoVersamentoNegativoType">
+        <xs:sequence>
+            <xs:element name="EsitoGenerale" type="EsitoGeneraleType" minOccurs="1"/>
+            <xs:element name="ErroriUlteriori" type="ECErroriUlterioriType" minOccurs="0"/>
+            <xs:element name="WarningUlteriori" type="ECWarningUlterioriType" minOccurs="0"/>
+            <xs:element name="EsitoChiamataWS" type="ECEsitoChiamataWSType" minOccurs="1"/>
+            <xs:element name="EsitoXSD" type="ECEsitoXSDType" minOccurs="0"/>
+            <xs:element name="ParametriVersamento" type="ECConfigurazioneSIPType" minOccurs="0"/>
+            <xs:element name="ConfigurazioneStruttura" type="ECConfigurazioneType" minOccurs="0"/>
+            <xs:element name="Fascicolo" type="ECFascicoloType" minOccurs="0"/>
+            <xs:element name="IndiceSIP" type="xs:string" minOccurs="0"/>
+            <xs:element name="RapportoVersamento" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="SIPType">
+        <xs:sequence>
+            <xs:element name="URNSIP" type="xs:string" minOccurs="1" />
+            <xs:element name="URNIndiceSIP" type="xs:string" minOccurs="0"/>
+            <xs:element name="DataVersamento" type="xs:dateTime" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+  
+  <!--  -->
+    <xs:complexType name="EsitoGeneraleType">
+        <xs:sequence>
+            <xs:element name="CodiceEsito" type="CodiceEsitoType"/>
+            <xs:element name="CodiceErrore" type="xs:string" minOccurs="0"/>
+            <xs:element name="MessaggioErrore" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+  <!--  -->
+    <xs:complexType name="ECWarningUlterioriType">
+        <xs:sequence>
+            <xs:element name="Warning" type="ECWarningType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ECWarningType">
+        <xs:sequence>
+            <xs:element name="CodiceWarning" type="xs:string" minOccurs="1"/>
+            <xs:element name="MessaggioWarning" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+  <!--  -->
+    <xs:complexType name="ECErroriUlterioriType">
+        <xs:sequence>
+            <xs:element name="Errore" type="ECErroreType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ECErroreType">
+        <xs:sequence>
+            <xs:element name="CodiceErrore" type="xs:string" minOccurs="0"/>
+            <xs:element name="MessaggioErrore" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+  
+  <!--  -->
+    <xs:complexType name="ECEsitoChiamataWSType">
+        <xs:sequence>
+            <xs:element name="CodiceEsito" type="ECEsitoPosNegNesType"/>
+            <xs:element name="VersioneWSCorretta" type="ECEsitoPosNegNesType"/>
+            <xs:element name="CredenzialiOperatore" type="ECEsitoPosNegNesType"/>
+        </xs:sequence>
+    </xs:complexType>
+  
+  <!--  -->
+    <xs:complexType name="ECEsitoXSDType">
+        <xs:sequence>
+            <xs:element name="CodiceEsito" type="ECEsitoPosNegType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+  <!--  -->
+    <xs:complexType name="ECConfigurazioneSIPType">
+        <xs:sequence>
+            <xs:element name="TipoConservazione" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="VERSAMENTO_ANTICIPATO"/>
+                        <xs:enumeration value="IN_ARCHIVIO"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ForzaClassificazione" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="ForzaNumero" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="ForzaCollegamento" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+  <!--  -->
+    <xs:complexType name="ECConfigurazioneType">
+        <xs:sequence>
+            <xs:element name="ForzaClassificazione" type="xs:boolean" minOccurs="1"/>
+            <xs:element name="ForzaNumero" type="xs:boolean" minOccurs="1"/>
+            <xs:element name="ForzaCollegamento" type="xs:boolean" minOccurs="1"/>
+            <xs:element name="AbilitaControlloClassificazione" type="xs:boolean" minOccurs="1"/>
+            <xs:element name="AbilitaControlloFormatoNumero" type="xs:boolean" minOccurs="1"/>
+            <xs:element name="AbilitaControlloCollegamenti" type="xs:boolean" minOccurs="1"/>
+            <xs:element name="AccettaControlloClassificazioneNegativo" type="xs:boolean" minOccurs="1"/>
+            <xs:element name="AccettaControlloFormatoNumeroNegativo" type="xs:boolean" minOccurs="1"/>
+            <xs:element name="AccettaControlloCollegamentiNegativo" type="xs:boolean" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+  
+  <!--  -->
+    <xs:complexType name="ECFascicoloType">
+        <xs:sequence>
+            <xs:element name="Versatore" type="SCVersatoreType" minOccurs="1"/>
+            <xs:element name="SoggettoProduttore" type="SCSoggettoProduttoreType" minOccurs="0"/>
+            <xs:element name="Chiave" type="SCChiaveType" minOccurs="0"/>
+            <xs:element name="TipoFascicolo" type="TokenNonVuotoType" minOccurs="0"/>
+            <xs:element name="DataApertura" type="xs:date" minOccurs="0"/>
+            <xs:element name="DataChiusura" type="xs:date" minOccurs="0"/>
+            <xs:element name="Contenuto" type="SCContenutoType" minOccurs="0"/>
+            <xs:element name="TempoConservazione" type="PosIntMax12DgtType" minOccurs="0"/>
+            <xs:element name="EsitoControlliFascicolo" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="CodiceEsito" type="ECEsitoPosNegWarType"/>
+                        <xs:element name="IdentificazioneVersatore" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="IdentificazioneSoggettoProduttore" type="ECEsitoPosNegWarType" minOccurs="0"/>
+                        <xs:element name="UnivocitaChiave" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="VerificaTipoFascicolo" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="ControlloProfiloArchivistico" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="ControlloProfiloGenerale" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="ControlloProfiloSpecifico" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="ControlloProfiloNormativo" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="ControlloConsistenzaUnitaDocumentarie" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="ControlloConsistenzaFascicoli" type="ECEsitoPosNegType" minOccurs="0"/>
+                        <xs:element name="ControlloClassificazione" type="ECEsitoPosNegWarType" minOccurs="0"/>
+                        <xs:element name="ControlloFormatoNumero" type="ECEsitoPosNegWarType" minOccurs="0"/>
+                        <xs:element name="ControlloCollegamenti" type="ECEsitoPosNegWarType" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ControlliContenutoFascicolo" type="ECEsitoContenutoFascicoloType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ECEsitoContenutoFascicoloType">
+        <xs:sequence>
+            <xs:element name="UnitaDocumentariePresenti" type="SCUDTypePresenti"/>
+            <xs:element name="UnitaDocumentarieNonPresenti" type="SCUDTypeNonPresenti"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SCUDTypePresenti">
+        <xs:sequence>
+            <xs:element name="NumeroUnitaDocumentariePresenti" type="xs:integer"/>
+            <xs:element name="UnitaDocumentaria" type="SCChiaveUDType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SCUDTypeNonPresenti">
+        <xs:sequence>
+            <xs:element name="NumeroUnitaDocumentarieNonPresenti" type="xs:integer"/>
+            <xs:element name="UnitaDocumentaria" type="SCChiaveUDType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SCChiaveUDType">
+        <xs:sequence>
+            <xs:element name="Registro" type="StringNVMax100Type" nillable="true"/>
+            <xs:element name="Anno" type="IntMax4DgtType" nillable="true"/>
+            <xs:element name="Numero" type="StringNVMax100Type"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SCVersatoreType">
+        <xs:sequence>
+            <xs:element name="Ambiente" type="StringNVMax100Type"/>
+            <xs:element name="Ente" type="StringNVMax100Type"/>
+            <xs:element name="Struttura" type="StringNVMax100Type"/>
+            <xs:element name="UserID" type="StringNVMax100Type"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SCSoggettoProduttoreType">
+        <xs:sequence>
+            <xs:element name="Ambiente" type="StringNVMax100Type" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="Codice" type="StringNVMax100Type" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="Denominazione" type="StringNVMax254Type" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SCChiaveType">
+        <xs:sequence>
+            <xs:element name="Anno" type="IntMax4DgtType" nillable="true"/>
+            <xs:element name="Numero" type="StringNVMax100Type"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SCContenutoType">
+        <xs:sequence>
+            <xs:element name="NumeroUnitaDocumentarie" type="IntMax4DgtType" maxOccurs="1" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+  
+  <!--  -->
+    <xs:simpleType name="ECStatoConsType">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="PRESA_IN_CARICO"/>
+            <xs:enumeration value="AIP_GENERATO"/>
+            <xs:enumeration value="ANNULLATA"/>
+            <xs:enumeration value="AIP_IN_AGGIORNAMENTO"/>
+        </xs:restriction>
+    </xs:simpleType>
+  
+    <!--  -->
+
+    <xs:simpleType name="CodiceEsitoType">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="POSITIVO"/>
+            <xs:enumeration value="NEGATIVO"/>
+            <xs:enumeration value="WARNING"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="ECEsitoPosNegType">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="POSITIVO"/>
+            <xs:enumeration value="NEGATIVO"/>
+            <xs:enumeration value="NON_ATTIVATO"/>
+        </xs:restriction>
+    </xs:simpleType>
+  
+    <!--  -->
+    <xs:simpleType name="ECEsitoPosNegWarType">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="POSITIVO"/>
+            <xs:enumeration value="NEGATIVO"/>
+            <xs:enumeration value="WARNING"/>
+            <xs:enumeration value="NON_ATTIVATO"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--  -->
+    <xs:simpleType name="ECEsitoPosNegNesType">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="POSITIVO"/>
+            <xs:enumeration value="NEGATIVO"/>
+            <xs:enumeration value="NON_ATTIVATO"/>
+            <xs:enumeration value="NON_ESEGUITO"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+  
+ <!-- ************************************************************************** -->
+ <!-- TIPI DATO GENERICI -->
+  <!--  -->
+    <xs:simpleType name="TokenNonVuotoType">
+        <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="TokenNVMax100Type">
+        <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="TokenNVMax254Type">
+        <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="254"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="TokenNVMax1024Type">
+        <xs:restriction base="xs:token">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="1024"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="StringNonVuotoType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="StringNVMax100Type">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="StringNVMax254Type">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="254"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="StringNVMax1024Type">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="1024"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="StringMax100Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="StringMax254Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="254"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="StringMax1024Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1024"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="StringMax4000Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="IntMax4DgtType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="9999"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="IntMax5DgtType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="99999"/>
+        </xs:restriction>
+    </xs:simpleType>
+  <!--  -->
+    <xs:simpleType name="PosIntMax12DgtType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="999999999999"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+
+
+</xs:schema>

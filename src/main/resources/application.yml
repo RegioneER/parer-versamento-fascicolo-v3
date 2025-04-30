@@ -1,0 +1,138 @@
+quarkus:
+  application:
+   name: "Versamento Fascicolo v3"
+  devservices:
+   enabled: false   
+  #package:
+    #type: "uber-jar"
+  http:
+    root-path: "/versamento-fascicolo-v3"
+    body:
+      handle-file-uploads: true
+      preallocate-body-buffer: true
+      uploads-directory: "/tmp"
+      delete-uploaded-files-on-end: true
+    limits:
+      max-body-size: "100M"
+      max-form-attribute-size: "50M"
+    auth:
+     basic: true
+     policy:
+      role-api-policy:
+         roles-allowed: "admin,versatore"
+      role-internal-policy:
+         roles-allowed: "admin"       
+     permission:
+       api:
+          paths: "api/oauth2/*"
+          policy: "role-api-policy"
+       internal:
+          paths: "admin/*,status"
+          policy: "role-internal-policy"
+       all: 
+          paths: "api/public/*"
+          policy: "permit"
+          methods: "POST,GET"
+  security:
+   users:
+     embedded:
+       enabled: true          
+  oidc:
+    enabled: true
+    discovery-enabled: false 
+  transaction-manager:
+    default-transaction-timeout: "1800S" # impostato timeout a 30 minuti rispetto il default (60S) per evitare problematiche di rollback eventuali per commit prolungati       
+  datasource: 
+    db-kind: "oracle"
+    jdbc:
+      driver: "oracle.jdbc.driver.OracleDriver"
+  hibernate-orm:
+    dialect: "org.hibernate.dialect.OracleDialect"
+    packages: "it.eng.parer.fascicolo.jpa"
+  smallrye-openapi:
+    info-title: "Fascicolo API (sip xml versione 3)"   
+  swagger-ui:
+    always-include: true
+    validator-url: "none"
+  s3:
+    sync-client:
+      tls-trust-managers-provider:
+        type: "trust-all"
+    path-style-access: true
+    aws:
+      region: "us-east-1"
+#logging 
+  log:
+    level: INFO
+    console:
+      json: false
+      format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %X{log_uuid} %s%e%n"
+# indicizzazione beans esterni (TODO: da verificare)
+# [WARNING] [io.quarkus.deployment.steps.ReflectiveHierarchyStep] Unable to properly register the hierarchy of the following classes for reflection as they are not in the Jandex index:
+#        - it.eng.parer.ws.xml.versfascicolorespV2.EsitoVersamentoFascicolo (source: SmallRyeOpenApiProcessor > null)
+  index-dependency:
+    quarkuslogger:
+      group-id: "it.eng.parer"
+      artifact-id: "quarkus-custom-log-handlers"
+# custom
+parer:
+ fascicolo:
+   env:
+     propstoskip: "(?i).*password.*|(?i).*username.*|(?i).*email.*|(?i).*maven.*|(?i).*user.*"          
+# Profili (attivalibili con -Dquarkus-profile=)
+# Dev mode = quarkus:dev (necessario esplicitare -DQUARKUS_DATASOURCE_USER=<user> -DQUARKUS_DATASOURCE_PASSWORD=<password db>)
+"%dev":
+  quarkus:
+   http:
+     port: 10011
+   shutdown:
+    timeout: "PT1S"
+   hibernate-orm:
+     validate-in-dev-mode: false
+     database:
+       generation: "none"
+     log:
+      sql: false
+      format-sql: false
+   security:
+    users:
+      embedded:
+        plain-text: true
+        users:
+          #admin: "80589461aa1b0e9b7888f936787bf9bc" # echo -n admin:Quarkus:password | md5 
+          admin: "password"
+        roles: 
+          admin: "admin"        
+   log:
+     #level: ALL
+     category:
+       it.eng.parer.fascicolo:
+         level: "DEBUG"
+       #org.hibernate:
+         #level: "DEBUG"          
+# test datasource configuration
+"%test":
+  quarkus:
+   datasource: 
+     db-kind: "oracle"
+     jdbc:
+       driver: "oracle.jdbc.driver.OracleDriver"
+   hibernate-orm:
+     log:
+      sql: true
+      format-sql: false
+"%h2":
+  quarkus:
+    datasource:
+      db-kind: "h2"
+      jdbc:
+        driver: "org.h2.Driver"
+        url: "jdbc:h2:tcp://localhost/mem:test;DB_CLOSE_DELAY=-1"
+    hibernate-orm:
+      dialect: "org.hibernate.dialect.H2Dialect"
+      database:
+        generation:
+          create-schemas: true
+      log:
+        sql: true
+        format-sql: false
