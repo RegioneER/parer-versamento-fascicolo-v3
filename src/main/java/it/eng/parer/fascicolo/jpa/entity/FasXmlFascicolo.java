@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -44,90 +57,90 @@ public class FasXmlFascicolo implements Serializable {
     private String flCanonicalized;
 
     public FasXmlFascicolo() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "FAS_XML_FASCICOLO_IDXMLFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_XML_FASCICOLO"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_XML_FASCICOLO"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_XML_FASCICOLO_IDXMLFASCICOLO_GENERATOR")
     @Column(name = "ID_XML_FASCICOLO")
     public Long getIdXmlFascicolo() {
-        return this.idXmlFascicolo;
+	return this.idXmlFascicolo;
     }
 
     public void setIdXmlFascicolo(Long idXmlFascicolo) {
-        this.idXmlFascicolo = idXmlFascicolo;
+	this.idXmlFascicolo = idXmlFascicolo;
     }
 
     @Lob
     @Column(name = "BL_XML")
     public String getBlXml() {
-        return this.blXml;
+	return this.blXml;
     }
 
     public void setBlXml(String blXml) {
-        this.blXml = blXml;
+	this.blXml = blXml;
     }
 
     @Column(name = "DT_VERS_FASCICOLO")
     public LocalDateTime getDtVersFascicolo() {
-        return this.dtVersFascicolo;
+	return this.dtVersFascicolo;
     }
 
     public void setDtVersFascicolo(LocalDateTime dtVersFascicolo) {
-        this.dtVersFascicolo = dtVersFascicolo;
+	this.dtVersFascicolo = dtVersFascicolo;
     }
 
     @Column(name = "ID_STRUT")
     public BigDecimal getIdStrut() {
-        return this.idStrut;
+	return this.idStrut;
     }
 
     public void setIdStrut(BigDecimal idStrut) {
-        this.idStrut = idStrut;
+	this.idStrut = idStrut;
     }
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TI_MODELLO_XSD")
     public TiModXsdFasXmlFascicolo getTiModelloXsd() {
-        return this.tiModelloXsd;
+	return this.tiModelloXsd;
     }
 
     public void setTiModelloXsd(TiModXsdFasXmlFascicolo tiModelloXsd) {
-        this.tiModelloXsd = tiModelloXsd;
+	this.tiModelloXsd = tiModelloXsd;
     }
 
     // bi-directional many-to-one association to DecModelloXsdFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_MODELLO_XSD_FASCICOLO")
     public DecModelloXsdFascicolo getDecModelloXsdFascicolo() {
-        return this.decModelloXsdFascicolo;
+	return this.decModelloXsdFascicolo;
     }
 
     public void setDecModelloXsdFascicolo(DecModelloXsdFascicolo decModelloXsdFascicolo) {
-        this.decModelloXsdFascicolo = decModelloXsdFascicolo;
+	this.decModelloXsdFascicolo = decModelloXsdFascicolo;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCICOLO")
     public FasFascicolo getFasFascicolo() {
-        return this.fasFascicolo;
+	return this.fasFascicolo;
     }
 
     public void setFasFascicolo(FasFascicolo fasFascicolo) {
-        this.fasFascicolo = fasFascicolo;
+	this.fasFascicolo = fasFascicolo;
     }
 
     @Column(name = "FL_CANONICALIZED", columnDefinition = "CHAR")
     public String getFlCanonicalized() {
-        return this.flCanonicalized;
+	return this.flCanonicalized;
     }
 
     public void setFlCanonicalized(String flCanonicalized) {
-        this.flCanonicalized = flCanonicalized;
+	this.flCanonicalized = flCanonicalized;
     }
 
 }

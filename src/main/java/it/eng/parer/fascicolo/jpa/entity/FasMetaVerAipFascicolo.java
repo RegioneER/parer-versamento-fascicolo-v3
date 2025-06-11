@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -39,7 +52,7 @@ public class FasMetaVerAipFascicolo implements Serializable {
     private String dsUrnNormalizMetaFascicolo;
 
     public FasMetaVerAipFascicolo() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
@@ -47,114 +60,114 @@ public class FasMetaVerAipFascicolo implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_META_VER_AIP_FASCICOLO_IDMETAVERAIPFASCICOLO_GENERATOR")
     @Column(name = "ID_META_VER_AIP_FASCICOLO")
     public Long getIdMetaVerAipFascicolo() {
-        return this.idMetaVerAipFascicolo;
+	return this.idMetaVerAipFascicolo;
     }
 
     public void setIdMetaVerAipFascicolo(Long idMetaVerAipFascicolo) {
-        this.idMetaVerAipFascicolo = idMetaVerAipFascicolo;
+	this.idMetaVerAipFascicolo = idMetaVerAipFascicolo;
     }
 
     @Column(name = "NM_META")
     public String getNmMeta() {
-        return this.nmMeta;
+	return this.nmMeta;
     }
 
     public void setNmMeta(String nmMeta) {
-        this.nmMeta = nmMeta;
+	this.nmMeta = nmMeta;
     }
 
     @Column(name = "TI_META")
     public String getTiMeta() {
-        return this.tiMeta;
+	return this.tiMeta;
     }
 
     public void setTiMeta(String tiMeta) {
-        this.tiMeta = tiMeta;
+	this.tiMeta = tiMeta;
     }
 
     @Column(name = "TI_FORMATO_META")
     public String getTiFormatoMeta() {
-        return this.tiFormatoMeta;
+	return this.tiFormatoMeta;
     }
 
     public void setTiFormatoMeta(String tiFormatoMeta) {
-        this.tiFormatoMeta = tiFormatoMeta;
+	this.tiFormatoMeta = tiFormatoMeta;
     }
 
     @Column(name = "DS_HASH_FILE")
     public String getDsHashFile() {
-        return this.dsHashFile;
+	return this.dsHashFile;
     }
 
     public void setDsHashFile(String dsHashFile) {
-        this.dsHashFile = dsHashFile;
+	this.dsHashFile = dsHashFile;
     }
 
     @Column(name = "DS_ALGO_HASH_FILE")
     public String getDsAlgoHashFile() {
-        return this.dsAlgoHashFile;
+	return this.dsAlgoHashFile;
     }
 
     public void setDsAlgoHashFile(String dsAlgoHashFile) {
-        this.dsAlgoHashFile = dsAlgoHashFile;
+	this.dsAlgoHashFile = dsAlgoHashFile;
     }
 
     @Column(name = "CD_ENCODING_HASH_FILE")
     public String getCdEncodingHashFile() {
-        return this.cdEncodingHashFile;
+	return this.cdEncodingHashFile;
     }
 
     public void setCdEncodingHashFile(String cdEncodingHashFile) {
-        this.cdEncodingHashFile = cdEncodingHashFile;
+	this.cdEncodingHashFile = cdEncodingHashFile;
     }
 
     @Column(name = "DS_URN_META_FASCICOLO")
     public String getDsUrnMetaFascicolo() {
-        return this.dsUrnMetaFascicolo;
+	return this.dsUrnMetaFascicolo;
     }
 
     public void setDsUrnMetaFascicolo(String dsUrnMetaFascicolo) {
-        this.dsUrnMetaFascicolo = dsUrnMetaFascicolo;
+	this.dsUrnMetaFascicolo = dsUrnMetaFascicolo;
     }
 
     @Column(name = "DS_URN_NORMALIZ_META_FASCICOLO")
     public String getDsUrnNormalizMetaFascicolo() {
-        return this.dsUrnNormalizMetaFascicolo;
+	return this.dsUrnNormalizMetaFascicolo;
     }
 
     public void setDsUrnNormalizMetaFascicolo(String dsUrnNormalizMetaFascicolo) {
-        this.dsUrnNormalizMetaFascicolo = dsUrnNormalizMetaFascicolo;
+	this.dsUrnNormalizMetaFascicolo = dsUrnNormalizMetaFascicolo;
     }
 
     // bi-directional many-to-one association to FasVerAipFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_VER_AIP_FASCICOLO")
     public FasVerAipFascicolo getFasVerAipFascicolo() {
-        return this.fasVerAipFascicolo;
+	return this.fasVerAipFascicolo;
     }
 
     public void setFasVerAipFascicolo(FasVerAipFascicolo fasVerAipFascicolo) {
-        this.fasVerAipFascicolo = fasVerAipFascicolo;
+	this.fasVerAipFascicolo = fasVerAipFascicolo;
     }
 
     // bi-directional many-to-one association to FasFileMetaVerAipFasc
     @OneToMany(mappedBy = "fasMetaVerAipFascicolo")
     public List<FasFileMetaVerAipFasc> getFasFileMetaVerAipFascs() {
-        return this.fasFileMetaVerAipFascs;
+	return this.fasFileMetaVerAipFascs;
     }
 
     public void setFasFileMetaVerAipFascs(List<FasFileMetaVerAipFasc> fasFileMetaVerAipFascs) {
-        this.fasFileMetaVerAipFascs = fasFileMetaVerAipFascs;
+	this.fasFileMetaVerAipFascs = fasFileMetaVerAipFascs;
     }
 
     // bi-directional many-to-one association to FasXsdMetaVerAipFasc
     @OneToMany(mappedBy = "fasMetaVerAipFascicolo")
     public List<FasXsdMetaVerAipFasc> getFasXsdMetaVerAipFascs() {
-        return this.fasXsdMetaVerAipFascs;
+	return this.fasXsdMetaVerAipFascs;
     }
 
     public void setFasXsdMetaVerAipFascs(List<FasXsdMetaVerAipFasc> fasXsdMetaVerAipFascs) {
-        this.fasXsdMetaVerAipFascs = fasXsdMetaVerAipFascs;
+	this.fasXsdMetaVerAipFascs = fasXsdMetaVerAipFascs;
     }
 
 }

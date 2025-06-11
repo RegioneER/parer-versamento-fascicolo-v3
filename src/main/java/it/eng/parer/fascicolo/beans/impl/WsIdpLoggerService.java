@@ -1,7 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
+/*
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package it.eng.parer.fascicolo.beans.impl;
 
@@ -54,71 +66,78 @@ public class WsIdpLoggerService implements IWsIdpLoggerService {
     @Override
     @Transactional(value = TxType.REQUIRES_NEW, rollbackOn = Throwable.class)
     public void scriviLog(LogDto logDto) {
-        HashMap<String, String> iamDefaults = null;
+	HashMap<String, String> iamDefaults = null;
 
-        RispostaControlli rcLoadDbDefault = controlliSemanticiService
-                .caricaDefaultDaDB(ParametroApplDB.TipoParametroAppl.IAM);
-        if (!rcLoadDbDefault.isrBoolean()) {
-            throw new AppGenericRuntimeException("WsIdpLoggerService: Impossibile accedere alla tabella parametri",
-                    ErrorCategory.INTERNAL_ERROR);
-        } else {
-            iamDefaults = (HashMap<String, String>) rcLoadDbDefault.getrObject();
-        }
-        if (iamDefaults.get(ParametroApplDB.IDP_QRY_REGISTRA_EVENTO_UTENTE) != null
-                && !iamDefaults.get(ParametroApplDB.IDP_QRY_REGISTRA_EVENTO_UTENTE).isEmpty()
-                && iamDefaults.get(ParametroApplDB.IDP_QRY_VERIFICA_DISATTIVAZIONE_UTENTE) != null
-                && !iamDefaults.get(ParametroApplDB.IDP_QRY_VERIFICA_DISATTIVAZIONE_UTENTE).isEmpty()
-                && iamDefaults.get(ParametroApplDB.IDP_QRY_DISABLE_USER) != null
-                && !iamDefaults.get(ParametroApplDB.IDP_QRY_DISABLE_USER).isEmpty()
-                && iamDefaults.get(ParametroApplDB.IDP_MAX_GIORNI) != null
-                && !iamDefaults.get(ParametroApplDB.IDP_MAX_GIORNI).isEmpty()
-                && iamDefaults.get(ParametroApplDB.IDP_MAX_TENTATIVI_FALLITI) != null
-                && !iamDefaults.get(ParametroApplDB.IDP_MAX_TENTATIVI_FALLITI).isEmpty()) {
-            try (Connection connection = dataSource.getConnection()) {
-                IdpConfigLog icl = new IdpConfigLog();
-                icl.setQryRegistraEventoUtente(iamDefaults.get(ParametroApplDB.IDP_QRY_REGISTRA_EVENTO_UTENTE));
-                icl.setQryVerificaDisattivazioneUtente(
-                        iamDefaults.get(ParametroApplDB.IDP_QRY_VERIFICA_DISATTIVAZIONE_UTENTE));
-                icl.setQryDisabilitaUtente(iamDefaults.get(ParametroApplDB.IDP_QRY_DISABLE_USER));
-                icl.setMaxTentativi(Integer.parseInt(iamDefaults.get(ParametroApplDB.IDP_MAX_TENTATIVI_FALLITI)));
-                icl.setMaxGiorni(Integer.parseInt(iamDefaults.get(ParametroApplDB.IDP_MAX_GIORNI)));
+	RispostaControlli rcLoadDbDefault = controlliSemanticiService
+		.caricaDefaultDaDB(ParametroApplDB.TipoParametroAppl.IAM);
+	if (!rcLoadDbDefault.isrBoolean()) {
+	    throw new AppGenericRuntimeException(
+		    "WsIdpLoggerService: Impossibile accedere alla tabella parametri",
+		    ErrorCategory.INTERNAL_ERROR);
+	} else {
+	    iamDefaults = (HashMap<String, String>) rcLoadDbDefault.getrObject();
+	}
+	if (iamDefaults.get(ParametroApplDB.IDP_QRY_REGISTRA_EVENTO_UTENTE) != null
+		&& !iamDefaults.get(ParametroApplDB.IDP_QRY_REGISTRA_EVENTO_UTENTE).isEmpty()
+		&& iamDefaults.get(ParametroApplDB.IDP_QRY_VERIFICA_DISATTIVAZIONE_UTENTE) != null
+		&& !iamDefaults.get(ParametroApplDB.IDP_QRY_VERIFICA_DISATTIVAZIONE_UTENTE)
+			.isEmpty()
+		&& iamDefaults.get(ParametroApplDB.IDP_QRY_DISABLE_USER) != null
+		&& !iamDefaults.get(ParametroApplDB.IDP_QRY_DISABLE_USER).isEmpty()
+		&& iamDefaults.get(ParametroApplDB.IDP_MAX_GIORNI) != null
+		&& !iamDefaults.get(ParametroApplDB.IDP_MAX_GIORNI).isEmpty()
+		&& iamDefaults.get(ParametroApplDB.IDP_MAX_TENTATIVI_FALLITI) != null
+		&& !iamDefaults.get(ParametroApplDB.IDP_MAX_TENTATIVI_FALLITI).isEmpty()) {
+	    try (Connection connection = dataSource.getConnection()) {
+		IdpConfigLog icl = new IdpConfigLog();
+		icl.setQryRegistraEventoUtente(
+			iamDefaults.get(ParametroApplDB.IDP_QRY_REGISTRA_EVENTO_UTENTE));
+		icl.setQryVerificaDisattivazioneUtente(
+			iamDefaults.get(ParametroApplDB.IDP_QRY_VERIFICA_DISATTIVAZIONE_UTENTE));
+		icl.setQryDisabilitaUtente(iamDefaults.get(ParametroApplDB.IDP_QRY_DISABLE_USER));
+		icl.setMaxTentativi(Integer
+			.parseInt(iamDefaults.get(ParametroApplDB.IDP_MAX_TENTATIVI_FALLITI)));
+		icl.setMaxGiorni(Integer.parseInt(iamDefaults.get(ParametroApplDB.IDP_MAX_GIORNI)));
 
-                logDto.setServername(asi.getName());
+		logDto.setServername(asi.getName());
 
-                IdpLogger.EsitiLog risposta = (new IdpLogger(icl).scriviLog(logDto, connection));
+		IdpLogger.EsitiLog risposta = (new IdpLogger(icl).scriviLog(logDto, connection));
 
-                if (risposta == IdpLogger.EsitiLog.UTENTE_DISATTIVATO) {
-                    final String queryStr = "update IamUser iu " + "set iu.flAttivo = :flAttivoIn "
-                            + "where iu.nmUserid = :nmUseridIn ";
+		if (risposta == IdpLogger.EsitiLog.UTENTE_DISATTIVATO) {
+		    final String queryStr = "update IamUser iu " + "set iu.flAttivo = :flAttivoIn "
+			    + "where iu.nmUserid = :nmUseridIn ";
 
-                    // l'operazione di log dell'evento BAD_PASS ha causato la disattivazione
-                    // dell'utente nella tabella USR_USER di IAM; questa situazione verrà recepita
-                    // tra circa 5 minuti, durante i qali l'utente risulta ancora attivo per SACER.
-                    // Per accelerare la risposta del sistema, disattivo l'utente anche nella
-                    // tabella locale. Tra 5 minuti il job di aggiornamento utenti ripeterà
-                    // la stessa situazione.
-                    Query query = entityManager.createQuery(queryStr);
-                    query.setParameter("flAttivoIn", "0");
-                    query.setParameter("nmUseridIn", logDto.getNmUser());
-                    query.executeUpdate();
+		    // l'operazione di log dell'evento BAD_PASS ha causato la disattivazione
+		    // dell'utente nella tabella USR_USER di IAM; questa situazione verrà recepita
+		    // tra circa 5 minuti, durante i qali l'utente risulta ancora attivo per SACER.
+		    // Per accelerare la risposta del sistema, disattivo l'utente anche nella
+		    // tabella locale. Tra 5 minuti il job di aggiornamento utenti ripeterà
+		    // la stessa situazione.
+		    Query query = entityManager.createQuery(queryStr);
+		    query.setParameter("flAttivoIn", "0");
+		    query.setParameter("nmUseridIn", logDto.getNmUser());
+		    query.executeUpdate();
 
-                    log.atWarn().log("ERRORE DI AUTENTICAZIONE WS. DISATTIVAZIONE UTENTE: {}", logDto.getNmUser());
-                }
+		    log.atWarn().log("ERRORE DI AUTENTICAZIONE WS. DISATTIVAZIONE UTENTE: {}",
+			    logDto.getNmUser());
+		}
 
-            } catch (UnknownHostException ex) {
-                throw new AppGenericRuntimeException(
-                        "WsIdpLoggerService: Errore nel determinare il nome host per il server: "
-                                + ExceptionUtils.getRootCauseMessage(ex),
-                        ErrorCategory.INTERNAL_ERROR);
-            } catch (SQLException ex) {
-                throw new AppGenericRuntimeException("WsIdpLoggerService: Errore nell'accesso ai dati di log: "
-                        + ExceptionUtils.getRootCauseMessage(ex), ErrorCategory.INTERNAL_ERROR);
-            } catch (Exception ex) {
-                throw new AppGenericRuntimeException(
-                        "WsIdpLoggerService: Errore: " + ExceptionUtils.getRootCauseMessage(ex),
-                        ErrorCategory.INTERNAL_ERROR);
-            }
-        }
+	    } catch (UnknownHostException ex) {
+		throw new AppGenericRuntimeException(
+			"WsIdpLoggerService: Errore nel determinare il nome host per il server: "
+				+ ExceptionUtils.getRootCauseMessage(ex),
+			ErrorCategory.INTERNAL_ERROR);
+	    } catch (SQLException ex) {
+		throw new AppGenericRuntimeException(
+			"WsIdpLoggerService: Errore nell'accesso ai dati di log: "
+				+ ExceptionUtils.getRootCauseMessage(ex),
+			ErrorCategory.INTERNAL_ERROR);
+	    } catch (Exception ex) {
+		throw new AppGenericRuntimeException(
+			"WsIdpLoggerService: Errore: " + ExceptionUtils.getRootCauseMessage(ex),
+			ErrorCategory.INTERNAL_ERROR);
+	    }
+	}
 
     }
 

@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -38,79 +51,79 @@ public class VrsErrSesFascicoloKo implements Serializable {
     private VrsSesFascicoloKo vrsSesFascicoloKo;
 
     public VrsErrSesFascicoloKo() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "VRS_ERR_SES_FASCICOLO_KO_IDERRSESFASCICOLOKO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SVRS_ERR_SES_FASCICOLO_KO"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SVRS_ERR_SES_FASCICOLO_KO"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VRS_ERR_SES_FASCICOLO_KO_IDERRSESFASCICOLOKO_GENERATOR")
     @Column(name = "ID_ERR_SES_FASCICOLO_KO")
     public Long getIdErrSesFascicoloKo() {
-        return this.idErrSesFascicoloKo;
+	return this.idErrSesFascicoloKo;
     }
 
     public void setIdErrSesFascicoloKo(Long idErrSesFascicoloKo) {
-        this.idErrSesFascicoloKo = idErrSesFascicoloKo;
+	this.idErrSesFascicoloKo = idErrSesFascicoloKo;
     }
 
     @Column(name = "DS_ERR")
     public String getDsErr() {
-        return this.dsErr;
+	return this.dsErr;
     }
 
     public void setDsErr(String dsErr) {
-        this.dsErr = dsErr;
+	this.dsErr = dsErr;
     }
 
     @Column(name = "FL_ERR_PRINC", columnDefinition = "CHAR")
     public String getFlErrPrinc() {
-        return this.flErrPrinc;
+	return this.flErrPrinc;
     }
 
     public void setFlErrPrinc(String flErrPrinc) {
-        this.flErrPrinc = flErrPrinc;
+	this.flErrPrinc = flErrPrinc;
     }
 
     @Column(name = "PG_ERR")
     public BigDecimal getPgErr() {
-        return this.pgErr;
+	return this.pgErr;
     }
 
     public void setPgErr(BigDecimal pgErr) {
-        this.pgErr = pgErr;
+	this.pgErr = pgErr;
     }
 
     @Column(name = "TI_ERR")
     public String getTiErr() {
-        return this.tiErr;
+	return this.tiErr;
     }
 
     public void setTiErr(String tiErr) {
-        this.tiErr = tiErr;
+	this.tiErr = tiErr;
     }
 
     // bi-directional many-to-one association to DecErrSacer
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ERR_SACER")
     public DecErrSacer getDecErrSacer() {
-        return this.decErrSacer;
+	return this.decErrSacer;
     }
 
     public void setDecErrSacer(DecErrSacer decErrSacer) {
-        this.decErrSacer = decErrSacer;
+	this.decErrSacer = decErrSacer;
     }
 
     // bi-directional many-to-one association to VrsSesFascicoloKo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SES_FASCICOLO_KO")
     public VrsSesFascicoloKo getVrsSesFascicoloKo() {
-        return this.vrsSesFascicoloKo;
+	return this.vrsSesFascicoloKo;
     }
 
     public void setVrsSesFascicoloKo(VrsSesFascicoloKo vrsSesFascicoloKo) {
-        this.vrsSesFascicoloKo = vrsSesFascicoloKo;
+	this.vrsSesFascicoloKo = vrsSesFascicoloKo;
     }
 
 }

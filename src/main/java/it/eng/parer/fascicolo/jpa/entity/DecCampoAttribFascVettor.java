@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -42,121 +55,122 @@ public class DecCampoAttribFascVettor implements Serializable {
     private String cdLabel;
 
     public DecCampoAttribFascVettor() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "DEC_CAMPO_ATTRIB_FASC_VETTOR_IDCAMPOATTRIBFASCVETTOR_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_CAMPO_ATTRIB_FASC_VETTOR"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_CAMPO_ATTRIB_FASC_VETTOR"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_CAMPO_ATTRIB_FASC_VETTOR_IDCAMPOATTRIBFASCVETTOR_GENERATOR")
     @Column(name = "ID_CAMPO_ATTRIB_FASC_VETTOR")
     public Long getIdCampoAttribFascVettor() {
-        return this.idCampoAttribFascVettor;
+	return this.idCampoAttribFascVettor;
     }
 
     public void setIdCampoAttribFascVettor(Long idCampoAttribFascVettor) {
-        this.idCampoAttribFascVettor = idCampoAttribFascVettor;
+	this.idCampoAttribFascVettor = idCampoAttribFascVettor;
     }
 
     // bi-directional many-to-one association to DecModelloXsdAttribFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_MODELLO_XSD_ATTRIB_FASC")
     public DecModelloXsdAttribFascicolo getDecModelloXsdAttribFascicolo() {
-        return this.decModelloXsdAttribFascicolo;
+	return this.decModelloXsdAttribFascicolo;
     }
 
-    public void setDecModelloXsdAttribFascicolo(DecModelloXsdAttribFascicolo decModelloXsdAttribFascicolo) {
-        this.decModelloXsdAttribFascicolo = decModelloXsdAttribFascicolo;
+    public void setDecModelloXsdAttribFascicolo(
+	    DecModelloXsdAttribFascicolo decModelloXsdAttribFascicolo) {
+	this.decModelloXsdAttribFascicolo = decModelloXsdAttribFascicolo;
     }
 
     @Column(name = "NM_CAMPO")
     public String getNmCampo() {
-        return this.nmCampo;
+	return this.nmCampo;
     }
 
     public void setNmCampo(String nmCampo) {
-        this.nmCampo = nmCampo;
+	this.nmCampo = nmCampo;
     }
 
     @Column(name = "DS_CAMPO")
     public String getDsCampo() {
-        return this.dsCampo;
+	return this.dsCampo;
     }
 
     public void setDsCampo(String dsCampo) {
-        this.dsCampo = dsCampo;
+	this.dsCampo = dsCampo;
     }
 
     @Column(name = "TI_CAMPO")
     public String getTiCampo() {
-        return this.tiCampo;
+	return this.tiCampo;
     }
 
     public void setTiCampo(String tiCampo) {
-        this.tiCampo = tiCampo;
+	this.tiCampo = tiCampo;
     }
 
     @Column(name = "NI_ORD")
     public BigDecimal getNiOrd() {
-        return this.niOrd;
+	return this.niOrd;
     }
 
     public void setNiOrd(BigDecimal niOrd) {
-        this.niOrd = niOrd;
+	this.niOrd = niOrd;
     }
 
     @Column(name = "FL_OBBL", columnDefinition = "CHAR")
     public String getFlObbl() {
-        return this.flObbl;
+	return this.flObbl;
     }
 
     public void setFlObbl(String flObbl) {
-        this.flObbl = flObbl;
+	this.flObbl = flObbl;
     }
 
     @Column(name = "NI_CHAR_MIN")
     public BigDecimal getNiCharMin() {
-        return this.niCharMin;
+	return this.niCharMin;
     }
 
     public void setNiCharMin(BigDecimal niCharMin) {
-        this.niCharMin = niCharMin;
+	this.niCharMin = niCharMin;
     }
 
     @Column(name = "NI_CHAR_MAX")
     public BigDecimal getNiCharMax() {
-        return this.niCharMax;
+	return this.niCharMax;
     }
 
     public void setNiCharMax(BigDecimal niCharMax) {
-        this.niCharMax = niCharMax;
+	this.niCharMax = niCharMax;
     }
 
     @Column(name = "DS_VAL_ENUM")
     public String getDsValEnum() {
-        return this.dsValEnum;
+	return this.dsValEnum;
     }
 
     public void setDsValEnum(String dsValEnum) {
-        this.dsValEnum = dsValEnum;
+	this.dsValEnum = dsValEnum;
     }
 
     @Column(name = "DS_REG_EXP")
     public String getDsRegExp() {
-        return this.dsRegExp;
+	return this.dsRegExp;
     }
 
     public void setDsRegExp(String dsRegExp) {
-        this.dsRegExp = dsRegExp;
+	this.dsRegExp = dsRegExp;
     }
 
     @Column(name = "CD_LABEL")
     public String getCdLabel() {
-        return this.cdLabel;
+	return this.cdLabel;
     }
 
     public void setCdLabel(String cdLabel) {
-        this.cdLabel = cdLabel;
+	this.cdLabel = cdLabel;
     }
 }

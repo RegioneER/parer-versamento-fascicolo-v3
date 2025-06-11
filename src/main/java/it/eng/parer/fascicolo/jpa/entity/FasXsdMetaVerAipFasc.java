@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -28,7 +41,7 @@ public class FasXsdMetaVerAipFasc implements Serializable {
     private DecModelloXsdFascicolo decModelloXsdFascicolo;
 
     public FasXsdMetaVerAipFasc() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
@@ -36,41 +49,41 @@ public class FasXsdMetaVerAipFasc implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_XSD_META_VER_AIP_FASC_IDXSDMETAVERAIPFASC_GENERATOR")
     @Column(name = "ID_XSD_META_VER_AIP_FASC")
     public Long getIdXsdMetaVerAipFasc() {
-        return this.idXsdMetaVerAipFasc;
+	return this.idXsdMetaVerAipFasc;
     }
 
     public void setIdXsdMetaVerAipFasc(Long idXsdMetaVerAipFasc) {
-        this.idXsdMetaVerAipFasc = idXsdMetaVerAipFasc;
+	this.idXsdMetaVerAipFasc = idXsdMetaVerAipFasc;
     }
 
     @Column(name = "NM_XSD")
     public String getNmXsd() {
-        return this.nmXsd;
+	return this.nmXsd;
     }
 
     public void setNmXsd(String nmXsd) {
-        this.nmXsd = nmXsd;
+	this.nmXsd = nmXsd;
     }
 
     // bi-directional many-to-one association to FasMetaVerAipFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_META_VER_AIP_FASCICOLO")
     public FasMetaVerAipFascicolo getFasMetaVerAipFascicolo() {
-        return this.fasMetaVerAipFascicolo;
+	return this.fasMetaVerAipFascicolo;
     }
 
     public void setFasMetaVerAipFascicolo(FasMetaVerAipFascicolo fasMetaVerAipFascicolo) {
-        this.fasMetaVerAipFascicolo = fasMetaVerAipFascicolo;
+	this.fasMetaVerAipFascicolo = fasMetaVerAipFascicolo;
     }
 
     // bi-directional many-to-one association to DecModelloXsdFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_MODELLO_XSD_FASCICOLO")
     public DecModelloXsdFascicolo getDecModelloXsdFascicolo() {
-        return this.decModelloXsdFascicolo;
+	return this.decModelloXsdFascicolo;
     }
 
     public void setDecModelloXsdFascicolo(DecModelloXsdFascicolo decModelloXsdFascicolo) {
-        this.decModelloXsdFascicolo = decModelloXsdFascicolo;
+	this.decModelloXsdFascicolo = decModelloXsdFascicolo;
     }
 }

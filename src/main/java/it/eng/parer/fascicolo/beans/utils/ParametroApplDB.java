@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.beans.utils;
 
 import it.eng.parer.fascicolo.jpa.entity.AplParamApplic;
@@ -36,20 +49,20 @@ public class ParametroApplDB {
      */
     public class ParametroApplFl {
 
-        private ParametroApplFl() {
-            throw new IllegalStateException("Utility class");
-        }
+	private ParametroApplFl() {
+	    throw new IllegalStateException("Utility class");
+	}
 
-        public static final String FL_ABILITA_CONTR_CLASSIF = "FL_ABILITA_CONTR_CLASSIF";
-        public static final String FL_FORZA_CONTR_CLASSIF = "FL_FORZA_CONTR_CLASSIF";
-        public static final String FL_ACCETTA_CONTR_CLASSIF_NEG = "FL_ACCETTA_CONTR_CLASSIF_NEG";
-        public static final String FL_FORZA_CONTR_COLLEG = "FL_FORZA_CONTR_COLLEG";
-        public static final String FL_ABILITA_CONTR_COLLEG = "FL_ABILITA_CONTR_COLLEG";
-        public static final String FL_ABILITA_CONTR_NUMERO = "FL_ABILITA_CONTR_NUMERO";
-        public static final String FL_ACCETTA_CONTR_NUMERO_NEG = "FL_ACCETTA_CONTR_NUMERO_NEG";
-        public static final String FL_FORZA_CONTR_NUMERO = "FL_FORZA_CONTR_NUMERO";
-        //
-        public static final String FL_ACCETTA_CONTR_COLLEG_NEG_FAS = "FL_ACCETTA_CONTR_COLLEG_NEG_FAS";
+	public static final String FL_ABILITA_CONTR_CLASSIF = "FL_ABILITA_CONTR_CLASSIF";
+	public static final String FL_FORZA_CONTR_CLASSIF = "FL_FORZA_CONTR_CLASSIF";
+	public static final String FL_ACCETTA_CONTR_CLASSIF_NEG = "FL_ACCETTA_CONTR_CLASSIF_NEG";
+	public static final String FL_FORZA_CONTR_COLLEG = "FL_FORZA_CONTR_COLLEG";
+	public static final String FL_ABILITA_CONTR_COLLEG = "FL_ABILITA_CONTR_COLLEG";
+	public static final String FL_ABILITA_CONTR_NUMERO = "FL_ABILITA_CONTR_NUMERO";
+	public static final String FL_ACCETTA_CONTR_NUMERO_NEG = "FL_ACCETTA_CONTR_NUMERO_NEG";
+	public static final String FL_FORZA_CONTR_NUMERO = "FL_FORZA_CONTR_NUMERO";
+	//
+	public static final String FL_ACCETTA_CONTR_COLLEG_NEG_FAS = "FL_ACCETTA_CONTR_COLLEG_NEG_FAS";
 
     }
 
@@ -59,40 +72,40 @@ public class ParametroApplDB {
      */
     public class TipoParametroAppl {
 
-        private TipoParametroAppl() {
-            throw new IllegalStateException("Utility class");
-        }
+	private TipoParametroAppl() {
+	    throw new IllegalStateException("Utility class");
+	}
 
-        public static final String VERSAMENTO_DEFAULT = "Default di versamento";
-        public static final String MAX_RESULT = "Paginazione risultati";
-        public static final String PATH = "Gestione servizi asincroni";
-        public static final String TPI = "Salvataggio su nastro";
-        public static final String IMAGE = "Trasformazione componenti";
-        public static final String LOG_APPLIC = "Log accessi";
-        public static final String IAM = "Gestione utenti";
-        public static final String TSA = "Firma e Marca";
-        public static final String VERSIONI_WS = "Versioni servizi";
+	public static final String VERSAMENTO_DEFAULT = "Default di versamento";
+	public static final String MAX_RESULT = "Paginazione risultati";
+	public static final String PATH = "Gestione servizi asincroni";
+	public static final String TPI = "Salvataggio su nastro";
+	public static final String IMAGE = "Trasformazione componenti";
+	public static final String LOG_APPLIC = "Log accessi";
+	public static final String IAM = "Gestione utenti";
+	public static final String TSA = "Firma e Marca";
+	public static final String VERSIONI_WS = "Versioni servizi";
 
     }
 
     // vista da cui recuperare i valori
     public enum TipoAplVGetValAppart {
-        AATIPOFASCICOLO, TIPOUNITADOC, STRUT, AMBIENTE, APPLIC;
+	AATIPOFASCICOLO, TIPOUNITADOC, STRUT, AMBIENTE, APPLIC;
 
-        public static TipoAplVGetValAppart next(TipoAplVGetValAppart last) {
-            switch (last) {
-            case AATIPOFASCICOLO:
-                return STRUT;
-            case TIPOUNITADOC:
-                return STRUT;
-            case STRUT:
-                return AMBIENTE;
-            case AMBIENTE:
-                return APPLIC;
-            default:
-                return null;
-            }
-        }
+	public static TipoAplVGetValAppart next(TipoAplVGetValAppart last) {
+	    switch (last) {
+	    case AATIPOFASCICOLO:
+		return STRUT;
+	    case TIPOUNITADOC:
+		return STRUT;
+	    case STRUT:
+		return AMBIENTE;
+	    case AMBIENTE:
+		return APPLIC;
+	    default:
+		return null;
+	    }
+	}
     }
 
 }
