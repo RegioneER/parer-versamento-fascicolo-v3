@@ -5,7 +5,6 @@
 
 Fonte template redazione documento:  https://www.makeareadme.com/.
 
-
 # Descrizione
 
 Web service REST per il versamento dei Pacchetti di Versamento (detti anche SIP o PdV) di Fascicoli nel sistema di conservazione SACER. Il SIP contiene i metadati descrittivi del fascicolo, inclusi quelli previsti dall'Allegato 5 delle Linee guida AgID, e gli identificativi delle Unità Documentarie (UD) contenute nel fascicolo stesso.
