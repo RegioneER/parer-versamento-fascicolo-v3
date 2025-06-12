@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -34,40 +47,40 @@ public class FasUniOrgRespFascicolo implements Serializable {
     private FasFascicolo fasFascicolo;
 
     public FasUniOrgRespFascicolo() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "FAS_UNI_ORG_RESP_FASCICOLO_IDUNIORGRESPFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_UNI_ORG_RESP_FASCICOLO"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_UNI_ORG_RESP_FASCICOLO"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_UNI_ORG_RESP_FASCICOLO_IDUNIORGRESPFASCICOLO_GENERATOR")
     @Column(name = "ID_UNI_ORG_RESP_FASCICOLO")
     public Long getIdUniOrgRespFascicolo() {
-        return this.idUniOrgRespFascicolo;
+	return this.idUniOrgRespFascicolo;
     }
 
     public void setIdUniOrgRespFascicolo(Long idUniOrgRespFascicolo) {
-        this.idUniOrgRespFascicolo = idUniOrgRespFascicolo;
+	this.idUniOrgRespFascicolo = idUniOrgRespFascicolo;
     }
 
     @Column(name = "CD_UNI_ORG_RESP")
     public String getCdUniOrgResp() {
-        return this.cdUniOrgResp;
+	return this.cdUniOrgResp;
     }
 
     public void setCdUniOrgResp(String cdUniOrgResp) {
-        this.cdUniOrgResp = cdUniOrgResp;
+	this.cdUniOrgResp = cdUniOrgResp;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCICOLO")
     public FasFascicolo getFasFascicolo() {
-        return this.fasFascicolo;
+	return this.fasFascicolo;
     }
 
     public void setFasFascicolo(FasFascicolo fasFascicolo) {
-        this.fasFascicolo = fasFascicolo;
+	this.fasFascicolo = fasFascicolo;
     }
 }

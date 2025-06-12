@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -34,52 +47,52 @@ public class AplValParamApplicMulti implements Serializable {
     private OrgAmbiente orgAmbiente;
 
     public AplValParamApplicMulti() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "APL_VAL_PARAM_APPLIC_MULTI_IDVALPARAMAPPLICMULTI_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_VAL_PARAM_APPLIC_MULTI"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_VAL_PARAM_APPLIC_MULTI"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APL_VAL_PARAM_APPLIC_MULTI_IDVALPARAMAPPLICMULTI_GENERATOR")
     @Column(name = "ID_VAL_PARAM_APPLIC_MULTI")
     public Long getIdValParamApplicMulti() {
-        return this.idValParamApplicMulti;
+	return this.idValParamApplicMulti;
     }
 
     public void setIdValParamApplicMulti(Long idValParamApplicMulti) {
-        this.idValParamApplicMulti = idValParamApplicMulti;
+	this.idValParamApplicMulti = idValParamApplicMulti;
     }
 
     @Column(name = "DS_VALORE_PARAM_APPLIC")
     public String getDsValoreParamApplic() {
-        return this.dsValoreParamApplic;
+	return this.dsValoreParamApplic;
     }
 
     public void setDsValoreParamApplic(String dsValoreParamApplic) {
-        this.dsValoreParamApplic = dsValoreParamApplic;
+	this.dsValoreParamApplic = dsValoreParamApplic;
     }
 
     // bi-directional many-to-one association to AplParamApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PARAM_APPLIC")
     public AplParamApplic getAplParamApplic() {
-        return this.aplParamApplic;
+	return this.aplParamApplic;
     }
 
     public void setAplParamApplic(AplParamApplic aplParamApplic) {
-        this.aplParamApplic = aplParamApplic;
+	this.aplParamApplic = aplParamApplic;
     }
 
     // bi-directional many-to-one association to OrgAmbiente
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AMBIENTE")
     public OrgAmbiente getOrgAmbiente() {
-        return this.orgAmbiente;
+	return this.orgAmbiente;
     }
 
     public void setOrgAmbiente(OrgAmbiente orgAmbiente) {
-        this.orgAmbiente = orgAmbiente;
+	this.orgAmbiente = orgAmbiente;
     }
 
 }

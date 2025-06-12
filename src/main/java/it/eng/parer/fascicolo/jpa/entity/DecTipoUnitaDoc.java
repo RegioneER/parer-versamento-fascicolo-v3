@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -60,213 +73,213 @@ public class DecTipoUnitaDoc implements Serializable {
     private List<AplValoreParamApplic> aplValoreParamApplics = new ArrayList<>();
 
     public DecTipoUnitaDoc() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "DEC_TIPO_UNITA_DOC_IDTIPOUNITADOC_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_TIPO_UNITA_DOC"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_TIPO_UNITA_DOC"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_TIPO_UNITA_DOC_IDTIPOUNITADOC_GENERATOR")
     @Column(name = "ID_TIPO_UNITA_DOC")
     public Long getIdTipoUnitaDoc() {
-        return this.idTipoUnitaDoc;
+	return this.idTipoUnitaDoc;
     }
 
     public void setIdTipoUnitaDoc(Long idTipoUnitaDoc) {
-        this.idTipoUnitaDoc = idTipoUnitaDoc;
+	this.idTipoUnitaDoc = idTipoUnitaDoc;
     }
 
     @Column(name = "CD_SERIE")
     public String getCdSerie() {
-        return this.cdSerie;
+	return this.cdSerie;
     }
 
     public void setCdSerie(String cdSerie) {
-        this.cdSerie = cdSerie;
+	this.cdSerie = cdSerie;
     }
 
     @Column(name = "CD_SERIE_DA_CREARE")
     public String getCdSerieDaCreare() {
-        return this.cdSerieDaCreare;
+	return this.cdSerieDaCreare;
     }
 
     public void setCdSerieDaCreare(String cdSerieDaCreare) {
-        this.cdSerieDaCreare = cdSerieDaCreare;
+	this.cdSerieDaCreare = cdSerieDaCreare;
     }
 
     @Column(name = "DL_NOTE_TIPO_UD")
     public String getDlNoteTipoUd() {
-        return this.dlNoteTipoUd;
+	return this.dlNoteTipoUd;
     }
 
     public void setDlNoteTipoUd(String dlNoteTipoUd) {
-        this.dlNoteTipoUd = dlNoteTipoUd;
+	this.dlNoteTipoUd = dlNoteTipoUd;
     }
 
     @Column(name = "DS_SERIE_DA_CREARE")
     public String getDsSerieDaCreare() {
-        return this.dsSerieDaCreare;
+	return this.dsSerieDaCreare;
     }
 
     public void setDsSerieDaCreare(String dsSerieDaCreare) {
-        this.dsSerieDaCreare = dsSerieDaCreare;
+	this.dsSerieDaCreare = dsSerieDaCreare;
     }
 
     @Column(name = "DS_TIPO_SERIE_DA_CREARE")
     public String getDsTipoSerieDaCreare() {
-        return this.dsTipoSerieDaCreare;
+	return this.dsTipoSerieDaCreare;
     }
 
     public void setDsTipoSerieDaCreare(String dsTipoSerieDaCreare) {
-        this.dsTipoSerieDaCreare = dsTipoSerieDaCreare;
+	this.dsTipoSerieDaCreare = dsTipoSerieDaCreare;
     }
 
     @Column(name = "DS_TIPO_UNITA_DOC")
     public String getDsTipoUnitaDoc() {
-        return this.dsTipoUnitaDoc;
+	return this.dsTipoUnitaDoc;
     }
 
     public void setDsTipoUnitaDoc(String dsTipoUnitaDoc) {
-        this.dsTipoUnitaDoc = dsTipoUnitaDoc;
+	this.dsTipoUnitaDoc = dsTipoUnitaDoc;
     }
 
     @Column(name = "DT_ISTITUZ")
     public LocalDateTime getDtIstituz() {
-        return this.dtIstituz;
+	return this.dtIstituz;
     }
 
     public void setDtIstituz(LocalDateTime dtIstituz) {
-        this.dtIstituz = dtIstituz;
+	this.dtIstituz = dtIstituz;
     }
 
     @Column(name = "DT_SOPPRES")
     public LocalDateTime getDtSoppres() {
-        return this.dtSoppres;
+	return this.dtSoppres;
     }
 
     public void setDtSoppres(LocalDateTime dtSoppres) {
-        this.dtSoppres = dtSoppres;
+	this.dtSoppres = dtSoppres;
     }
 
     @Column(name = "FL_CREA_TIPO_SERIE_STANDARD", columnDefinition = "CHAR")
     public String getFlCreaTipoSerieStandard() {
-        return this.flCreaTipoSerieStandard;
+	return this.flCreaTipoSerieStandard;
     }
 
     public void setFlCreaTipoSerieStandard(String flCreaTipoSerieStandard) {
-        this.flCreaTipoSerieStandard = flCreaTipoSerieStandard;
+	this.flCreaTipoSerieStandard = flCreaTipoSerieStandard;
     }
 
     @Column(name = "FL_VERS_MANUALE", columnDefinition = "CHAR")
     public String getFlVersManuale() {
-        return this.flVersManuale;
+	return this.flVersManuale;
     }
 
     public void setFlVersManuale(String flVersManuale) {
-        this.flVersManuale = flVersManuale;
+	this.flVersManuale = flVersManuale;
     }
 
     @Column(name = "NM_TIPO_SERIE_DA_CREARE")
     public String getNmTipoSerieDaCreare() {
-        return this.nmTipoSerieDaCreare;
+	return this.nmTipoSerieDaCreare;
     }
 
     public void setNmTipoSerieDaCreare(String nmTipoSerieDaCreare) {
-        this.nmTipoSerieDaCreare = nmTipoSerieDaCreare;
+	this.nmTipoSerieDaCreare = nmTipoSerieDaCreare;
     }
 
     @Column(name = "NM_TIPO_UNITA_DOC")
     public String getNmTipoUnitaDoc() {
-        return this.nmTipoUnitaDoc;
+	return this.nmTipoUnitaDoc;
     }
 
     public void setNmTipoUnitaDoc(String nmTipoUnitaDoc) {
-        this.nmTipoUnitaDoc = nmTipoUnitaDoc;
+	this.nmTipoUnitaDoc = nmTipoUnitaDoc;
     }
 
     @Column(name = "TI_SAVE_FILE")
     public String getTiSaveFile() {
-        return this.tiSaveFile;
+	return this.tiSaveFile;
     }
 
     public void setTiSaveFile(String tiSaveFile) {
-        this.tiSaveFile = tiSaveFile;
+	this.tiSaveFile = tiSaveFile;
     }
 
     // bi-directional many-to-one association to AroUnitaDoc
     @OneToMany(mappedBy = "decTipoUnitaDoc")
     public List<AroUnitaDoc> getAroUnitaDocs() {
-        return this.aroUnitaDocs;
+	return this.aroUnitaDocs;
     }
 
     public void setAroUnitaDocs(List<AroUnitaDoc> aroUnitaDocs) {
-        this.aroUnitaDocs = aroUnitaDocs;
+	this.aroUnitaDocs = aroUnitaDocs;
     }
 
     // bi-directional many-to-one association to DecCategTipoUnitaDoc
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_CATEG_TIPO_UNITA_DOC")
     public BigDecimal getDecCategTipoUnitaDoc() {
-        return this.decCategTipoUnitaDoc;
+	return this.decCategTipoUnitaDoc;
     }
 
     public void setDecCategTipoUnitaDoc(BigDecimal decCategTipoUnitaDoc) {
-        this.decCategTipoUnitaDoc = decCategTipoUnitaDoc;
+	this.decCategTipoUnitaDoc = decCategTipoUnitaDoc;
     }
 
     // bi-directional many-to-one association to OrgStrut
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_STRUT")
     public OrgStrut getOrgStrut() {
-        return this.orgStrut;
+	return this.orgStrut;
     }
 
     public void setOrgStrut(OrgStrut orgStrut) {
-        this.orgStrut = orgStrut;
+	this.orgStrut = orgStrut;
     }
 
     // bi-directional many-to-one association to DecModelloTipoSerie
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_MODELLO_TIPO_SERIE")
     public BigDecimal getDecModelloTipoSerie() {
-        return this.decModelloTipoSerie;
+	return this.decModelloTipoSerie;
     }
 
     public void setDecModelloTipoSerie(BigDecimal decModelloTipoSerie) {
-        this.decModelloTipoSerie = decModelloTipoSerie;
+	this.decModelloTipoSerie = decModelloTipoSerie;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_TIPO_SERVIZIO")
     public BigDecimal getOrgTipoServizio() {
-        return this.orgTipoServizio;
+	return this.orgTipoServizio;
     }
 
     public void setOrgTipoServizio(BigDecimal orgTipoServizio) {
-        this.orgTipoServizio = orgTipoServizio;
+	this.orgTipoServizio = orgTipoServizio;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_TIPO_SERVIZIO_ATTIV")
     public BigDecimal getOrgTipoServizioAttiv() {
-        return orgTipoServizioAttiv;
+	return orgTipoServizioAttiv;
     }
 
     public void setOrgTipoServizioAttiv(BigDecimal orgTipoServizioAttiv) {
-        this.orgTipoServizioAttiv = orgTipoServizioAttiv;
+	this.orgTipoServizioAttiv = orgTipoServizioAttiv;
     }
 
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_TIPO_SERV_ATTIV_TIPO_UD")
     public BigDecimal getOrgTipoServAttivTipoUd() {
-        return this.orgTipoServAttivTipoUd;
+	return this.orgTipoServAttivTipoUd;
     }
 
     public void setOrgTipoServAttivTipoUd(BigDecimal orgTipoServAttivTipoUd) {
-        this.orgTipoServAttivTipoUd = orgTipoServAttivTipoUd;
+	this.orgTipoServAttivTipoUd = orgTipoServAttivTipoUd;
     }
 
     // bi-directional many-to-one association to OrgTipoServizio
@@ -274,49 +287,50 @@ public class DecTipoUnitaDoc implements Serializable {
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_TIPO_SERV_CONSERV_TIPO_UD")
     public BigDecimal getOrgTipoServConservTipoUd() {
-        return orgTipoServConservTipoUd;
+	return orgTipoServConservTipoUd;
     }
 
     public void setOrgTipoServConservTipoUd(BigDecimal orgTipoServConservTipoUd) {
-        this.orgTipoServConservTipoUd = orgTipoServConservTipoUd;
+	this.orgTipoServConservTipoUd = orgTipoServConservTipoUd;
     }
 
     // bi-directional many-to-one association to AplValoreParamApplic
     //
     @OneToMany(mappedBy = "decTipoUnitaDoc")
     public List<AplValoreParamApplic> getAplValoreParamApplics() {
-        return this.aplValoreParamApplics;
+	return this.aplValoreParamApplics;
     }
 
     public void setAplValoreParamApplics(List<AplValoreParamApplic> aplValoreParamApplics) {
-        this.aplValoreParamApplics = aplValoreParamApplics;
+	this.aplValoreParamApplics = aplValoreParamApplics;
     }
 
     public AplValoreParamApplic addAplValoreParamApplic(AplValoreParamApplic aplValoreParamApplic) {
-        getAplValoreParamApplics().add(aplValoreParamApplic);
-        aplValoreParamApplic.setDecTipoUnitaDoc(this);
+	getAplValoreParamApplics().add(aplValoreParamApplic);
+	aplValoreParamApplic.setDecTipoUnitaDoc(this);
 
-        return aplValoreParamApplic;
+	return aplValoreParamApplic;
     }
 
-    public AplValoreParamApplic removeAplValoreParamApplic(AplValoreParamApplic aplValoreParamApplic) {
-        getAplValoreParamApplics().remove(aplValoreParamApplic);
-        aplValoreParamApplic.setDecTipoUnitaDoc(null);
+    public AplValoreParamApplic removeAplValoreParamApplic(
+	    AplValoreParamApplic aplValoreParamApplic) {
+	getAplValoreParamApplics().remove(aplValoreParamApplic);
+	aplValoreParamApplic.setDecTipoUnitaDoc(null);
 
-        return aplValoreParamApplic;
+	return aplValoreParamApplic;
     }
 
     /**
-     * Gestione dei default. Risulta la migliore pratica in quanto è indipendente dal db utilizzato e sfrutta diretta
-     * JPA quindi calabile sotto ogni contesto in termini di ORM
+     * Gestione dei default. Risulta la migliore pratica in quanto è indipendente dal db utilizzato
+     * e sfrutta diretta JPA quindi calabile sotto ogni contesto in termini di ORM
      *
      * ref. https://stackoverflow.com/a/13432234
      */
     @PrePersist
     void preInsert() {
-        if (this.flVersManuale == null) {
-            this.flVersManuale = "0";
-        }
+	if (this.flVersManuale == null) {
+	    this.flVersManuale = "0";
+	}
     }
 
 }

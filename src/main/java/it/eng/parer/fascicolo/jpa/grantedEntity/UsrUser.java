@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.grantedEntity;
 
 import java.io.Serializable;
@@ -27,27 +40,27 @@ public class UsrUser implements Serializable {
     private AplSistemaVersante aplSistemaVersante;
 
     public UsrUser() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @Column(name = "ID_USER_IAM")
     public Long getIdUserIam() {
-        return this.idUserIam;
+	return this.idUserIam;
     }
 
     public void setIdUserIam(Long idUserIam) {
-        this.idUserIam = idUserIam;
+	this.idUserIam = idUserIam;
     }
 
     // bi-directional many-to-one association to AplSistemaVersante
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SISTEMA_VERSANTE")
     public AplSistemaVersante getAplSistemaVersante() {
-        return this.aplSistemaVersante;
+	return this.aplSistemaVersante;
     }
 
     public void setAplSistemaVersante(AplSistemaVersante aplSistemaVersante) {
-        this.aplSistemaVersante = aplSistemaVersante;
+	this.aplSistemaVersante = aplSistemaVersante;
     }
 }

@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.beans.dao;
 
 import java.math.BigDecimal;
@@ -27,56 +40,58 @@ public class ElencoVersamentoFascicoliDao implements IElencoVersamentoFascicoliD
 
     @Override
     public ElvFascDaElabElenco insertFascicoloOnCodaDaElab(FasFascicolo fascicolo, long idTipoFasc,
-            TiStatoFascDaElab status) {
-        // init
-        fascicolo.setElvFascDaElabElencos(new ArrayList<>());
+	    TiStatoFascDaElab status) {
+	// init
+	fascicolo.setElvFascDaElabElencos(new ArrayList<>());
 
-        ElvFascDaElabElenco fascVersDaElab = new ElvFascDaElabElenco();
-        fascVersDaElab.setFasFascicolo(fascicolo);
-        fascVersDaElab.setIdTipoFascicolo(new BigDecimal(idTipoFasc));
-        fascVersDaElab.setTiStatoFascDaElab(status);
-        fascVersDaElab.setIdStrut(new BigDecimal(fascicolo.getOrgStrut().getIdStrut()));
-        fascVersDaElab.setAaFascicolo(fascicolo.getAaFascicolo());
-        fascVersDaElab.setTsVersFascicolo(fascicolo.getTsFineSes());
+	ElvFascDaElabElenco fascVersDaElab = new ElvFascDaElabElenco();
+	fascVersDaElab.setFasFascicolo(fascicolo);
+	fascVersDaElab.setIdTipoFascicolo(new BigDecimal(idTipoFasc));
+	fascVersDaElab.setTiStatoFascDaElab(status);
+	fascVersDaElab.setIdStrut(new BigDecimal(fascicolo.getOrgStrut().getIdStrut()));
+	fascVersDaElab.setAaFascicolo(fascicolo.getAaFascicolo());
+	fascVersDaElab.setTsVersFascicolo(fascicolo.getTsFineSes());
 
-        fascicolo.getElvFascDaElabElencos().add(fascVersDaElab);
-        entityManager.persist(fascVersDaElab);
-        entityManager.flush();
-        return fascVersDaElab;
+	fascicolo.getElvFascDaElabElencos().add(fascVersDaElab);
+	entityManager.persist(fascVersDaElab);
+	entityManager.flush();
+	return fascVersDaElab;
     }
 
     @Override
-    public FasStatoConservFascicolo insertFascicoloOnStatoCons(FasFascicolo fascicolo, TiStatoConservazione status) {
-        // init
-        fascicolo.setFasStatoConservFascicoloElencos(new ArrayList<>());
+    public FasStatoConservFascicolo insertFascicoloOnStatoCons(FasFascicolo fascicolo,
+	    TiStatoConservazione status) {
+	// init
+	fascicolo.setFasStatoConservFascicoloElencos(new ArrayList<>());
 
-        FasStatoConservFascicolo statoConservFascicolo = new FasStatoConservFascicolo();
-        statoConservFascicolo.setFasFascicolo(fascicolo);
-        statoConservFascicolo.setIamUser(fascicolo.getIamUser());
-        statoConservFascicolo.setTiStatoConservazione(status);
-        statoConservFascicolo.setTsStato(fascicolo.getTsFineSes());
+	FasStatoConservFascicolo statoConservFascicolo = new FasStatoConservFascicolo();
+	statoConservFascicolo.setFasFascicolo(fascicolo);
+	statoConservFascicolo.setIamUser(fascicolo.getIamUser());
+	statoConservFascicolo.setTiStatoConservazione(status);
+	statoConservFascicolo.setTsStato(fascicolo.getTsFineSes());
 
-        fascicolo.getFasStatoConservFascicoloElencos().add(statoConservFascicolo);
-        entityManager.persist(statoConservFascicolo);
-        entityManager.flush();
-        return statoConservFascicolo;
+	fascicolo.getFasStatoConservFascicoloElencos().add(statoConservFascicolo);
+	entityManager.persist(statoConservFascicolo);
+	entityManager.flush();
+	return statoConservFascicolo;
     }
 
     @Override
-    public FasStatoFascicoloElenco insertFascicoloOnStatoElenco(FasFascicolo fascicolo, TiStatoFascElenco status) {
-        // init
-        fascicolo.setFasStatoFascicoloElencos(new ArrayList<>());
+    public FasStatoFascicoloElenco insertFascicoloOnStatoElenco(FasFascicolo fascicolo,
+	    TiStatoFascElenco status) {
+	// init
+	fascicolo.setFasStatoFascicoloElencos(new ArrayList<>());
 
-        FasStatoFascicoloElenco statoFascicoloElenco = new FasStatoFascicoloElenco();
-        statoFascicoloElenco.setFasFascicolo(fascicolo);
-        statoFascicoloElenco.setIamUser(fascicolo.getIamUser());
-        statoFascicoloElenco.setTiStatoFascElencoVers(status);
-        statoFascicoloElenco.setTsStato(fascicolo.getTsFineSes());
+	FasStatoFascicoloElenco statoFascicoloElenco = new FasStatoFascicoloElenco();
+	statoFascicoloElenco.setFasFascicolo(fascicolo);
+	statoFascicoloElenco.setIamUser(fascicolo.getIamUser());
+	statoFascicoloElenco.setTiStatoFascElencoVers(status);
+	statoFascicoloElenco.setTsStato(fascicolo.getTsFineSes());
 
-        fascicolo.getFasStatoFascicoloElencos().add(statoFascicoloElenco);
-        entityManager.persist(statoFascicoloElenco);
-        entityManager.flush();
-        return statoFascicoloElenco;
+	fascicolo.getFasStatoFascicoloElencos().add(statoFascicoloElenco);
+	entityManager.persist(statoFascicoloElenco);
+	entityManager.flush();
+	return statoFascicoloElenco;
     }
 
 }

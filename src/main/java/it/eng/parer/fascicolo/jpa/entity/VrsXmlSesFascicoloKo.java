@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -41,78 +54,78 @@ public class VrsXmlSesFascicoloKo implements Serializable {
     private VrsSesFascicoloKo vrsSesFascicoloKo;
 
     public VrsXmlSesFascicoloKo() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "VRS_XML_SES_FASCICOLO_KO_IDXMLSESFASCICOLOKO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SVRS_XML_SES_FASCICOLO_KO"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SVRS_XML_SES_FASCICOLO_KO"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VRS_XML_SES_FASCICOLO_KO_IDXMLSESFASCICOLOKO_GENERATOR")
     @Column(name = "ID_XML_SES_FASCICOLO_KO")
     public Long getIdXmlSesFascicoloKo() {
-        return this.idXmlSesFascicoloKo;
+	return this.idXmlSesFascicoloKo;
     }
 
     public void setIdXmlSesFascicoloKo(Long idXmlSesFascicoloKo) {
-        this.idXmlSesFascicoloKo = idXmlSesFascicoloKo;
+	this.idXmlSesFascicoloKo = idXmlSesFascicoloKo;
     }
 
     @Lob
     @Column(name = "BL_XML")
     public String getBlXml() {
-        return this.blXml;
+	return this.blXml;
     }
 
     public void setBlXml(String blXml) {
-        this.blXml = blXml;
+	this.blXml = blXml;
     }
 
     @Column(name = "CD_VERSIONE_XML")
     public String getCdVersioneXml() {
-        return this.cdVersioneXml;
+	return this.cdVersioneXml;
     }
 
     public void setCdVersioneXml(String cdVersioneXml) {
-        this.cdVersioneXml = cdVersioneXml;
+	this.cdVersioneXml = cdVersioneXml;
     }
 
     @Column(name = "DT_REG_XML_SES_KO")
     public LocalDate getDtRegXmlSesKo() {
-        return this.dtRegXmlSesKo;
+	return this.dtRegXmlSesKo;
     }
 
     public void setDtRegXmlSesKo(LocalDate dtRegXmlSesKo) {
-        this.dtRegXmlSesKo = dtRegXmlSesKo;
+	this.dtRegXmlSesKo = dtRegXmlSesKo;
     }
 
     @Column(name = "ID_STRUT")
     public BigDecimal getIdStrut() {
-        return this.idStrut;
+	return this.idStrut;
     }
 
     public void setIdStrut(BigDecimal idStrut) {
-        this.idStrut = idStrut;
+	this.idStrut = idStrut;
     }
 
     @Column(name = "TI_XML")
     public String getTiXml() {
-        return this.tiXml;
+	return this.tiXml;
     }
 
     public void setTiXml(String tiXml) {
-        this.tiXml = tiXml;
+	this.tiXml = tiXml;
     }
 
     // bi-directional many-to-one association to VrsSesFascicoloKo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SES_FASCICOLO_KO")
     public VrsSesFascicoloKo getVrsSesFascicoloKo() {
-        return this.vrsSesFascicoloKo;
+	return this.vrsSesFascicoloKo;
     }
 
     public void setVrsSesFascicoloKo(VrsSesFascicoloKo vrsSesFascicoloKo) {
-        this.vrsSesFascicoloKo = vrsSesFascicoloKo;
+	this.vrsSesFascicoloKo = vrsSesFascicoloKo;
     }
 
 }

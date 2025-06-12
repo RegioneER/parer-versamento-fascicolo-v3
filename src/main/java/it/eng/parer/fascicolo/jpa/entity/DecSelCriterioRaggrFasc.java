@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -39,63 +52,63 @@ public class DecSelCriterioRaggrFasc implements Serializable {
     private DecVoceTitol decVoceTitol;
 
     public DecSelCriterioRaggrFasc() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "DEC_SEL_CRITERIO_RAGGR_FASC_IDSELCRITERIORAGGRFASC_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_SEL_CRITERIO_RAGGR_FASC"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_SEL_CRITERIO_RAGGR_FASC"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_SEL_CRITERIO_RAGGR_FASC_IDSELCRITERIORAGGRFASC_GENERATOR")
     @Column(name = "ID_SEL_CRITERIO_RAGGR_FASC")
     public Long getIdSelCriterioRaggrFasc() {
-        return this.idSelCriterioRaggrFasc;
+	return this.idSelCriterioRaggrFasc;
     }
 
     public void setIdSelCriterioRaggrFasc(Long idSelCriterioRaggrFasc) {
-        this.idSelCriterioRaggrFasc = idSelCriterioRaggrFasc;
+	this.idSelCriterioRaggrFasc = idSelCriterioRaggrFasc;
     }
 
     // bi-directional many-to-one association to DecCriterioRaggrFasc
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_CRITERIO_RAGGR_FASC")
     public DecCriterioRaggrFasc getDecCriterioRaggrFasc() {
-        return this.decCriterioRaggrFasc;
+	return this.decCriterioRaggrFasc;
     }
 
     public void setDecCriterioRaggrFasc(DecCriterioRaggrFasc decCriterioRaggrFasc) {
-        this.decCriterioRaggrFasc = decCriterioRaggrFasc;
+	this.decCriterioRaggrFasc = decCriterioRaggrFasc;
     }
 
     @Column(name = "TI_SEL")
     public String getTiSel() {
-        return this.tiSel;
+	return this.tiSel;
     }
 
     public void setTiSel(String tiSel) {
-        this.tiSel = tiSel;
+	this.tiSel = tiSel;
     }
 
     // bi-directional many-to-one association to AplSistemaMigraz
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SISTEMA_MIGRAZ")
     public AplSistemaMigraz getAplSistemaMigraz() {
-        return this.aplSistemaMigraz;
+	return this.aplSistemaMigraz;
     }
 
     public void setAplSistemaMigraz(AplSistemaMigraz aplSistemaMigraz) {
-        this.aplSistemaMigraz = aplSistemaMigraz;
+	this.aplSistemaMigraz = aplSistemaMigraz;
     }
 
     // bi-directional many-to-one association to DecTipoFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_FASCICOLO")
     public DecTipoFascicolo getDecTipoFascicolo() {
-        return this.decTipoFascicolo;
+	return this.decTipoFascicolo;
     }
 
     public void setDecTipoFascicolo(DecTipoFascicolo decTipoFascicolo) {
-        this.decTipoFascicolo = decTipoFascicolo;
+	this.decTipoFascicolo = decTipoFascicolo;
     }
 
     // bi-directional many-to-one association to DecVoceTitol
@@ -103,11 +116,11 @@ public class DecSelCriterioRaggrFasc implements Serializable {
     @JoinColumn(name = "ID_VOCE_TITOL")
 
     public DecVoceTitol getDecVoceTitol() {
-        return this.decVoceTitol;
+	return this.decVoceTitol;
     }
 
     public void setDecVoceTitol(DecVoceTitol decVoceTitol) {
-        this.decVoceTitol = decVoceTitol;
+	this.decVoceTitol = decVoceTitol;
     }
 
 }

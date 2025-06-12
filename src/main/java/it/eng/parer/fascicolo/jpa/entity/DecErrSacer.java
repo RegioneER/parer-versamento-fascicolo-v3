@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -35,68 +48,68 @@ public class DecErrSacer implements Serializable {
     private BigDecimal decClasseErrSacer;
 
     public DecErrSacer() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
     @GenericGenerator(name = "DEC_ERR_SACER_IDERRSACER_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_ERR_SACER"),
-            @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
+	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_ERR_SACER"),
+	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_ERR_SACER_IDERRSACER_GENERATOR")
     @Column(name = "ID_ERR_SACER")
     public Long getIdErrSacer() {
-        return idErrSacer;
+	return idErrSacer;
     }
 
     public void setIdErrSacer(Long idErrSacer) {
-        this.idErrSacer = idErrSacer;
+	this.idErrSacer = idErrSacer;
     }
 
     @Column(name = "CD_ERR")
     public String getCdErr() {
-        return cdErr;
+	return cdErr;
     }
 
     public void setCdErr(String cdErr) {
-        this.cdErr = cdErr;
+	this.cdErr = cdErr;
     }
 
     @Column(name = "DS_ERR")
     public String getDsErr() {
-        return dsErr;
+	return dsErr;
     }
 
     public void setDsErr(String dsErr) {
-        this.dsErr = dsErr;
+	this.dsErr = dsErr;
     }
 
     @Column(name = "DS_ERR_FILTRO")
     public String getDsErrFiltro() {
-        return dsErrFiltro;
+	return dsErrFiltro;
     }
 
     public void setDsErrFiltro(String dsErrFiltro) {
-        this.dsErrFiltro = dsErrFiltro;
+	this.dsErrFiltro = dsErrFiltro;
     }
 
     @Column(name = "TI_ERR_SACER")
     public String getTiErrSacer() {
-        return tiErrSacer;
+	return tiErrSacer;
     }
 
     public void setTiErrSacer(String tiErrSacer) {
-        this.tiErrSacer = tiErrSacer;
+	this.tiErrSacer = tiErrSacer;
     }
 
     // bi-directional many-to-one association to DecAaTipoFascicolo
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_CLASSE_ERR_SACER")
     public BigDecimal getDecClasseErrSacer() {
-        return decClasseErrSacer;
+	return decClasseErrSacer;
     }
 
     public void setDecClasseErrSacer(BigDecimal decClasseErrSacer) {
-        this.decClasseErrSacer = decClasseErrSacer;
+	this.decClasseErrSacer = decClasseErrSacer;
     }
 
 }

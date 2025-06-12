@@ -1,3 +1,16 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
+
 package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
@@ -31,7 +44,7 @@ public class FasFileMetaVerAipFasc implements Serializable {
     private FasMetaVerAipFascicolo fasMetaVerAipFascicolo;
 
     public FasFileMetaVerAipFasc() {
-        // hibernate constructor
+	// hibernate constructor
     }
 
     @Id
@@ -39,52 +52,52 @@ public class FasFileMetaVerAipFasc implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_FILE_META_VER_AIP_FASC_IDFILEMETAVERAIPFASC_GENERATOR")
     @Column(name = "ID_FILE_META_VER_AIP_FASC")
     public Long getIdFileMetaVerAipFasc() {
-        return this.idFileMetaVerAipFasc;
+	return this.idFileMetaVerAipFasc;
     }
 
     public void setIdFileMetaVerAipFasc(Long idFileMetaVerAipFasc) {
-        this.idFileMetaVerAipFasc = idFileMetaVerAipFasc;
+	this.idFileMetaVerAipFasc = idFileMetaVerAipFasc;
     }
 
     @Lob
     @Column(name = "BL_FILE_VER_INDICE_AIP")
     public String getBlFileVerIndiceAip() {
-        return this.blFileVerIndiceAip;
+	return this.blFileVerIndiceAip;
     }
 
     public void setBlFileVerIndiceAip(String blFileVerIndiceAip) {
-        this.blFileVerIndiceAip = blFileVerIndiceAip;
+	this.blFileVerIndiceAip = blFileVerIndiceAip;
     }
 
     // bi-directional many-to-one association to OrgStrut
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_STRUT")
     public OrgStrut getOrgStrut() {
-        return this.orgStrut;
+	return this.orgStrut;
     }
 
     public void setOrgStrut(OrgStrut orgStrut) {
-        this.orgStrut = orgStrut;
+	this.orgStrut = orgStrut;
     }
 
     @Column(name = "DT_CREAZIONE")
     public LocalDateTime getDtCreazione() {
-        return this.dtCreazione;
+	return this.dtCreazione;
     }
 
     public void setDtCreazione(LocalDateTime dtCreazione) {
-        this.dtCreazione = dtCreazione;
+	this.dtCreazione = dtCreazione;
     }
 
     // bi-directional many-to-one association to FasMetaVerAipFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_META_VER_AIP_FASCICOLO")
     public FasMetaVerAipFascicolo getFasMetaVerAipFascicolo() {
-        return this.fasMetaVerAipFascicolo;
+	return this.fasMetaVerAipFascicolo;
     }
 
     public void setFasMetaVerAipFascicolo(FasMetaVerAipFascicolo fasMetaVerAipFascicolo) {
-        this.fasMetaVerAipFascicolo = fasMetaVerAipFascicolo;
+	this.fasMetaVerAipFascicolo = fasMetaVerAipFascicolo;
     }
 
 }

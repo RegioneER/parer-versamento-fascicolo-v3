@@ -1,3 +1,15 @@
+/*
+ * Engineering Ingegneria Informatica S.p.A.
+ *
+ * Copyright (C) 2023 Regione Emilia-Romagna <p/> This program is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version. <p/> This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU Affero General Public License for more details. <p/> You should
+ * have received a copy of the GNU Affero General Public License along with this program. If not,
+ * see <https://www.gnu.org/licenses/>.
+ */
 
 /*
  * (written by Francesco Fioravanti)
@@ -19,47 +31,47 @@ public class MessaggiWSBundle {
     public static final String DEFAULT_LOCALE = "it";
 
     private MessaggiWSBundle() {
-        throw new IllegalStateException("Utility class");
+	throw new IllegalStateException("Utility class");
     }
 
     /*
-     * Metodi statici, implementazione causata dalla necessità di mantenere invariata l'interfaccia della classe
-     * originale: un normalissimo Bundle con un file di properties
+     * Metodi statici, implementazione causata dalla necessità di mantenere invariata l'interfaccia
+     * della classe originale: un normalissimo Bundle con un file di properties
      */
     public static String getString(String key) {
-        switch (key) {
-        case MessaggiWSBundle.ERR_666:
-            return getDefaultErrorMessage(key);
-        case MessaggiWSBundle.ERR_666P:
-            return getDefaultErrorMessage(key);
-        default:
-            // l'operazione di StringEscapeUtils.unescapeJava viene svolta nel singleton
-            return lookupCacheRef().getString(key);
-        }
+	switch (key) {
+	case MessaggiWSBundle.ERR_666:
+	    return getDefaultErrorMessage(key);
+	case MessaggiWSBundle.ERR_666P:
+	    return getDefaultErrorMessage(key);
+	default:
+	    // l'operazione di StringEscapeUtils.unescapeJava viene svolta nel singleton
+	    return lookupCacheRef().getString(key);
+	}
     }
 
     public static String getString(String key, Object... params) {
-        switch (key) {
-        case MessaggiWSBundle.ERR_666:
-            return getDefaultErrorMessage(key, params);
-        case MessaggiWSBundle.ERR_666P:
-            return getDefaultErrorMessage(key, params);
-        default:
-            // l'operazione di StringEscapeUtils.unescapeJava viene svolta nel singleton
-            return lookupCacheRef().getString(key, params);
-        }
+	switch (key) {
+	case MessaggiWSBundle.ERR_666:
+	    return getDefaultErrorMessage(key, params);
+	case MessaggiWSBundle.ERR_666P:
+	    return getDefaultErrorMessage(key, params);
+	default:
+	    // l'operazione di StringEscapeUtils.unescapeJava viene svolta nel singleton
+	    return lookupCacheRef().getString(key, params);
+	}
     }
 
     private static MessaggiWSCache lookupCacheRef() {
-        return Arc.container().instance(MessaggiWSCache.class).get();
+	return Arc.container().instance(MessaggiWSCache.class).get();
     }
 
     private static String getDefaultErrorMessage(String key, Object... params) {
-        // get or generate uuid
-        final String uuid = UUIDMdcLogUtil.getUuid();
-        // log original message
-        log.atError().log("Risposta originale : {}", lookupCacheRef().getString(key, params));
-        return lookupCacheRef().getString(MessaggiWSBundle.WS_GENERIC_ERROR_UUID, uuid);
+	// get or generate uuid
+	final String uuid = UUIDMdcLogUtil.getUuid();
+	// log original message
+	log.atError().log("Risposta originale : {}", lookupCacheRef().getString(key, params));
+	return lookupCacheRef().getString(MessaggiWSBundle.WS_GENERIC_ERROR_UUID, uuid);
     }
 
     // ERRORI IMPREVISTI TEMPLATE (ossia da restituire all'utente a fronte degli
@@ -103,8 +115,8 @@ public class MessaggiWSBundle {
     public static final String FAS_XSD_001_002 = "FAS_XSD-001-002";
 
     /**
-     * Il campo {0} di tipo data breve, non è valorizzato. Un campo di tipo data breve deve essere espresso nella forma
-     * aaaa-mm-gg
+     * Il campo {0} di tipo data breve, non è valorizzato. Un campo di tipo data breve deve essere
+     * espresso nella forma aaaa-mm-gg
      */
     public static final String FAS_XSD_001_003 = "FAS_XSD-001-003";
 
@@ -144,7 +156,8 @@ public class MessaggiWSBundle {
     public static final String FAS_CONFIG_001_005 = "FAS_CONFIG-001-005";
 
     /**
-     * Il valore {0} indicato nel tag &lt;UserID&gt; non coincide con l''utente indicato nella chiamata al WS
+     * Il valore {0} indicato nel tag &lt;UserID&gt; non coincide con l''utente indicato nella
+     * chiamata al WS
      */
     public static final String FAS_CONFIG_002_001 = "FAS_CONFIG-002-001";
 
@@ -189,7 +202,8 @@ public class MessaggiWSBundle {
     public static final String FAS_CONFIG_003_002 = "FAS_CONFIG-003-002";
 
     /**
-     * Il valore {0} indicato nel tag &lt;Versione&gt; non coincide con la versione indicata nella chiamata al WS
+     * Il valore {0} indicato nel tag &lt;Versione&gt; non coincide con la versione indicata nella
+     * chiamata al WS
      */
     public static final String FAS_CONFIG_003_003 = "FAS_CONFIG-003-003";
 
@@ -244,8 +258,8 @@ public class MessaggiWSBundle {
     public static final String FASC_002_003 = "FASC-002-003";
 
     /**
-     * Fascicolo {0}:il numero di unità documentarie indicato nel contenuto sintetico {1} non coincide con il numero di
-     * unità documentarie elencate nel contenuto analitico
+     * Fascicolo {0}:il numero di unità documentarie indicato nel contenuto sintetico {1} non
+     * coincide con il numero di unità documentarie elencate nel contenuto analitico
      */
     public static final String FASC_003_001 = "FASC-003-001";
 
@@ -255,7 +269,8 @@ public class MessaggiWSBundle {
     public static final String FASC_003_002 = "FASC-003-002";
 
     /**
-     * Fascicolo {0}: l''unità documentaria {1} indicata nel contenuto non è presente in Sacer o è stata annullata.
+     * Fascicolo {0}: l''unità documentaria {1} indicata nel contenuto non è presente in Sacer o è
+     * stata annullata.
      */
     public static final String FASC_003_003 = "FASC-003-003";
 
@@ -265,44 +280,46 @@ public class MessaggiWSBundle {
     public static final String FASC_003_004 = "FASC-003-004";
 
     /**
-     * Fascicolo {0}: verificare che le seguenti chiavi {1} indicate delle unità documentarie siano univoche
+     * Fascicolo {0}: verificare che le seguenti chiavi {1} indicate delle unità documentarie siano
+     * univoche
      */
     public static final String FASC_003_005 = "FASC-003-005";
 
     /**
-     * Fascicolo {0}:il numero di sotto fascicoli indicato nel contenuto sintetico {1} non coincide con il numero di
-     * fascicoli elencati nel contenuto
+     * Fascicolo {0}:il numero di sotto fascicoli indicato nel contenuto sintetico {1} non coincide
+     * con il numero di fascicoli elencati nel contenuto
      */
     public static final String FASC_003_XXX_NOTIMPLYET = "FASC-003-XXX_NOTIMPLYET";
 
     /**
      * Controllo non implementato.
      *
-     * Fascicolo {0}: il fascicolo {1} indicato nel contenuto non è presente in Sacer o è stato annullato.
+     * Fascicolo {0}: il fascicolo {1} indicato nel contenuto non è presente in Sacer o è stato
+     * annullato.
      */
     public static final String FASC_003_YYY_NOTIMPLYET = "FASC-003-YYY_NOTIMPLYET";
 
     /**
-     * Sulla struttura versante non è definito un titolario di classificazione attivo alla data di apertura del
-     * fascicolo
+     * Sulla struttura versante non è definito un titolario di classificazione attivo alla data di
+     * apertura del fascicolo
      */
     public static final String FASC_004_001 = "FASC-004-001";
 
     /**
-     * Nel SIP di Versamento del Fascicolo non è stato indicato l''indice di classificazione o l''indice non è coerente
-     * con le voci di classificazione descritte
+     * Nel SIP di Versamento del Fascicolo non è stato indicato l''indice di classificazione o
+     * l''indice non è coerente con le voci di classificazione descritte
      */
     public static final String FASC_004_002 = "FASC-004-002";
 
     /**
-     * Non esiste una voce di titolario attiva alla data di apertura del fascicolo coincidente con l''indice di
-     * classificazione {0}
+     * Non esiste una voce di titolario attiva alla data di apertura del fascicolo coincidente con
+     * l''indice di classificazione {0}
      */
     public static final String FASC_004_003 = "FASC-004-003";
 
     /**
-     * La descrizione della voce di classificazione + codice voce classificazione non coincide con la descrizione
-     * presente sul titolario
+     * La descrizione della voce di classificazione + codice voce classificazione non coincide con
+     * la descrizione presente sul titolario
      */
     public static final String FASC_004_004 = "FASC-004-004";
 
@@ -332,30 +349,32 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_ARCH_001_001 = "FAS_PF_ARCH-001-001";
 
     /**
-     * Fascicolo {0}: La versione {1} dell''xsd di profilo archivistico del fascicolo non è presente o è disattiva
+     * Fascicolo {0}: La versione {1} dell''xsd di profilo archivistico del fascicolo non è presente
+     * o è disattiva
      */
     public static final String FAS_PF_ARCH_001_002 = "FAS_PF_ARCH-001-002";
 
     /**
-     * Fascicolo {0}: il tipo fascicolo {1} non ha associato un xsd di profilo archivistico nel periodo di validità
-     * vigente nell''anno del fascicolo.
+     * Fascicolo {0}: il tipo fascicolo {1} non ha associato un xsd di profilo archivistico nel
+     * periodo di validità vigente nell''anno del fascicolo.
      */
     public static final String FAS_PF_ARCH_001_003 = "FAS_PF_ARCH-001-003";
 
     /**
-     * Fascicolo {0}: il tipo fascicolo {1} ha associato un xsd di profilo archivistico e non è stato dichiarato
-     * nell''XML di Versamento
+     * Fascicolo {0}: il tipo fascicolo {1} ha associato un xsd di profilo archivistico e non è
+     * stato dichiarato nell''XML di Versamento
      */
     public static final String FAS_PF_ARCH_001_004 = "FAS_PF_ARCH-001-004";
 
     /**
-     * Fascicolo {0}: il tipo fascicolo {1} ha associato un xsd di profilo specifico e non è stato dichiarato nell''XML
-     * di Versamento
+     * Fascicolo {0}: il tipo fascicolo {1} ha associato un xsd di profilo specifico e non è stato
+     * dichiarato nell''XML di Versamento
      */
     public static final String FAS_PF_SPEC_001_001 = "FAS_PF_SPEC-001-001";
 
     /**
-     * Fascicolo {0}: La versione {1} dell''xsd di profilo specifico del fascicolo non è presente o è disattiva
+     * Fascicolo {0}: La versione {1} dell''xsd di profilo specifico del fascicolo non è presente o
+     * è disattiva
      */
     public static final String FAS_PF_SPEC_001_002 = "FAS_PF_SPEC-001-002";
 
@@ -365,20 +384,20 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_SPEC_001_003 = "FAS_PF_SPEC-001-003";
 
     /**
-     * Fascicolo {0}: il tipo fascicolo {1} non ha associato un xsd di profilo specifico nel periodo di validità vigente
-     * nell''anno del fascicolo.
+     * Fascicolo {0}: il tipo fascicolo {1} non ha associato un xsd di profilo specifico nel periodo
+     * di validità vigente nell''anno del fascicolo.
      */
     public static final String FAS_PF_SPEC_001_004 = "FAS_PF_SPEC-001-004";
 
     /**
-     * Fascicolo {0}: il tipo fascicolo {1} ha associato un xsd di profilo normativo e non è stato dichiarato nell''XML
-     * di Versamento
+     * Fascicolo {0}: il tipo fascicolo {1} ha associato un xsd di profilo normativo e non è stato
+     * dichiarato nell''XML di Versamento
      */
     public static final String FAS_PF_NORM_001_001 = "FAS_PF_NORM-001-001";
 
     /**
-     * Fascicolo {0}: La versione {1} dell'xsd di profilo normativo del fascicolo non \u00E8 presente o \u00E8
-     * disattiva.
+     * Fascicolo {0}: La versione {1} dell'xsd di profilo normativo del fascicolo non \u00E8
+     * presente o \u00E8 disattiva.
      */
     public static final String FAS_PF_NORM_001_002 = "FAS_PF_NORM-001-002";
 
@@ -388,8 +407,8 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_NORM_001_003 = "FAS_PF_NORM-001-003";
 
     /**
-     * Fascicolo {0}: il tipo fascicolo {1} non ha associato un xsd di profilo normativo nel periodo di validit\u00E0
-     * vigente nell''anno del fascicolo
+     * Fascicolo {0}: il tipo fascicolo {1} non ha associato un xsd di profilo normativo nel periodo
+     * di validit\u00E0 vigente nell''anno del fascicolo
      */
     public static final String FAS_PF_NORM_001_004 = "FAS_PF_NORM-001-004";
 
@@ -399,8 +418,8 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_ARCH_002_001 = "FAS_PF_ARCH-002-001";
 
     /**
-     * Fascicolo {0}: Errore nella verifica dei dati di profilo archivistico del fascicolo. Il valore indicato nel tag
-     * {0} supera la lunghezza massima prevista
+     * Fascicolo {0}: Errore nella verifica dei dati di profilo archivistico del fascicolo. Il
+     * valore indicato nel tag {0} supera la lunghezza massima prevista
      */
     public static final String FAS_PF_ARCH_002_002 = "FAS_PF_ARCH-002-002";
 
@@ -415,13 +434,14 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_NORM_002_001 = "FAS_PF_NORM-002-001";
 
     /**
-     * Fascicolo {0}: il tipo fascicolo {1} non ha associato un xsd di profilo fascicolo standard nel periodo di
-     * validità vigente nell''anno del fascicolo.
+     * Fascicolo {0}: il tipo fascicolo {1} non ha associato un xsd di profilo fascicolo standard
+     * nel periodo di validità vigente nell''anno del fascicolo.
      */
     public static final String FAS_PF_GEN_001_001 = "FAS_PF_GEN-001-001";
 
     /**
-     * Fascicolo {0}: La versione {1} dell''xsd di profilo generale del fascicolo non è presente o è disattiva
+     * Fascicolo {0}: La versione {1} dell''xsd di profilo generale del fascicolo non è presente o è
+     * disattiva
      */
     public static final String FAS_PF_GEN_001_002 = "FAS_PF_GEN-001-002";
 
@@ -441,19 +461,20 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_GEN_003_001 = "FAS_PF_GEN-003-001";
 
     /**
-     * Fascicolo {0}: il tipo conservazione è IN_ARCHIVIO e non è stata indicata la data di chiusura del fascicolo
+     * Fascicolo {0}: il tipo conservazione è IN_ARCHIVIO e non è stata indicata la data di chiusura
+     * del fascicolo
      */
     public static final String FAS_PF_GEN_003_002 = "FAS_PF_GEN-003-002";
 
     /**
-     * Fascicolo {0}: l''unità documentaria {1} indicata come PrimoDocumentoNelFascicolo non è presente nel contenuto
-     * analitico del fascicolo
+     * Fascicolo {0}: l''unità documentaria {1} indicata come PrimoDocumentoNelFascicolo non è
+     * presente nel contenuto analitico del fascicolo
      */
     public static final String FAS_PF_GEN_003_003 = "FAS_PF_GEN-003-003";
 
     /**
-     * Fascicolo {0}: l''unità documentaria {1} indicata come UltimoDocumentoNelFascicolo non è presente nel contenuto
-     * analitico del fascicolo
+     * Fascicolo {0}: l''unità documentaria {1} indicata come UltimoDocumentoNelFascicolo non è
+     * presente nel contenuto analitico del fascicolo
      */
     public static final String FAS_PF_GEN_003_004 = "FAS_PF_GEN-003-004";
 
@@ -463,29 +484,32 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_GEN_003_005 = "FAS_PF_GEN-003-005";
 
     /**
-     * Fascicolo {0}: informazioni su soggetto coinvolto mancanti, indicare Denominazione oppure Cognome e Nome del
-     * soggetto
+     * Fascicolo {0}: informazioni su soggetto coinvolto mancanti, indicare Denominazione oppure
+     * Cognome e Nome del soggetto
      */
     public static final String FAS_PF_GEN_003_006 = "FAS_PF_GEN-003-006";
 
     /**
-     * Fascicolo {0}: informazioni su soggetto coinvolto mancanti, indicare sia il Cognome che il Nome del soggetto
+     * Fascicolo {0}: informazioni su soggetto coinvolto mancanti, indicare sia il Cognome che il
+     * Nome del soggetto
      */
     public static final String FAS_PF_GEN_003_007 = "FAS_PF_GEN-003-007";
 
     /**
-     * Fascicolo {0}: informazioni su soggetto coinvolto errate, non è possibile indicare per un soggetto sia il
-     * Cognome/Nome sia la Denominazione
+     * Fascicolo {0}: informazioni su soggetto coinvolto errate, non è possibile indicare per un
+     * soggetto sia il Cognome/Nome sia la Denominazione
      */
     public static final String FAS_PF_GEN_003_008 = "FAS_PF_GEN-003-008";
 
     /**
-     * Fascicolo {0}: non è possibile inserire per lo stesso soggetto {1} il tipo di rapporto indicato {2}
+     * Fascicolo {0}: non è possibile inserire per lo stesso soggetto {1} il tipo di rapporto
+     * indicato {2}
      */
     public static final String FAS_PF_GEN_003_009 = "FAS_PF_GEN-003-009";
 
     /**
-     * Fascicolo {0}: il tipo conservazione VERSAMENTO_ANTICIPATO non è supportato dalla versione del WS
+     * Fascicolo {0}: il tipo conservazione VERSAMENTO_ANTICIPATO non è supportato dalla versione
+     * del WS
      */
     public static final String FAS_PF_GEN_003_010 = "FAS_PF_GEN-003-010";
 
@@ -500,25 +524,26 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_GEN_003_012 = "FAS_PF_GEN-003-012";
 
     /**
-     * Fascicolo {0}: informazioni su soggetto coinvolto mancanti, indicare Denominazione oppure Cognome e Nome del
-     * soggetto ({1})
+     * Fascicolo {0}: informazioni su soggetto coinvolto mancanti, indicare Denominazione oppure
+     * Cognome e Nome del soggetto ({1})
      */
     public static final String FAS_PF_NORM_003_001 = "FAS_PF_NORM-003-001";
 
     /**
-     * Fascicolo {0}: informazioni su soggetto coinvolto mancanti, indicare sia il Cognome che il Nome del soggetto
-     * ({1})
+     * Fascicolo {0}: informazioni su soggetto coinvolto mancanti, indicare sia il Cognome che il
+     * Nome del soggetto ({1})
      */
     public static final String FAS_PF_NORM_003_002 = "FAS_PF_NORM-003-002";
 
     /**
-     * Fascicolo {0}: informazioni su soggetto coinvolto errate, non è possibile indicare per un soggetto sia il
-     * Cognome/Nome sia la Denominazione ({1})
+     * Fascicolo {0}: informazioni su soggetto coinvolto errate, non è possibile indicare per un
+     * soggetto sia il Cognome/Nome sia la Denominazione ({1})
      */
     public static final String FAS_PF_NORM_003_003 = "FAS_PF_NORM-003-003";
 
     /**
-     * Fascicolo {0}: non è possibile inserire per lo stesso soggetto {1} il tipo di rapporto indicato {2}
+     * Fascicolo {0}: non è possibile inserire per lo stesso soggetto {1} il tipo di rapporto
+     * indicato {2}
      */
     public static final String FAS_PF_NORM_003_004 = "FAS_PF_NORM-003-004";
 
@@ -528,7 +553,8 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_NORM_003_005 = "FAS_PF_NORM-003-005";
 
     /**
-     * Fascicolo {0}: non consentita la tipologia di aggregazione {1}, da indicare quella di tipo {2}
+     * Fascicolo {0}: non consentita la tipologia di aggregazione {1}, da indicare quella di tipo
+     * {2}
      */
     public static final String FAS_PF_NORM_003_006 = "FAS_PF_NORM-003-006";
 
@@ -543,20 +569,20 @@ public class MessaggiWSBundle {
     public static final String XSD_001_002 = "XSD-001-002";
 
     /**
-     * Controllare che i tag &lt;ID&gt; dei componenti e dei sottocomponenti siano stati valorizzati correttamente. I
-     * valori devono essere univoci entro l''Unità Documentaria
+     * Controllare che i tag &lt;ID&gt; dei componenti e dei sottocomponenti siano stati valorizzati
+     * correttamente. I valori devono essere univoci entro l''Unità Documentaria
      */
     public static final String XSD_002_001 = "XSD-002-001";
 
     /**
-     * Controllare che i tag &lt;IDDocumento&gt; di ogni documento siano stati valorizzati correttamente. I valori
-     * devono essere univoci entro l''Unità Documentaria
+     * Controllare che i tag &lt;IDDocumento&gt; di ogni documento siano stati valorizzati
+     * correttamente. I valori devono essere univoci entro l''Unità Documentaria
      */
     public static final String XSD_002_002 = "XSD-002-002";
 
     /**
-     * Il campo {0} di tipo data breve, non è valorizzato. Un campo di tipo data breve deve essere espresso nella forma
-     * aaaa-mm-gg
+     * Il campo {0} di tipo data breve, non è valorizzato. Un campo di tipo data breve deve essere
+     * espresso nella forma aaaa-mm-gg
      */
     public static final String XSD_002_003 = "XSD-002-003";
 
@@ -591,7 +617,8 @@ public class MessaggiWSBundle {
     public static final String XSD_006_003 = "XSD-006-003";
 
     /**
-     * Sono stati indicati dati specifici di migrazione, ma il tipo di conservazione non è MIGRAZIONE
+     * Sono stati indicati dati specifici di migrazione, ma il tipo di conservazione non è
+     * MIGRAZIONE
      */
     public static final String XSD_006_004 = "XSD-006-004";
 
@@ -646,7 +673,8 @@ public class MessaggiWSBundle {
     public static final String UD_001_004 = "UD-001-004";
 
     /**
-     * Il valore [{0}] indicato nel tag &lt;UserID&gt; non coincide con l''utente indicato nella chiamata al WS
+     * Il valore [{0}] indicato nel tag &lt;UserID&gt; non coincide con l''utente indicato nella
+     * chiamata al WS
      */
     public static final String UD_001_005 = "UD-001-005";
 
@@ -686,7 +714,8 @@ public class MessaggiWSBundle {
     public static final String UD_001_012 = "UD-001-012";
 
     /**
-     * Il valore [{0}] indicato nel tag &lt;Versione&gt; non coincide con la versione indicata nella chiamata al WS
+     * Il valore [{0}] indicato nel tag &lt;Versione&gt; non coincide con la versione indicata nella
+     * chiamata al WS
      */
     public static final String UD_001_013 = "UD-001-013";
 
@@ -711,8 +740,8 @@ public class MessaggiWSBundle {
     public static final String UD_001_017 = "UD-001-017";
 
     /**
-     * Per la struttura {0} deve essere definito il "Tipo di unita documentaria sconosciuta", il "Registro sconosciuto"
-     * ed il Tipo documento principale sconosciuto"
+     * Per la struttura {0} deve essere definito il "Tipo di unita documentaria sconosciuta", il
+     * "Registro sconosciuto" ed il Tipo documento principale sconosciuto"
      */
     public static final String UD_001_018 = "UD-001-018";
 
@@ -722,7 +751,8 @@ public class MessaggiWSBundle {
     public static final String UD_001_019 = "UD-001-019";
 
     /**
-     * Unità Documentaria {0}: la chiave indicata corrisponde ad una Unità Documentaria già presente nel sistema
+     * Unità Documentaria {0}: la chiave indicata corrisponde ad una Unità Documentaria già presente
+     * nel sistema
      */
     public static final String UD_002_001 = "UD-002-001";
 
@@ -737,7 +767,8 @@ public class MessaggiWSBundle {
     public static final String UD_003_002 = "UD-003-002";
 
     /**
-     * Unità Documentaria {0}: il tipo registro {1} non è associato alla tipologia di unità documentaria {2}
+     * Unità Documentaria {0}: il tipo registro {1} non è associato alla tipologia di unità
+     * documentaria {2}
      */
     public static final String UD_003_003 = "UD-003-003";
 
@@ -747,47 +778,51 @@ public class MessaggiWSBundle {
     public static final String UD_003_004 = "UD-003-004";
 
     /**
-     * Unità Documentaria {0}: esiste più di una tipologia di unità documentaria {1} attiva alla data corrente entro la
-     * struttura versante. E’ necessario correggere la configurazione della struttura prima di ripetere il versamento.
+     * Unità Documentaria {0}: esiste più di una tipologia di unità documentaria {1} attiva alla
+     * data corrente entro la struttura versante. E’ necessario correggere la configurazione della
+     * struttura prima di ripetere il versamento.
      */
     public static final String UD_003_005 = "UD-003-005";
 
     /**
-     * Unità Documentaria {0}: l''Unità Documentaria {1} da collegare alla UD oggetto di versamento non è presente nel
-     * sistema
+     * Unità Documentaria {0}: l''Unità Documentaria {1} da collegare alla UD oggetto di versamento
+     * non è presente nel sistema
      */
     public static final String UD_004_001 = "UD-004-001";
 
     /**
-     * Unità Documentaria {0}: il registro dell''unità documentaria {1} da collegare alla UD oggetto di versamento non è
-     * presente nella struttura o non è attivo
+     * Unità Documentaria {0}: il registro dell''unità documentaria {1} da collegare alla UD oggetto
+     * di versamento non è presente nella struttura o non è attivo
      */
     public static final String UD_004_003 = "UD-004-003";
 
     /**
-     * Unità Documentaria {0}: l''anno dell''unità documentaria {1} da collegare alla UD oggetto di versamento non è
-     * compreso nei periodi di validità del registro{2}
+     * Unità Documentaria {0}: l''anno dell''unità documentaria {1} da collegare alla UD oggetto di
+     * versamento non è compreso nei periodi di validità del registro{2}
      */
     public static final String UD_004_004 = "UD-004-004";
 
     /**
-     * Unità Documentaria {0}: il numero dell''unità documentaria {1} da collegare alla UD oggetto di versamento non
-     * rispetta le regole configurate sul registro nel periodo di validità: {2}
+     * Unità Documentaria {0}: il numero dell''unità documentaria {1} da collegare alla UD oggetto
+     * di versamento non rispetta le regole configurate sul registro nel periodo di validità: {2}
      */
     public static final String UD_004_005 = "UD-004-005";
 
     /**
-     * Unità Documentaria {0}: la descrizione delle unità documentarie da collegare supera il limite previsto
+     * Unità Documentaria {0}: la descrizione delle unità documentarie da collegare supera il limite
+     * previsto
      */
     public static final String UD_004_006 = "UD-004-006";
 
     /**
-     * Unità Documentaria {0}: la chiave indicata non corrisponde a nessuna Unità Documentaria presente nel sistema
+     * Unità Documentaria {0}: la chiave indicata non corrisponde a nessuna Unità Documentaria
+     * presente nel sistema
      */
     public static final String UD_005_001 = "UD-005-001";
 
     /**
-     * Unità Documentaria {0}: L''unità documentaria non è contenuta in alcun volume di conservazione
+     * Unità Documentaria {0}: L''unità documentaria non è contenuta in alcun volume di
+     * conservazione
      */
     public static final String UD_005_002 = "UD-005-002";
 
@@ -797,13 +832,14 @@ public class MessaggiWSBundle {
     public static final String UD_005_003 = "UD-005-003";
 
     /**
-     * Unità Documentaria {0}: Il Rapporto di Versamento dell''unità documentaria non è stato prodotto
+     * Unità Documentaria {0}: Il Rapporto di Versamento dell''unità documentaria non è stato
+     * prodotto
      */
     public static final String UD_005_004 = "UD-005-004";
 
     /**
-     * Unità Documentaria {0}: Nel sistema é già presente una unità documentaria con lo stesso numero normalizzato
-     * prodotto
+     * Unità Documentaria {0}: Nel sistema é già presente una unità documentaria con lo stesso
+     * numero normalizzato prodotto
      */
     public static final String UD_005_005 = "UD-005-005";
 
@@ -813,13 +849,14 @@ public class MessaggiWSBundle {
     public static final String UD_007_001 = "UD-007-001";
 
     /**
-     * Unità Documentaria {0}: la lunghezza di &lt;registro&gt;-&lt;anno&gt;-&lt;numero normalizzato&gt; supera i 100
-     * caratteri e non consente la normalizzazione
+     * Unità Documentaria {0}: la lunghezza di &lt;registro&gt;-&lt;anno&gt;-&lt;numero
+     * normalizzato&gt; supera i 100 caratteri e non consente la normalizzazione
      */
     public static final String UD_007_002 = "UD-007-002";
 
     /**
-     * Unità Documentaria {0}: l''URN calcolato per i componenti di questa unità documentaria supera i 254 caratteri
+     * Unità Documentaria {0}: l''URN calcolato per i componenti di questa unità documentaria supera
+     * i 254 caratteri
      */
     public static final String UD_007_003 = "UD-007-003";
 
@@ -829,18 +866,20 @@ public class MessaggiWSBundle {
     public static final String UD_008_001 = "UD-008-001";
 
     /**
-     * Unità Documentaria {0}: impossibile memorizzare i dati relativi al certificato di firma. Il versamento deve
-     * essere ripetuto.
+     * Unità Documentaria {0}: impossibile memorizzare i dati relativi al certificato di firma. Il
+     * versamento deve essere ripetuto.
      */
     public static final String UD_008_002 = "UD-008-002";
 
     /**
-     * Unità Documentaria {0}: conservazione NON FISCALE nonostante il registro sia fiscalmente rilevante
+     * Unità Documentaria {0}: conservazione NON FISCALE nonostante il registro sia fiscalmente
+     * rilevante
      */
     public static final String UD_009_001 = "UD-009-001";
 
     /**
-     * Unità Documentaria {0}: conservazione FISCALE nonostante il registro NON sia fiscalmente rilevante
+     * Unità Documentaria {0}: conservazione FISCALE nonostante il registro NON sia fiscalmente
+     * rilevante
      */
     public static final String UD_009_002 = "UD-009-002";
 
@@ -850,25 +889,26 @@ public class MessaggiWSBundle {
     public static final String UD_011_001 = "UD-011-001";
 
     /**
-     * Unità Documentaria {0}: Il dato specifico {1} dell''Unità Documentaria è nullo: impossibile determinare la
-     * Substruttura
+     * Unità Documentaria {0}: Il dato specifico {1} dell''Unità Documentaria è nullo: impossibile
+     * determinare la Substruttura
      */
     public static final String UD_011_002 = "UD-011-002";
 
     /**
-     * Unità Documentaria {0}: Il dato specifico {1} del Documento Principale dell''Unità Documentaria è nullo:
-     * impossibile determinare la Substruttura
+     * Unità Documentaria {0}: Il dato specifico {1} del Documento Principale dell''Unità
+     * Documentaria è nullo: impossibile determinare la Substruttura
      */
     public static final String UD_011_003 = "UD-011-003";
 
     /**
-     * Unità Documentaria {0}: Il dato specifico {1} dell''Unità Documentaria non individua una Substruttura valida
+     * Unità Documentaria {0}: Il dato specifico {1} dell''Unità Documentaria non individua una
+     * Substruttura valida
      */
     public static final String UD_011_004 = "UD-011-004";
 
     /**
-     * Unità Documentaria {0}: Il dato specifico {1} del Documento Principale dell''Unità Documentaria non individua una
-     * Substruttura valida
+     * Unità Documentaria {0}: Il dato specifico {1} del Documento Principale dell''Unità
+     * Documentaria non individua una Substruttura valida
      */
     public static final String UD_011_005 = "UD-011-005";
 
@@ -883,8 +923,8 @@ public class MessaggiWSBundle {
     public static final String UD_012_002 = "UD-012-002";
 
     /**
-     * Unità Documentaria {0}: L''unità documentaria è inserita in almeno una serie; per aggiungere il documento è
-     * necessario richiedere l''aggiornamento della serie
+     * Unità Documentaria {0}: L''unità documentaria è inserita in almeno una serie; per aggiungere
+     * il documento è necessario richiedere l''aggiornamento della serie
      */
     public static final String UD_013_001 = "UD-013-001";
 
@@ -904,7 +944,8 @@ public class MessaggiWSBundle {
     public static final String UD_014_001 = "UD-014-001";
 
     /**
-     * Unità Documentaria {0}: La data dell''unità documentaria è un dato di profilo configurato come obbligatorio
+     * Unità Documentaria {0}: La data dell''unità documentaria è un dato di profilo configurato
+     * come obbligatorio
      */
     public static final String UD_014_002 = "UD-014-002";
 
