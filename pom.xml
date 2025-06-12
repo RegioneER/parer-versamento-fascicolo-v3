@@ -7,7 +7,7 @@
         <version>7.1.0</version>
 	</parent>
 	<artifactId>versamento-fascicolo-v3</artifactId>
-	<version>1.5.0-SNAPSHOT</version>
+	<version>1.5.0</version>
 	<name>Versamento Fascicolo 3.0</name>
 	<description>Progetto versamento-fascicolo-v3</description>
 <scm>
