@@ -8,7 +8,7 @@ categories:
   - data-visualization
 dependsOn:
   open:
-    - name: Versamento Fasicolo v3
+    - name: Versamento Fascicolo v3
       optional: false
       version: ''
       versionMax: ''
@@ -59,7 +59,7 @@ maintenance:
     - name: ' Engineering Ingegneria Informatica S.p.A.'
       until: '2024-06-30'
   type: contract
-name: Parer - Versamento Fasicolo v3
+name: Parer - Versamento Fascicolo v3
 platforms:
   - linux
 releaseDate: '2023-11-13'
