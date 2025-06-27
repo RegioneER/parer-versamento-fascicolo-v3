@@ -17,7 +17,6 @@ description:
   it:
     features:
       - archiviazione documentale
-    genericName: SIAM
     longDescription: |
       Versamento fascicolo v3 è l'API REST che consente di versare nel sistema di conservazione SACER i pacchetti di versamento (SIP o PdV) contenenti fascicoli e relativi metadati. Il pacchetto di versamento è in formato XML ed è formato principalmente da diversi profili contenente i metadati descrittivi: il Profilo archivistico con le informazioni sulla classificazione e la collocazione nella gerarchia dell'archivio, il Profilo generale con le informazioni descrittive generali, il Profilo normativo con il set di metadati conforme all'Allegato 5 delle Linee guida AgID e il Profilo specifico, il set di metadati specifico per la tipologia di fascicolo. Inoltre, il pacchetto di versamento contiene l'elenco delle unità documentarie che costituiscono il contenuto del fascicolo stesso. Il sistema di conservazione accetta solo fascicoli chiusi.
     shortDescription: |-
@@ -57,7 +56,7 @@ maintenance:
       name: Cristiano Casagni
   contractors:
     - name: ' Engineering Ingegneria Informatica S.p.A.'
-      until: '2026-23-12'
+      until: '2026-12-23'
   type: contract
 name: Parer - Versamento Fascicolo v3
 platforms:
