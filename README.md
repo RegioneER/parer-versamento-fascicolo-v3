@@ -16,15 +16,8 @@ Di seguito verranno riportati sotto alcuni paragrafi, le modalità possibili con
 
 ## Rilascio su RedHat Openshift
 
-Vedere specifica guida per il rilascio [OKD.md](OKD.md).
-
-### Openshift template
-
 Per la creazione dell'applicazione con risorse necessarie correlate sotto Openshift (https://www.redhat.com/it/technologies/cloud-computing/openshift) viene fornito un apposito template (la solzuzione, modificabile, è basata su Oracle DB) [template](src/main/openshift/verifica-firma-crypto-template.yml).
 
-## Installazione applicazione come servizio/demone
-
-Vedere guida all'installazione [INSTALL.md](INSTALL.md).
 
 # Utilizzo
 
