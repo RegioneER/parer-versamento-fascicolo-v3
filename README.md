@@ -484,11 +484,3 @@ Progetto di proprietà di [Regione Emilia-Romagna](https://www.regione.emilia-ro
 
 Questo progetto è rilasciato sotto licenza GNU Affero General Public License v3.0 or later ([LICENSE.txt](LICENSE.txt)).
 
-# Appendice
-
-## Spring Boot 3.x
-
-Alcuni riferimenti:
-
-- Migrazione Spring boot versione 3 https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide
-
