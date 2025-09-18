@@ -429,6 +429,11 @@ public class MessaggiWSBundle {
     public static final String FAS_PF_SPEC_002_001 = "FAS_PF_SPEC-002-001";
 
     /**
+     * Fascicolo {0}: Il profilo specifico è inesistente. {1}
+     */
+    public static final String FAS_PF_SPEC_003_001 = "FAS_PF_SPEC-003-001";
+
+    /**
      * Fascicolo {0}: Errore nella verifica dei dati di profilo normativo del fascicolo. {1}
      */
     public static final String FAS_PF_NORM_002_001 = "FAS_PF_NORM-002-001";

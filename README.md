@@ -16,7 +16,7 @@ Di seguito verranno riportati sotto alcuni paragrafi, le modalità possibili con
 
 ## Rilascio su RedHat Openshift
 
-Per la creazione dell'applicazione con risorse necessarie correlate sotto Openshift (https://www.redhat.com/it/technologies/cloud-computing/openshift) viene fornito un apposito template (la solzuzione, modificabile, è basata su Oracle DB) [template](src/main/openshift/verifica-firma-crypto-template.yml).
+Per la creazione dell'applicazione con risorse necessarie correlate sotto Openshift (https://www.redhat.com/it/technologies/cloud-computing/openshift) viene fornito un apposito template (la solzuzione, modificabile, è basata su Oracle DB) [template](src/main/openshift/versamento-fascicolo-v3-template.yml).
 
 
 # Utilizzo

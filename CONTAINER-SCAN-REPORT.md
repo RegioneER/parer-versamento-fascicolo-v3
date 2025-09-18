@@ -1,7 +1,12 @@
 ## Container scan evidence CVE
 <strong>Image name:</strong> registry.ente.regione.emr.it/parer/okd/versamento-fascicolo-v3:sast
-<br/><strong>Run date:</strong> Wed Jun 11 12:10:31 CEST 2025
-<br/><strong>Produced by:</strong> <a href="https://gitlab.ente.regione.emr.it/parer/okd/versamento-fascicolo-v3/-/jobs/649852">Job</a>
-<br/><strong>CVE founded:</strong> 0
+<br/><strong>Run date:</strong> Thu Sep 18 11:28:26 CEST 2025
+<br/><strong>Produced by:</strong> <a href="https://gitlab.ente.regione.emr.it/parer/okd/versamento-fascicolo-v3/-/jobs/753236">Job</a>
+<br/><strong>CVE founded:</strong> 5
 | CVE | Description | Severity | Solution | 
 |:---:|:---|:---:|:---|
+| [CVE-2025-58060](https://access.redhat.com/errata/RHSA-2025:15702)|OpenPrinting CUPS is an open source printing system for Linux and other Unix-like operating systems. In versions 2.4.12 and earlier, when the `AuthType` is set to anything but `Basic`, if the request contains an `Authorization: Basic ...` header, the password is not checked. This results in authentication bypass. Any configuration that allows an `AuthType` that is not `Basic` is affected. Version 2.4.13 fixes the issue.|High|Upgrade cups-libs to 1:2.2.6-63.el8_10|
+| [CVE-2025-59375](https://access.redhat.com/security/cve/CVE-2025-59375)|libexpat in Expat before 2.7.2 allows attackers to trigger large dynamic memory allocations via a small document that is submitted for parsing.|High|No solution provided|
+| [CVE-2025-5914](https://access.redhat.com/errata/RHSA-2025:14130)|A vulnerability has been identified in the libarchive library, specifically within the archive_read_format_rar_seek_data() function. This flaw involves an integer overflow that can ultimately lead to a double-free condition. Exploiting a double-free vulnerability can result in memory corruption, enabling an attacker to execute arbitrary code or cause a denial-of-service condition.|High|Upgrade libarchive to 3.3.3-6.el8_10|
+| [CVE-2025-7425](https://access.redhat.com/errata/RHSA-2025:12447)|A flaw was found in libxslt where the attribute type, atype, flags are modified in a way that corrupts internal memory management. When XSLT functions, such as the key() process, result in tree fragments, this corruption prevents the proper cleanup of ID attributes. As a result, the system may access freed memory, causing crashes or enabling attackers to trigger heap corruption.|High|Upgrade libxml2 to 2.9.7-21.el8_10.2|
+| [CVE-2025-6965](https://access.redhat.com/errata/RHSA-2025:11992)|There exists a vulnerability in SQLite versions before 3.50.2 where the number of aggregate terms could exceed the number of columns available. This could lead to a memory corruption issue. We recommend upgrading to version 3.50.2 or above.|High|Upgrade sqlite-libs to 3.26.0-20.el8_10|
