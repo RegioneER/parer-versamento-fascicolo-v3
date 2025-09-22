@@ -4,10 +4,10 @@
 	<parent>
 		<groupId>it.eng.parer</groupId>
 		<artifactId>parer-pom</artifactId>
-        <version>7.1.0</version>
+        <version>7.1.2</version>
 	</parent>
 	<artifactId>versamento-fascicolo-v3</artifactId>
-	<version>1.5.1-SNAPSHOT</version>
+	<version>1.5.2-SNAPSHOT</version>
 	<name>Versamento Fascicolo 3.0</name>
 	<description>Progetto versamento-fascicolo-v3</description>
 <scm>

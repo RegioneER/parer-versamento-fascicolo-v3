@@ -810,11 +810,11 @@ public class ControlliProfiliFascicoloService implements IControlliProfiliFascic
 		    return rispostaControlliAttSpec;
 		}
 	    } else {
-		rispostaControlliAttSpec.setCodErr(MessaggiWSBundle.ERR_666);
-		rispostaControlliAttSpec
-			.setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666,
-				"GestioneDatiSpec.parseDatiSpec.i dati specifici attesi "
-					+ "non coincidono con l'XSD "));
+		rispostaControlliAttSpec.setCodErr(MessaggiWSBundle.FAS_PF_SPEC_003_001);
+		rispostaControlliAttSpec.setDsErr(MessaggiWSBundle.getString(
+			MessaggiWSBundle.FAS_PF_SPEC_003_001, svf.getUrnPartChiaveFascicolo(),
+			"GestioneDatiSpec.parseDatiSpec.i dati specifici attesi "
+				+ "non coincidono con l'XSD "));
 		return rispostaControlliAttSpec;
 	    }
 	}
