@@ -7,12 +7,12 @@
         <version>7.1.2</version>
 	</parent>
 	<artifactId>versamento-fascicolo-v3</artifactId>
-	<version>1.5.1</version>
+	<version>1.5.2-SNAPSHOT</version>
 	<name>Versamento Fascicolo 3.0</name>
 	<description>Progetto versamento-fascicolo-v3</description>
 <scm>
 		<developerConnection>scm:git:https://github.com/RegioneER/parer-versamento-fascicolo-v3.git</developerConnection>
-		<tag>versamento-fascicolo-v3-1.5.1</tag>
+		<tag>versamento-fascicolo-v3-1.5.0</tag>
 	</scm>
 <distributionManagement>
 		<repository>
