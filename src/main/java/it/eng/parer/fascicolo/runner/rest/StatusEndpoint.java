@@ -50,23 +50,23 @@ public class StatusEndpoint {
     private final SmallRyeHealthReporter reporter;
 
     public StatusEndpoint(SmallRyeHealthReporter reporter) {
-	this.reporter = reporter;
+        this.reporter = reporter;
     }
 
     @Operation(summary = "Stato applicazione", description = "Stato applicazione")
     @SecurityRequirement(name = "bearerAuth")
     @APIResponses(value = {
-	    @APIResponse(responseCode = "200", description = "Stato applicazione", content = @Content(mediaType = "application/problem+json")),
-	    @APIResponse(responseCode = "500", description = "Errore interno"),
-	    @APIResponse(responseCode = "503", description = "Servizio non disponibile") })
+            @APIResponse(responseCode = "200", description = "Stato applicazione", content = @Content(mediaType = "application/problem+json")),
+            @APIResponse(responseCode = "500", description = "Errore interno"),
+            @APIResponse(responseCode = "503", description = "Servizio non disponibile") })
     @GET
     @Produces("application/problem+json")
     @Blocking
     public Response status() {
-	// Get liveness payload
-	return Response.ok(reporter.getLiveness().getPayload())
-		.lastModified(
-			Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
-		.build();
+        // Get liveness payload
+        return Response.ok(reporter.getLiveness().getPayload())
+                .lastModified(
+                        Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+                .build();
     }
 }

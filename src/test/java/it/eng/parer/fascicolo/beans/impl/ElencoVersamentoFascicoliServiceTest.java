@@ -29,7 +29,7 @@ class ElencoVersamentoFascicoliServiceTest {
 
     @Test
     void wip() {
-	assertTrue(true);
+        assertTrue(true);
     }
     /*
      * @Test void scriviElvFascDaElabElenco() { service.scriviElvFascDaElabElenco(new

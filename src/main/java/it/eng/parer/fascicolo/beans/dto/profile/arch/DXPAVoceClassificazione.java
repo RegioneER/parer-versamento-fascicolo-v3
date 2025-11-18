@@ -28,26 +28,26 @@ public class DXPAVoceClassificazione implements Serializable {
     String descrizioneVoce;
 
     public String getCodiceVoce() {
-	return codiceVoce;
+        return codiceVoce;
     }
 
     public void setCodiceVoce(String codiceVoce) {
-	Assert.assertNotNull(codiceVoce);
-	this.codiceVoce = codiceVoce;
+        Assert.assertNotNull(codiceVoce);
+        this.codiceVoce = codiceVoce;
     }
 
     public String getDescrizioneVoce() {
-	return descrizioneVoce;
+        return descrizioneVoce;
     }
 
     public void setDescrizioneVoce(String descrizioneVoce) {
-	Assert.assertNotNull(descrizioneVoce);
-	this.descrizioneVoce = descrizioneVoce;
+        Assert.assertNotNull(descrizioneVoce);
+        this.descrizioneVoce = descrizioneVoce;
     }
 
     @Override
     public String toString() {
-	return codiceVoce + " - " + descrizioneVoce;
+        return codiceVoce + " - " + descrizioneVoce;
     }
 
 }

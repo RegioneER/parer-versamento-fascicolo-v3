@@ -31,7 +31,7 @@ public class MessaggiWSBundle {
     public static final String DEFAULT_LOCALE = "it";
 
     private MessaggiWSBundle() {
-	throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("Utility class");
     }
 
     /*
@@ -39,39 +39,39 @@ public class MessaggiWSBundle {
      * della classe originale: un normalissimo Bundle con un file di properties
      */
     public static String getString(String key) {
-	switch (key) {
-	case MessaggiWSBundle.ERR_666:
-	    return getDefaultErrorMessage(key);
-	case MessaggiWSBundle.ERR_666P:
-	    return getDefaultErrorMessage(key);
-	default:
-	    // l'operazione di StringEscapeUtils.unescapeJava viene svolta nel singleton
-	    return lookupCacheRef().getString(key);
-	}
+        switch (key) {
+        case MessaggiWSBundle.ERR_666:
+            return getDefaultErrorMessage(key);
+        case MessaggiWSBundle.ERR_666P:
+            return getDefaultErrorMessage(key);
+        default:
+            // l'operazione di StringEscapeUtils.unescapeJava viene svolta nel singleton
+            return lookupCacheRef().getString(key);
+        }
     }
 
     public static String getString(String key, Object... params) {
-	switch (key) {
-	case MessaggiWSBundle.ERR_666:
-	    return getDefaultErrorMessage(key, params);
-	case MessaggiWSBundle.ERR_666P:
-	    return getDefaultErrorMessage(key, params);
-	default:
-	    // l'operazione di StringEscapeUtils.unescapeJava viene svolta nel singleton
-	    return lookupCacheRef().getString(key, params);
-	}
+        switch (key) {
+        case MessaggiWSBundle.ERR_666:
+            return getDefaultErrorMessage(key, params);
+        case MessaggiWSBundle.ERR_666P:
+            return getDefaultErrorMessage(key, params);
+        default:
+            // l'operazione di StringEscapeUtils.unescapeJava viene svolta nel singleton
+            return lookupCacheRef().getString(key, params);
+        }
     }
 
     private static MessaggiWSCache lookupCacheRef() {
-	return Arc.container().instance(MessaggiWSCache.class).get();
+        return Arc.container().instance(MessaggiWSCache.class).get();
     }
 
     private static String getDefaultErrorMessage(String key, Object... params) {
-	// get or generate uuid
-	final String uuid = UUIDMdcLogUtil.getUuid();
-	// log original message
-	log.atError().log("Risposta originale : {}", lookupCacheRef().getString(key, params));
-	return lookupCacheRef().getString(MessaggiWSBundle.WS_GENERIC_ERROR_UUID, uuid);
+        // get or generate uuid
+        final String uuid = UUIDMdcLogUtil.getUuid();
+        // log original message
+        log.atError().log("Risposta originale : {}", lookupCacheRef().getString(key, params));
+        return lookupCacheRef().getString(MessaggiWSBundle.WS_GENERIC_ERROR_UUID, uuid);
     }
 
     // ERRORI IMPREVISTI TEMPLATE (ossia da restituire all'utente a fronte degli

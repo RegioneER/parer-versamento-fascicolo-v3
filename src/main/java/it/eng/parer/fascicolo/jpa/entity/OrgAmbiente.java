@@ -19,18 +19,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -58,161 +51,158 @@ public class OrgAmbiente implements Serializable {
     private List<AplValParamApplicMulti> aplValParamApplicMultis = new ArrayList<>();
 
     public OrgAmbiente() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "ORG_AMBIENTE_IDAMBIENTE_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_AMBIENTE"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_AMBIENTE_IDAMBIENTE_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SORG_AMBIENTE", incrementBy = 1)
     @Column(name = "ID_AMBIENTE")
     public Long getIdAmbiente() {
-	return this.idAmbiente;
+        return this.idAmbiente;
     }
 
     public void setIdAmbiente(Long idAmbiente) {
-	this.idAmbiente = idAmbiente;
+        this.idAmbiente = idAmbiente;
     }
 
     @Column(name = "DS_AMBIENTE")
     public String getDsAmbiente() {
-	return this.dsAmbiente;
+        return this.dsAmbiente;
     }
 
     public void setDsAmbiente(String dsAmbiente) {
-	this.dsAmbiente = dsAmbiente;
+        this.dsAmbiente = dsAmbiente;
     }
 
     @Column(name = "NM_AMBIENTE")
     public String getNmAmbiente() {
-	return this.nmAmbiente;
+        return this.nmAmbiente;
     }
 
     public void setNmAmbiente(String nmAmbiente) {
-	this.nmAmbiente = nmAmbiente;
+        this.nmAmbiente = nmAmbiente;
     }
 
     // bi-directional many-to-one association to OrgEnte
     @OneToMany(mappedBy = "orgAmbiente")
     public List<OrgEnte> getOrgEntes() {
-	return this.orgEntes;
+        return this.orgEntes;
     }
 
     public void setOrgEntes(List<OrgEnte> orgEntes) {
-	this.orgEntes = orgEntes;
+        this.orgEntes = orgEntes;
     }
 
     public OrgEnte addOrgEnte(OrgEnte orgEnte) {
-	getOrgEntes().add(orgEnte);
-	orgEnte.setOrgAmbiente(this);
+        getOrgEntes().add(orgEnte);
+        orgEnte.setOrgAmbiente(this);
 
-	return orgEnte;
+        return orgEnte;
     }
 
     public OrgEnte removeOrgEnte(OrgEnte orgEnte) {
-	getOrgEntes().remove(orgEnte);
-	orgEnte.setOrgAmbiente(null);
+        getOrgEntes().remove(orgEnte);
+        orgEnte.setOrgAmbiente(null);
 
-	return orgEnte;
+        return orgEnte;
     }
 
     @Column(name = "DS_NOTE")
     public String getDsNote() {
-	return this.dsNote;
+        return this.dsNote;
     }
 
     public void setDsNote(String dsNote) {
-	this.dsNote = dsNote;
+        this.dsNote = dsNote;
     }
 
     @Column(name = "DT_FIN_VAL")
     public LocalDateTime getDtFinVal() {
-	return this.dtFinVal;
+        return this.dtFinVal;
     }
 
     public void setDtFinVal(LocalDateTime dtFinVal) {
-	this.dtFinVal = dtFinVal;
+        this.dtFinVal = dtFinVal;
     }
 
     @Column(name = "DT_INI_VAL")
     public LocalDateTime getDtIniVal() {
-	return this.dtIniVal;
+        return this.dtIniVal;
     }
 
     public void setDtIniVal(LocalDateTime dtIniVal) {
-	this.dtIniVal = dtIniVal;
+        this.dtIniVal = dtIniVal;
     }
 
     @Column(name = "ID_ENTE_CONSERV")
     public java.math.BigDecimal getIdEnteConserv() {
-	return this.idEnteConserv;
+        return this.idEnteConserv;
     }
 
     public void setIdEnteConserv(java.math.BigDecimal idEnteConserv) {
-	this.idEnteConserv = idEnteConserv;
+        this.idEnteConserv = idEnteConserv;
     }
 
     @Column(name = "ID_ENTE_GESTORE")
     public java.math.BigDecimal getIdEnteGestore() {
-	return this.idEnteGestore;
+        return this.idEnteGestore;
     }
 
     public void setIdEnteGestore(java.math.BigDecimal idEnteGestore) {
-	this.idEnteGestore = idEnteGestore;
+        this.idEnteGestore = idEnteGestore;
     }
 
     // bi-directional many-to-one association to AplValoreParamApplic
     @OneToMany(mappedBy = "orgAmbiente", cascade = {
-	    CascadeType.REMOVE })
+            CascadeType.REMOVE })
     public List<AplValoreParamApplic> getAplValoreParamApplics() {
-	return this.aplValoreParamApplics;
+        return this.aplValoreParamApplics;
     }
 
     public void setAplValoreParamApplics(List<AplValoreParamApplic> aplValoreParamApplics) {
-	this.aplValoreParamApplics = aplValoreParamApplics;
+        this.aplValoreParamApplics = aplValoreParamApplics;
     }
 
     public AplValoreParamApplic addAplValoreParamApplic(AplValoreParamApplic aplValoreParamApplic) {
-	getAplValoreParamApplics().add(aplValoreParamApplic);
-	aplValoreParamApplic.setOrgAmbiente(this);
+        getAplValoreParamApplics().add(aplValoreParamApplic);
+        aplValoreParamApplic.setOrgAmbiente(this);
 
-	return aplValoreParamApplic;
+        return aplValoreParamApplic;
     }
 
     public AplValoreParamApplic removeAplValoreParamApplic(
-	    AplValoreParamApplic aplValoreParamApplic) {
-	getAplValoreParamApplics().remove(aplValoreParamApplic);
-	aplValoreParamApplic.setOrgAmbiente(null);
+            AplValoreParamApplic aplValoreParamApplic) {
+        getAplValoreParamApplics().remove(aplValoreParamApplic);
+        aplValoreParamApplic.setOrgAmbiente(null);
 
-	return aplValoreParamApplic;
+        return aplValoreParamApplic;
     }
 
     // bi-directional many-to-one association to AplValParamApplicMulti
     @OneToMany(mappedBy = "orgAmbiente", cascade = {
-	    CascadeType.REMOVE })
+            CascadeType.REMOVE })
     public List<AplValParamApplicMulti> getAplValParamApplicMultis() {
-	return this.aplValParamApplicMultis;
+        return this.aplValParamApplicMultis;
     }
 
     public void setAplValParamApplicMultis(List<AplValParamApplicMulti> aplValParamApplicMultis) {
-	this.aplValParamApplicMultis = aplValParamApplicMultis;
+        this.aplValParamApplicMultis = aplValParamApplicMultis;
     }
 
     public AplValParamApplicMulti addAplValParamApplicMulti(
-	    AplValParamApplicMulti aplValParamApplicMulti) {
-	getAplValParamApplicMultis().add(aplValParamApplicMulti);
-	aplValParamApplicMulti.setOrgAmbiente(this);
+            AplValParamApplicMulti aplValParamApplicMulti) {
+        getAplValParamApplicMultis().add(aplValParamApplicMulti);
+        aplValParamApplicMulti.setOrgAmbiente(this);
 
-	return aplValParamApplicMulti;
+        return aplValParamApplicMulti;
     }
 
     public AplValParamApplicMulti removeAplValParamApplicMulti(
-	    AplValParamApplicMulti aplValParamApplicMulti) {
-	getAplValParamApplicMultis().remove(aplValParamApplicMulti);
-	aplValParamApplicMulti.setOrgAmbiente(null);
+            AplValParamApplicMulti aplValParamApplicMulti) {
+        getAplValParamApplicMultis().remove(aplValParamApplicMulti);
+        aplValParamApplicMulti.setOrgAmbiente(null);
 
-	return aplValParamApplicMulti;
+        return aplValParamApplicMulti;
     }
 
 }

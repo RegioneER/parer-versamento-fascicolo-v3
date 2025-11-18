@@ -29,25 +29,25 @@ public class DXPAFascicoloCollegato implements Serializable {
     protected CSChiaveFasc csChiaveFasc;
 
     public String getDescCollegamento() {
-	return descCollegamento;
+        return descCollegamento;
     }
 
     public void setDescCollegamento(String descCollegamento) {
-	this.descCollegamento = descCollegamento;
+        this.descCollegamento = descCollegamento;
     }
 
     public CSChiaveFasc getCsChiaveFasc() {
-	return csChiaveFasc;
+        return csChiaveFasc;
     }
 
     public void setCsChiaveFasc(CSChiaveFasc csChiaveFasc) {
-	Assert.assertNotNull(csChiaveFasc);
-	this.csChiaveFasc = csChiaveFasc;
+        Assert.assertNotNull(csChiaveFasc);
+        this.csChiaveFasc = csChiaveFasc;
     }
 
     @Override
     public String toString() {
-	return descCollegamento + " - " + csChiaveFasc;
+        return descCollegamento + " - " + csChiaveFasc;
     }
 
 }

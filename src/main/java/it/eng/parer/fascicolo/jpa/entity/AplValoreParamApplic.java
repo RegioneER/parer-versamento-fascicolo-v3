@@ -15,17 +15,10 @@ package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -52,83 +45,80 @@ public class AplValoreParamApplic implements Serializable {
     private OrgStrut orgStrut;
 
     public AplValoreParamApplic() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "APL_VALORE_PARAM_APPLIC_IDVALOREPARAMAPPLIC_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SAPL_VALORE_PARAM_APPLIC"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APL_VALORE_PARAM_APPLIC_IDVALOREPARAMAPPLIC_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SAPL_VALORE_PARAM_APPLIC", incrementBy = 1)
     @Column(name = "ID_VALORE_PARAM_APPLIC")
     public Long getIdValoreParamApplic() {
-	return this.idValoreParamApplic;
+        return this.idValoreParamApplic;
     }
 
     public void setIdValoreParamApplic(Long idValoreParamApplic) {
-	this.idValoreParamApplic = idValoreParamApplic;
+        this.idValoreParamApplic = idValoreParamApplic;
     }
 
     @Column(name = "DS_VALORE_PARAM_APPLIC")
     public String getDsValoreParamApplic() {
-	return this.dsValoreParamApplic;
+        return this.dsValoreParamApplic;
     }
 
     public void setDsValoreParamApplic(String dsValoreParamApplic) {
-	this.dsValoreParamApplic = dsValoreParamApplic;
+        this.dsValoreParamApplic = dsValoreParamApplic;
     }
 
     @Column(name = "TI_APPART")
     public String getTiAppart() {
-	return this.tiAppart;
+        return this.tiAppart;
     }
 
     public void setTiAppart(String tiAppart) {
-	this.tiAppart = tiAppart;
+        this.tiAppart = tiAppart;
     }
 
     // bi-directional many-to-one association to AplParamApplic
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PARAM_APPLIC")
     public AplParamApplic getAplParamApplic() {
-	return this.aplParamApplic;
+        return this.aplParamApplic;
     }
 
     public void setAplParamApplic(AplParamApplic aplParamApplic) {
-	this.aplParamApplic = aplParamApplic;
+        this.aplParamApplic = aplParamApplic;
     }
 
     // bi-directional many-to-one association to DecAaTipoFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AA_TIPO_FASCICOLO")
     public DecAaTipoFascicolo getDecAaTipoFascicolo() {
-	return this.decAaTipoFascicolo;
+        return this.decAaTipoFascicolo;
     }
 
     public void setDecAaTipoFascicolo(DecAaTipoFascicolo decAaTipoFascicolo) {
-	this.decAaTipoFascicolo = decAaTipoFascicolo;
+        this.decAaTipoFascicolo = decAaTipoFascicolo;
     }
 
     // bi-directional many-to-one association to DecTipoUnitaDoc
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_UNITA_DOC")
     public DecTipoUnitaDoc getDecTipoUnitaDoc() {
-	return this.decTipoUnitaDoc;
+        return this.decTipoUnitaDoc;
     }
 
     public void setDecTipoUnitaDoc(DecTipoUnitaDoc decTipoUnitaDoc) {
-	this.decTipoUnitaDoc = decTipoUnitaDoc;
+        this.decTipoUnitaDoc = decTipoUnitaDoc;
     }
 
     // bi-directional many-to-one association to OrgAmbiente
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AMBIENTE")
     public OrgAmbiente getOrgAmbiente() {
-	return this.orgAmbiente;
+        return this.orgAmbiente;
     }
 
     public void setOrgAmbiente(OrgAmbiente orgAmbiente) {
-	this.orgAmbiente = orgAmbiente;
+        this.orgAmbiente = orgAmbiente;
     }
 
     // bi-directional many-to-one association to OrgStrut
@@ -136,11 +126,11 @@ public class AplValoreParamApplic implements Serializable {
     @JoinColumn(name = "ID_STRUT")
 
     public OrgStrut getOrgStrut() {
-	return this.orgStrut;
+        return this.orgStrut;
     }
 
     public void setOrgStrut(OrgStrut orgStrut) {
-	this.orgStrut = orgStrut;
+        this.orgStrut = orgStrut;
     }
 
 }

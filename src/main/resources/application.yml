@@ -49,6 +49,8 @@ quarkus:
   hibernate-orm:
     dialect: "org.hibernate.dialect.OracleDialect"
     packages: "it.eng.parer.fascicolo.jpa"
+    jdbc:
+     statement-fetch-size: 1000
   smallrye-openapi:
     info-title: "Fascicolo API (sip xml versione 3)"   
   swagger-ui:
@@ -65,7 +67,6 @@ quarkus:
   log:
     level: INFO
     console:
-      json: false
       format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %X{log_uuid} %s%e%n"
 # indicizzazione beans esterni (TODO: da verificare)
 # [WARNING] [io.quarkus.deployment.steps.ReflectiveHierarchyStep] Unable to properly register the hierarchy of the following classes for reflection as they are not in the Jandex index:
@@ -89,8 +90,8 @@ parer:
     timeout: "PT1S"
    hibernate-orm:
      validate-in-dev-mode: false
-     database:
-       generation: "none"
+     schema-management:
+      strategy: "none"
      log:
       sql: false
       format-sql: false

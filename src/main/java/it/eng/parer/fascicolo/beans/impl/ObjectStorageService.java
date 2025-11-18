@@ -72,7 +72,7 @@ public class ObjectStorageService implements IObjectStorageService {
     private static final int BUFFER_SIZE = 10 * 1024 * 1024;
     //
     private static final FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions
-	    .asFileAttribute(PosixFilePermissions.fromString("rw-------"));
+            .asFileAttribute(PosixFilePermissions.fromString("rw-------"));
 
     @Inject
     private ISalvataggioBackendDao salvataggioBackendDao;
@@ -85,15 +85,15 @@ public class ObjectStorageService implements IObjectStorageService {
      *         {@link BackendStorage.STORAGE_TYPE#BLOB} e {@link BackendStorage.STORAGE_TYPE#OS}
      */
     public BackendStorage lookupBackendVrsSessioniErrKo() throws ObjectStorageException {
-	try {
-	    String tipoBackend = salvataggioBackendDao.getBackendSessioniErrKo();
+        try {
+            String tipoBackend = salvataggioBackendDao.getBackendSessioniErrKo();
 
-	    // tipo backend
-	    return salvataggioBackendDao.getBackend(tipoBackend);
+            // tipo backend
+            return salvataggioBackendDao.getBackend(tipoBackend);
 
-	} catch (Exception e) {
-	    throw ObjectStorageException.builder().cause(e).build();
-	}
+        } catch (Exception e) {
+            throw ObjectStorageException.builder().cause(e).build();
+        }
     }
 
     /**
@@ -108,16 +108,16 @@ public class ObjectStorageService implements IObjectStorageService {
      * @throws ObjectStorageException in caso di errore.
      */
     public BackendStorage lookupBackendByServiceName(long idAaTipoFascicolo, String nomeWs)
-	    throws ObjectStorageException {
-	try {
+            throws ObjectStorageException {
+        try {
 
-	    String tipoBackend = salvataggioBackendDao.getBackendByServiceName(idAaTipoFascicolo,
-		    nomeWs);
-	    return salvataggioBackendDao.getBackend(tipoBackend);
+            String tipoBackend = salvataggioBackendDao.getBackendByServiceName(idAaTipoFascicolo,
+                    nomeWs);
+            return salvataggioBackendDao.getBackend(tipoBackend);
 
-	} catch (Exception e) {
-	    throw ObjectStorageException.builder().cause(e).build();
-	}
+        } catch (Exception e) {
+            throw ObjectStorageException.builder().cause(e).build();
+        }
     }
 
     /**
@@ -131,24 +131,24 @@ public class ObjectStorageService implements IObjectStorageService {
      * @return risorsa su OS che identifica il file caricato
      */
     public ObjectStorageResource createSipInSessioniKo(String nomeBackend,
-	    Map<String, String> xmlFiles, long idSesFascicoloKo, BigDecimal idStrut) {
-	try {
-	    ObjectStorageBackend configuration = salvataggioBackendDao
-		    .getObjectStorageConfiguration(nomeBackend, SESSIONI_FASC_ERR_KO);
-	    // generate std tag
-	    Set<Tag> tags = new HashSet<>();
-	    tags.add(Tag.builder().key(TAG_KEY_VRSOBJ_TYPE)
-		    .value(TAG_VALUE_VRSOBJ_METADATI_FASC_ERR_KO).build());
-	    // punt on O.S.
-	    ObjectStorageResource savedFile = createMetaXmlMapAndPutOnBucket(null, xmlFiles,
-		    configuration, tags);
-	    // link
-	    salvataggioBackendDao.saveObjectStorageLinkSipSessioneKo(savedFile, nomeBackend,
-		    idSesFascicoloKo, idStrut);
-	    return savedFile;
-	} catch (ObjectStorageException | IOException | NoSuchAlgorithmException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+            Map<String, String> xmlFiles, long idSesFascicoloKo, BigDecimal idStrut) {
+        try {
+            ObjectStorageBackend configuration = salvataggioBackendDao
+                    .getObjectStorageConfiguration(nomeBackend, SESSIONI_FASC_ERR_KO);
+            // generate std tag
+            Set<Tag> tags = new HashSet<>();
+            tags.add(Tag.builder().key(TAG_KEY_VRSOBJ_TYPE)
+                    .value(TAG_VALUE_VRSOBJ_METADATI_FASC_ERR_KO).build());
+            // punt on O.S.
+            ObjectStorageResource savedFile = createMetaXmlMapAndPutOnBucket(null, xmlFiles,
+                    configuration, tags);
+            // link
+            salvataggioBackendDao.saveObjectStorageLinkSipSessioneKo(savedFile, nomeBackend,
+                    idSesFascicoloKo, idStrut);
+            return savedFile;
+        } catch (ObjectStorageException | IOException | NoSuchAlgorithmException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
     }
 
     /**
@@ -162,24 +162,24 @@ public class ObjectStorageService implements IObjectStorageService {
      * @return risorsa su OS che identifica il file caricato
      */
     public ObjectStorageResource createSipInSessioniErr(String nomeBackend,
-	    Map<String, String> xmlFiles, long idSesFascicoloErr, BigDecimal idStrut) {
-	try {
-	    ObjectStorageBackend configuration = salvataggioBackendDao
-		    .getObjectStorageConfiguration(nomeBackend, SESSIONI_FASC_ERR_KO);
-	    // generate std tag
-	    Set<Tag> tags = new HashSet<>();
-	    tags.add(Tag.builder().key(TAG_KEY_VRSOBJ_TYPE)
-		    .value(TAG_VALUE_VRSOBJ_METADATI_FASC_ERR_KO).build());
-	    // punt on O.S.
-	    ObjectStorageResource savedFile = createMetaXmlMapAndPutOnBucket(null, xmlFiles,
-		    configuration, tags);
-	    // link
-	    salvataggioBackendDao.saveObjectStorageLinkSipSessioneErr(savedFile, nomeBackend,
-		    idSesFascicoloErr, idStrut);
-	    return savedFile;
-	} catch (ObjectStorageException | IOException | NoSuchAlgorithmException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+            Map<String, String> xmlFiles, long idSesFascicoloErr, BigDecimal idStrut) {
+        try {
+            ObjectStorageBackend configuration = salvataggioBackendDao
+                    .getObjectStorageConfiguration(nomeBackend, SESSIONI_FASC_ERR_KO);
+            // generate std tag
+            Set<Tag> tags = new HashSet<>();
+            tags.add(Tag.builder().key(TAG_KEY_VRSOBJ_TYPE)
+                    .value(TAG_VALUE_VRSOBJ_METADATI_FASC_ERR_KO).build());
+            // punt on O.S.
+            ObjectStorageResource savedFile = createMetaXmlMapAndPutOnBucket(null, xmlFiles,
+                    configuration, tags);
+            // link
+            salvataggioBackendDao.saveObjectStorageLinkSipSessioneErr(savedFile, nomeBackend,
+                    idSesFascicoloErr, idStrut);
+            return savedFile;
+        } catch (ObjectStorageException | IOException | NoSuchAlgorithmException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
     }
 
     /**
@@ -193,20 +193,20 @@ public class ObjectStorageService implements IObjectStorageService {
      * @return risorsa su OS che identifica il file caricato
      */
     public ObjectStorageResource createResourcesInSipFascicoli(final String urn, String nomeBackend,
-	    Map<String, String> xmlFiles, long idFascicolo, BigDecimal idStrut) {
-	try {
-	    ObjectStorageBackend configuration = salvataggioBackendDao
-		    .getObjectStorageConfiguration(nomeBackend, METADATI_FASCICOLI);
-	    // put on O.S.
-	    ObjectStorageResource savedFile = createMetaXmlMapAndPutOnBucket(urn, xmlFiles,
-		    configuration, SetUtils.emptySet());
-	    // link
-	    salvataggioBackendDao.saveObjectStorageLinkSipFasc(savedFile, nomeBackend, idFascicolo,
-		    idStrut);
-	    return savedFile;
-	} catch (ObjectStorageException | IOException | NoSuchAlgorithmException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+            Map<String, String> xmlFiles, long idFascicolo, BigDecimal idStrut) {
+        try {
+            ObjectStorageBackend configuration = salvataggioBackendDao
+                    .getObjectStorageConfiguration(nomeBackend, METADATI_FASCICOLI);
+            // put on O.S.
+            ObjectStorageResource savedFile = createMetaXmlMapAndPutOnBucket(urn, xmlFiles,
+                    configuration, SetUtils.emptySet());
+            // link
+            salvataggioBackendDao.saveObjectStorageLinkSipFasc(savedFile, nomeBackend, idFascicolo,
+                    idStrut);
+            return savedFile;
+        } catch (ObjectStorageException | IOException | NoSuchAlgorithmException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
 
     }
 
@@ -221,52 +221,52 @@ public class ObjectStorageService implements IObjectStorageService {
      * @return risorsa su OS che identifica il file caricato
      */
     public ObjectStorageResource createResourcesInMetaProfFascicoli(final String urn,
-	    String nomeBackend, Map<String, String> xmlFiles, long idFascicolo,
-	    BigDecimal idStrut) {
-	try {
-	    ObjectStorageBackend configuration = salvataggioBackendDao
-		    .getObjectStorageConfiguration(nomeBackend, METADATI_FASCICOLI);
-	    // put on O.S.
-	    ObjectStorageResource savedFile = createMetaXmlMapAndPutOnBucket(urn, xmlFiles,
-		    configuration, SetUtils.emptySet());
-	    // link
-	    salvataggioBackendDao.saveObjectStorageLinkMetaProfFasc(savedFile, nomeBackend,
-		    idFascicolo, idStrut);
-	    return savedFile;
-	} catch (ObjectStorageException | IOException | NoSuchAlgorithmException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+            String nomeBackend, Map<String, String> xmlFiles, long idFascicolo,
+            BigDecimal idStrut) {
+        try {
+            ObjectStorageBackend configuration = salvataggioBackendDao
+                    .getObjectStorageConfiguration(nomeBackend, METADATI_FASCICOLI);
+            // put on O.S.
+            ObjectStorageResource savedFile = createMetaXmlMapAndPutOnBucket(urn, xmlFiles,
+                    configuration, SetUtils.emptySet());
+            // link
+            salvataggioBackendDao.saveObjectStorageLinkMetaProfFasc(savedFile, nomeBackend,
+                    idFascicolo, idStrut);
+            return savedFile;
+        } catch (ObjectStorageException | IOException | NoSuchAlgorithmException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
 
     }
 
     private ObjectStorageResource createMetaXmlMapAndPutOnBucket(final String urn,
-	    Map<String, String> xmlFiles, ObjectStorageBackend configuration, Set<Tag> tags)
-	    throws IOException, ObjectStorageException, NoSuchAlgorithmException {
-	ObjectStorageResource savedFile = null;
-	Path tempZip = Files.createTempFile("metadati-", ".zip", attr);
-	//
-	try (InputStream is = Files.newInputStream(tempZip)) {
-	    // create key
-	    final String key;
-	    if (StringUtils.isBlank(urn)) {
-		key = createRandomKey() + ".zip";
-	    } else {
-		key = createRandomKey(urn) + ".zip";
-	    }
-	    // create zip file
-	    createZipFile(xmlFiles, tempZip);
-	    // put on O.S.
-	    savedFile = salvataggioBackendDao.putObject(is, Files.size(tempZip), key, configuration,
-		    Optional.empty(), Optional.of(tags),
-		    Optional.of(calculateFileCRC32CBase64(tempZip)));
-	    log.debug("Salvato file {}/{}", savedFile.getBucket(), savedFile.getKey());
-	} finally {
-	    if (tempZip != null) {
-		Files.delete(tempZip);
-	    }
-	}
+            Map<String, String> xmlFiles, ObjectStorageBackend configuration, Set<Tag> tags)
+            throws IOException, ObjectStorageException, NoSuchAlgorithmException {
+        ObjectStorageResource savedFile = null;
+        Path tempZip = Files.createTempFile("metadati-", ".zip", attr);
+        //
+        try (InputStream is = Files.newInputStream(tempZip)) {
+            // create key
+            final String key;
+            if (StringUtils.isBlank(urn)) {
+                key = createRandomKey() + ".zip";
+            } else {
+                key = createRandomKey(urn) + ".zip";
+            }
+            // create zip file
+            createZipFile(xmlFiles, tempZip);
+            // put on O.S.
+            savedFile = salvataggioBackendDao.putObject(is, Files.size(tempZip), key, configuration,
+                    Optional.empty(), Optional.of(tags),
+                    Optional.of(calculateFileCRC32CBase64(tempZip)));
+            log.debug("Salvato file {}/{}", savedFile.getBucket(), savedFile.getKey());
+        } finally {
+            if (tempZip != null) {
+                Files.delete(tempZip);
+            }
+        }
 
-	return savedFile;
+        return savedFile;
     }
 
     /**
@@ -282,13 +282,13 @@ public class ObjectStorageService implements IObjectStorageService {
      * @throws ObjectStorageException in caso di errore.
      */
     public void saveLinkVrsSesKoFromObjectStorage(ObjectStorageResource object, String nomeBackend,
-	    long idSesFascicoloKo, BigDecimal idStrut) throws ObjectStorageException {
-	try {
-	    salvataggioBackendDao.saveObjectStorageLinkSipSessioneKo(object, nomeBackend,
-		    idSesFascicoloKo, idStrut);
-	} catch (Exception e) {
-	    throw ObjectStorageException.builder().cause(e).build();
-	}
+            long idSesFascicoloKo, BigDecimal idStrut) throws ObjectStorageException {
+        try {
+            salvataggioBackendDao.saveObjectStorageLinkSipSessioneKo(object, nomeBackend,
+                    idSesFascicoloKo, idStrut);
+        } catch (Exception e) {
+            throw ObjectStorageException.builder().cause(e).build();
+        }
     }
 
     /**
@@ -304,13 +304,13 @@ public class ObjectStorageService implements IObjectStorageService {
      * @throws ObjectStorageException in caso di errore.
      */
     public void saveLinkVrsSesErrFromObjectStorage(ObjectStorageResource object, String nomeBackend,
-	    long idSesFascicoloErr, BigDecimal idStrut) throws ObjectStorageException {
-	try {
-	    salvataggioBackendDao.saveObjectStorageLinkSipSessioneErr(object, nomeBackend,
-		    idSesFascicoloErr, idStrut);
-	} catch (Exception e) {
-	    throw ObjectStorageException.builder().cause(e).build();
-	}
+            long idSesFascicoloErr, BigDecimal idStrut) throws ObjectStorageException {
+        try {
+            salvataggioBackendDao.saveObjectStorageLinkSipSessioneErr(object, nomeBackend,
+                    idSesFascicoloErr, idStrut);
+        } catch (Exception e) {
+            throw ObjectStorageException.builder().cause(e).build();
+        }
     }
 
     /**
@@ -337,14 +337,14 @@ public class ObjectStorageService implements IObjectStorageService {
      * @throws IOException in caso di errore
      */
     private void createZipFile(Map<String, String> xmlFiles, Path zipFile) throws IOException {
-	try (ZipOutputStream out = new ZipOutputStream(Files.newOutputStream(zipFile))) {
-	    for (Entry<String, String> metaBlob : xmlFiles.entrySet()) {
-		ZipEntry entry = new ZipEntry(metaBlob.getKey() + ".xml");
-		out.putNextEntry(entry);
-		out.write(metaBlob.getValue().getBytes());
-		out.closeEntry();
-	    }
-	}
+        try (ZipOutputStream out = new ZipOutputStream(Files.newOutputStream(zipFile))) {
+            for (Entry<String, String> metaBlob : xmlFiles.entrySet()) {
+                ZipEntry entry = new ZipEntry(metaBlob.getKey() + ".xml");
+                out.putNextEntry(entry);
+                out.write(metaBlob.getValue().getBytes());
+                out.closeEntry();
+            }
+        }
     }
 
     /**
@@ -367,10 +367,10 @@ public class ObjectStorageService implements IObjectStorageService {
      */
     private static String createRandomKey() {
 
-	String when = DateTimeFormatter.ofPattern(PATTERN_FORMAT).withZone(ZoneId.systemDefault())
-		.format(Instant.now());
+        String when = DateTimeFormatter.ofPattern(PATTERN_FORMAT).withZone(ZoneId.systemDefault())
+                .format(Instant.now());
 
-	return when + "/" + UUIDMdcLogUtil.getUuid() + "/" + UUID.randomUUID().toString();
+        return when + "/" + UUIDMdcLogUtil.getUuid() + "/" + UUID.randomUUID().toString();
     }
 
     /**
@@ -391,10 +391,10 @@ public class ObjectStorageService implements IObjectStorageService {
      */
     private static String createRandomKey(final String urn) {
 
-	String when = DateTimeFormatter.ofPattern(PATTERN_FORMAT).withZone(ZoneId.systemDefault())
-		.format(Instant.now());
+        String when = DateTimeFormatter.ofPattern(PATTERN_FORMAT).withZone(ZoneId.systemDefault())
+                .format(Instant.now());
 
-	return when + "/" + urn + "/" + UUID.randomUUID().toString();
+        return when + "/" + urn + "/" + UUID.randomUUID().toString();
     }
 
     /**
@@ -410,14 +410,14 @@ public class ObjectStorageService implements IObjectStorageService {
      * @throws IOException errore generico
      */
     private String calculateFileCRC32CBase64(Path resource) throws IOException {
-	byte[] buffer = new byte[BUFFER_SIZE];
-	int readed;
-	CRC32CChecksum crc32c = new CRC32CChecksum();
-	try (InputStream is = Files.newInputStream(resource)) {
-	    while ((readed = is.read(buffer)) != -1) {
-		crc32c.update(buffer, 0, readed);
-	    }
-	}
-	return Base64.getEncoder().encodeToString(crc32c.getValueAsBytes());
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int readed;
+        CRC32CChecksum crc32c = new CRC32CChecksum();
+        try (InputStream is = Files.newInputStream(resource)) {
+            while ((readed = is.read(buffer)) != -1) {
+                crc32c.update(buffer, 0, readed);
+            }
+        }
+        return Base64.getEncoder().encodeToString(crc32c.getValueAsBytes());
     }
 }

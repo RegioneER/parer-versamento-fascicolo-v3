@@ -18,18 +18,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -63,136 +56,133 @@ public class FasSogFascicolo implements Serializable {
     private List<FasEventoSog> fasEventoSogs = new ArrayList<>();
 
     public FasSogFascicolo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "FAS_SOG_FASCICOLO_IDSOGFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_SOG_FASCICOLO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_SOG_FASCICOLO_IDSOGFASCICOLO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SFAS_SOG_FASCICOLO", incrementBy = 1)
     @Column(name = "ID_SOG_FASCICOLO")
     public Long getIdSogFascicolo() {
-	return this.idSogFascicolo;
+        return this.idSogFascicolo;
     }
 
     public void setIdSogFascicolo(Long idSogFascicolo) {
-	this.idSogFascicolo = idSogFascicolo;
+        this.idSogFascicolo = idSogFascicolo;
     }
 
     @Column(name = "DS_DENOM_SOG")
     public String getDsDenomSog() {
-	return this.dsDenomSog;
+        return this.dsDenomSog;
     }
 
     public void setDsDenomSog(String dsDenomSog) {
-	this.dsDenomSog = dsDenomSog;
+        this.dsDenomSog = dsDenomSog;
     }
 
     @Column(name = "NM_COGN_SOG")
     public String getNmCognSog() {
-	return this.nmCognSog;
+        return this.nmCognSog;
     }
 
     public void setNmCognSog(String nmCognSog) {
-	this.nmCognSog = nmCognSog;
+        this.nmCognSog = nmCognSog;
     }
 
     @Column(name = "NM_NOME_SOG")
     public String getNmNomeSog() {
-	return this.nmNomeSog;
+        return this.nmNomeSog;
     }
 
     public void setNmNomeSog(String nmNomeSog) {
-	this.nmNomeSog = nmNomeSog;
+        this.nmNomeSog = nmNomeSog;
     }
 
     @Column(name = "TI_RAPP")
     public String getTiRapp() {
-	return this.tiRapp;
+        return this.tiRapp;
     }
 
     public void setTiRapp(String tiRapp) {
-	this.tiRapp = tiRapp;
+        this.tiRapp = tiRapp;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCICOLO")
     public FasFascicolo getFasFascicolo() {
-	return this.fasFascicolo;
+        return this.fasFascicolo;
     }
 
     public void setFasFascicolo(FasFascicolo fasFascicolo) {
-	this.fasFascicolo = fasFascicolo;
+        this.fasFascicolo = fasFascicolo;
     }
 
     @Column(name = "DT_NAS")
     public LocalDateTime getDtNas() {
-	return dtNas;
+        return dtNas;
     }
 
     public void setDtNas(LocalDateTime dtNas) {
-	this.dtNas = dtNas;
+        this.dtNas = dtNas;
     }
 
     @Column(name = "DS_CMN_NSC")
     public String getDsCmnNsc() {
-	return this.dsCmnNsc;
+        return this.dsCmnNsc;
     }
 
     public void setDsCmnNsc(String dsCmnNsc) {
-	this.dsCmnNsc = dsCmnNsc;
+        this.dsCmnNsc = dsCmnNsc;
     }
 
     @Column(name = "TI_SES")
     public String getTiSes() {
-	return this.tiSes;
+        return this.tiSes;
     }
 
     public void setTiSes(String tiSes) {
-	this.tiSes = tiSes;
+        this.tiSes = tiSes;
     }
 
     @Column(name = "DS_CIT")
     public String getDsCit() {
-	return this.dsCit;
+        return this.dsCit;
     }
 
     public void setDsCit(String dsCit) {
-	this.dsCit = dsCit;
+        this.dsCit = dsCit;
     }
 
     // bi-directional many-to-one association to FirCertifFirmatario
     @OneToMany(mappedBy = "fasSogFascicolo", cascade = {
-	    CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     public List<FasRifIndSog> getFasRifIndSogs() {
-	return this.fasRifIndSogs;
+        return this.fasRifIndSogs;
     }
 
     public void setFasRifIndSogs(List<FasRifIndSog> fasRifIndSogs) {
-	this.fasRifIndSogs = fasRifIndSogs;
+        this.fasRifIndSogs = fasRifIndSogs;
     }
 
     // bi-directional many-to-one association to FirCertifFirmatario
     @OneToMany(mappedBy = "fasSogFascicolo", cascade = {
-	    CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     public List<FasCodIdeSog> getFasCodIdeSogs() {
-	return this.fasCodIdeSogs;
+        return this.fasCodIdeSogs;
     }
 
     public void setFasCodIdeSogs(List<FasCodIdeSog> fasCodIdeSogs) {
-	this.fasCodIdeSogs = fasCodIdeSogs;
+        this.fasCodIdeSogs = fasCodIdeSogs;
     }
 
     // bi-directional many-to-one association to FirCertifFirmatario
     @OneToMany(mappedBy = "fasSogFascicolo", cascade = {
-	    CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     public List<FasEventoSog> getFasEventoSogs() {
-	return this.fasEventoSogs;
+        return this.fasEventoSogs;
     }
 
     public void setFasEventoSogs(List<FasEventoSog> fasFasEventoSogs) {
-	this.fasEventoSogs = fasFasEventoSogs;
+        this.fasEventoSogs = fasFasEventoSogs;
     }
 }

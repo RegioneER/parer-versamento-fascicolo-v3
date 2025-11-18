@@ -48,95 +48,95 @@ class VersamentoFascicoloEndpointTest {
     @Test
     @TestSecurity(authorizationEnabled = false)
     void wrongXmlRequest_fails() {
-	given().config(RestAssured.config().encoderConfig(
-		encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
-		.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
-		.urlEncodingEnabled(true).multiPart("LOGINNAME", "fake", MediaType.TEXT_PLAIN)
-		.multiPart("VERSIONE", "9999", MediaType.TEXT_PLAIN)
-		.multiPart("PASSWORD", "fake", MediaType.TEXT_PLAIN)
-		.multiPart("XMLSIP", "<IndiceSIPFascicolo></IndiceSIPFascicolo>",
-			MediaType.TEXT_XML)
-		.when().post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3).then().statusCode(400)
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito",
-			is("NEGATIVO"))
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceErrore",
-			is(FAS_XSD_001_002));
+        given().config(RestAssured.config().encoderConfig(
+                encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
+                .urlEncodingEnabled(true).multiPart("LOGINNAME", "fake", MediaType.TEXT_PLAIN)
+                .multiPart("VERSIONE", "9999", MediaType.TEXT_PLAIN)
+                .multiPart("PASSWORD", "fake", MediaType.TEXT_PLAIN)
+                .multiPart("XMLSIP", "<IndiceSIPFascicolo></IndiceSIPFascicolo>",
+                        MediaType.TEXT_XML)
+                .when().post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3).then().statusCode(400)
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito",
+                        is("NEGATIVO"))
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceErrore",
+                        is(FAS_XSD_001_002));
     }
 
     @Test
     @TestSecurity(authorizationEnabled = false)
     void missingParams_fails() {
-	given().config(RestAssured.config().encoderConfig(
-		encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
-		.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
-		.urlEncodingEnabled(true).when().post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3)
-		.then().statusCode(400)
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito",
-			is("NEGATIVO"))
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceErrore",
-			is(WS_CHECK));
+        given().config(RestAssured.config().encoderConfig(
+                encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
+                .urlEncodingEnabled(true).when().post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3)
+                .then().statusCode(400)
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito",
+                        is("NEGATIVO"))
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceErrore",
+                        is(WS_CHECK));
     }
 
     @Test
     @TestSecurity(authorizationEnabled = false)
     void wrongCredentials_fails() {
-	given().config(RestAssured.config().encoderConfig(
-		encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
-		.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
-		.urlEncodingEnabled(true).multiPart("LOGINNAME", "not_exists", MediaType.TEXT_PLAIN)
-		.multiPart("VERSIONE", "3.0", MediaType.TEXT_PLAIN)
-		.multiPart("PASSWORD", "password", MediaType.TEXT_PLAIN)
-		.multiPart("XMLSIP", xmlSip(), MediaType.TEXT_XML).when()
-		.post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3).then().statusCode(200)
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito",
-			is("NEGATIVO"))
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceErrore",
-			is(FAS_CONFIG_002_003));
+        given().config(RestAssured.config().encoderConfig(
+                encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
+                .urlEncodingEnabled(true).multiPart("LOGINNAME", "not_exists", MediaType.TEXT_PLAIN)
+                .multiPart("VERSIONE", "3.0", MediaType.TEXT_PLAIN)
+                .multiPart("PASSWORD", "password", MediaType.TEXT_PLAIN)
+                .multiPart("XMLSIP", xmlSip(), MediaType.TEXT_XML).when()
+                .post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3).then().statusCode(200)
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito",
+                        is("NEGATIVO"))
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceErrore",
+                        is(FAS_CONFIG_002_003));
     }
 
     @Test
     @TestSecurity(authorizationEnabled = false)
     void wrongVersion_fails() {
-	given().config(RestAssured.config().encoderConfig(
-		encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
-		.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
-		.urlEncodingEnabled(true)
-		.multiPart("LOGINNAME", "admin_generale", MediaType.TEXT_PLAIN)
-		.multiPart("VERSIONE", "9999999", MediaType.TEXT_PLAIN)
-		.multiPart("PASSWORD", "password", MediaType.TEXT_PLAIN)
-		.multiPart("XMLSIP", xmlSip(), MediaType.TEXT_XML).when()
-		.post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3).then().statusCode(200)
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito",
-			is("NEGATIVO"))
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceErrore",
-			is(FAS_CONFIG_003_002));
+        given().config(RestAssured.config().encoderConfig(
+                encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
+                .urlEncodingEnabled(true)
+                .multiPart("LOGINNAME", "admin_generale", MediaType.TEXT_PLAIN)
+                .multiPart("VERSIONE", "9999999", MediaType.TEXT_PLAIN)
+                .multiPart("PASSWORD", "password", MediaType.TEXT_PLAIN)
+                .multiPart("XMLSIP", xmlSip(), MediaType.TEXT_XML).when()
+                .post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3).then().statusCode(200)
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito",
+                        is("NEGATIVO"))
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceErrore",
+                        is(FAS_CONFIG_003_002));
     }
 
     @Test
     @TestSecurity(authorizationEnabled = false)
     void success() {
-	given().config(RestAssured.config().encoderConfig(
-		encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
-		.header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
-		.urlEncodingEnabled(true)
-		.multiPart("LOGINNAME", "admin_generale", MediaType.TEXT_PLAIN)
-		.multiPart("VERSIONE", "3.0", MediaType.TEXT_PLAIN)
-		.multiPart("PASSWORD", "password", MediaType.TEXT_PLAIN)
-		.multiPart("XMLSIP", xmlSip(), MediaType.TEXT_XML).when()
-		.post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3).then().statusCode(200)
-		.body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito.text()",
-			emptyString())
-		.body("EsitoVersamentoFascicolo.RapportoVersamentoFascicolo.EsitoGenerale.CodiceEsito",
-			is(not("NEGATIVO")));
+        given().config(RestAssured.config().encoderConfig(
+                encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA)
+                .urlEncodingEnabled(true)
+                .multiPart("LOGINNAME", "admin_generale", MediaType.TEXT_PLAIN)
+                .multiPart("VERSIONE", "3.0", MediaType.TEXT_PLAIN)
+                .multiPart("PASSWORD", "password", MediaType.TEXT_PLAIN)
+                .multiPart("XMLSIP", xmlSip(), MediaType.TEXT_XML).when()
+                .post(URL_FASCICOLO_BASE + URL_PUBLIC_FASCICOLO_V3).then().statusCode(200)
+                .body("EsitoVersamentoFascicolo.EsitoVersamentoNegativo.EsitoGenerale.CodiceEsito.text()",
+                        emptyString())
+                .body("EsitoVersamentoFascicolo.RapportoVersamentoFascicolo.EsitoGenerale.CodiceEsito",
+                        is(not("NEGATIVO")));
     }
 
     private String xmlSip() {
-	try {
-	    return IOUtils.toString(this.getClass().getResourceAsStream("/fascicoloCorretto.xml"),
-		    StandardCharsets.UTF_8);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	    return "";
-	}
+        try {
+            return IOUtils.toString(this.getClass().getResourceAsStream("/fascicoloCorretto.xml"),
+                    StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }

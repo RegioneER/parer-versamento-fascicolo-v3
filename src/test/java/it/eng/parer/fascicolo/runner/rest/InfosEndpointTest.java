@@ -32,22 +32,22 @@ class InfosEndpointTest {
 
     @Test
     @TestSecurity(user = "test_microservizi", roles = {
-	    "admin" })
+            "admin" })
     void successAny() {
-	given().when().get(URL_GET_INFOS).then().statusCode(200).body("$", hasKey("git"))
-		.body("git.git.build.version", not(empty()));
+        given().when().get(URL_GET_INFOS).then().statusCode(200).body("$", hasKey("git"))
+                .body("git.git.build.version", not(empty()));
     }
 
     @Test
     @TestSecurity(authorizationEnabled = true)
     void authRequest() {
-	given().when().get(URL_GET_INFOS).then().statusCode(401);
+        given().when().get(URL_GET_INFOS).then().statusCode(401);
     }
 
     @Test
     @TestSecurity(user = "fakeuser", roles = {
-	    "not_admin" })
+            "not_admin" })
     void notAuthRequest() {
-	given().when().get(URL_GET_INFOS).then().statusCode(403);
+        given().when().get(URL_GET_INFOS).then().statusCode(403);
     }
 }

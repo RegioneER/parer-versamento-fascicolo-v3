@@ -32,35 +32,35 @@ public class DXPGEvento implements IEvento, Serializable {
     Date dataFine;
 
     public String getDescrizione() {
-	return descrizione;
+        return descrizione;
     }
 
     public void setDescrizione(String descrizione) {
-	Assert.assertNotNull(descrizione);
-	this.descrizione = descrizione;
+        Assert.assertNotNull(descrizione);
+        this.descrizione = descrizione;
     }
 
     public Date getDataInizio() {
-	return dataInizio;
+        return dataInizio;
     }
 
     public void setDataInizio(Date dataInizio) {
-	this.dataInizio = dataInizio;
+        this.dataInizio = dataInizio;
     }
 
     public Date getDataFine() {
-	return dataFine;
+        return dataFine;
     }
 
     public void setDataFine(Date dataFine) {
-	this.dataFine = dataFine;
+        this.dataFine = dataFine;
     }
 
     @Override
     public String toString() {
-	return "DXPGEvento [" + (descrizione != null ? "descrizione - " + descrizione + ", " : "")
-		+ (dataInizio != null ? "dataInizio - " + dataInizio + ", " : "")
-		+ (dataFine != null ? "dataFine - " + dataFine : "") + "]";
+        return "DXPGEvento [" + (descrizione != null ? "descrizione - " + descrizione + ", " : "")
+                + (dataInizio != null ? "dataInizio - " + dataInizio + ", " : "")
+                + (dataFine != null ? "dataFine - " + dataFine : "") + "]";
     }
 
 }

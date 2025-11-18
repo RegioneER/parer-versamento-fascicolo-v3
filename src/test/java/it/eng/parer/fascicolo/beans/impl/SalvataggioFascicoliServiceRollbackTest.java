@@ -80,36 +80,36 @@ class SalvataggioFascicoliServiceRollbackTest {
 
     @BeforeEach
     void setUp() throws AppGenericPersistenceException, ObjectStorageException {
-	// ripulisco il database
-	resetData();
-	mockAllReturnRispostaControlliTrue();
-	initErrors();
+        // ripulisco il database
+        resetData();
+        mockAllReturnRispostaControlliTrue();
+        initErrors();
     }
 
     @Transactional
     void initErrors() {
-	// servono per far funzionare la MessaggiWSBundle.getString()
-	List<String> errorCodes = Arrays.asList("666P", "WS-GENERIC-ERROR-UUID");
-	TypedQuery<Long> query = entityManager
-		.createQuery("SELECT count(e) FROM DecErrSacer e WHERE e.cdErr=:cdErr", Long.class);
-	errorCodes.forEach(errCode -> {
-	    query.setParameter("cdErr", errCode);
-	    if (query.getSingleResult() == 0L) {
-		DecErrSacer decErrSacer = new DecErrSacer();
-		decErrSacer.setCdErr(errCode);
-		decErrSacer.setDsErr("Errore test " + errCode);
-		entityManager.persist(decErrSacer);
-	    }
-	});
-	final MessaggiWSCache messaggiWSCache = Arc.container().instance(MessaggiWSCache.class)
-		.get();
-	messaggiWSCache.initSingleton();
+        // servono per far funzionare la MessaggiWSBundle.getString()
+        List<String> errorCodes = Arrays.asList("666P", "WS-GENERIC-ERROR-UUID");
+        TypedQuery<Long> query = entityManager
+                .createQuery("SELECT count(e) FROM DecErrSacer e WHERE e.cdErr=:cdErr", Long.class);
+        errorCodes.forEach(errCode -> {
+            query.setParameter("cdErr", errCode);
+            if (query.getSingleResult() == 0L) {
+                DecErrSacer decErrSacer = new DecErrSacer();
+                decErrSacer.setCdErr(errCode);
+                decErrSacer.setDsErr("Errore test " + errCode);
+                entityManager.persist(decErrSacer);
+            }
+        });
+        final MessaggiWSCache messaggiWSCache = Arc.container().instance(MessaggiWSCache.class)
+                .get();
+        messaggiWSCache.initSingleton();
 
     }
 
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     void resetData() {
-	getAllFasFascicolo().forEach(f -> entityManager.remove(f));
+        getAllFasFascicolo().forEach(f -> entityManager.remove(f));
     }
 
     void mockAllReturnRispostaControlliTrue() throws AppGenericPersistenceException, ObjectStorageException {
@@ -140,12 +140,12 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_success_commit() throws AppGenericPersistenceException {
-	service.salvaFascicolo(rispostaWSFascicolo(), versFascicoloExt(),
-		new BlockingFakeSession());
-	final List<FasFascicolo> allFasFascicolo = getAllFasFascicolo();
-	Assertions.assertEquals(1, allFasFascicolo.size());
-	Assertions.assertEquals(ANNO_FASCICOLO_MOCK,
-		getAllFasFascicolo().get(0).getAaFascicolo().longValue());
+        service.salvaFascicolo(rispostaWSFascicolo(), versFascicoloExt(),
+                new BlockingFakeSession());
+        final List<FasFascicolo> allFasFascicolo = getAllFasFascicolo();
+        Assertions.assertEquals(1, allFasFascicolo.size());
+        Assertions.assertEquals(ANNO_FASCICOLO_MOCK,
+                getAllFasFascicolo().get(0).getAaFascicolo().longValue());
     }
 
     /**
@@ -171,18 +171,18 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviSogggettiFails_rollback() throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.scriviSogggetti(any(), any());
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .scriviSogggetti(any(), any());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -191,20 +191,20 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviRequestResponseFascicoloFails_rollback()
-	    throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.scriviRequestResponseFascicolo(any(), any(), any(), any(), any(), any());
+            throws AppGenericPersistenceException {
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .scriviRequestResponseFascicolo(any(), any(), any(), any(), any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -213,18 +213,18 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviDatiSpecGenFails_rollback() throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.scriviDatiSpecGen(any(), any());
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .scriviDatiSpecGen(any(), any());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -233,20 +233,20 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviProfiliXMLFascicoloFails_rollback()
-	    throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.scriviProfiliXMLFascicolo(any(), any(), any(), any(), any());
+            throws AppGenericPersistenceException {
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .scriviProfiliXMLFascicolo(any(), any(), any(), any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -255,20 +255,20 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviUnitaDocFascicoloFails_rollback()
-	    throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.scriviUnitaDocFascicolo(any(), any());
+            throws AppGenericPersistenceException {
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .scriviUnitaDocFascicolo(any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -277,19 +277,19 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviLinkFascicoloFails_rollback() throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.scriviLinkFascicolo(any(), any());
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .scriviLinkFascicolo(any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -298,24 +298,24 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviWarningFascicoloFails_rollback()
-	    throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.scriviWarningFascicolo(any(), any());
+            throws AppGenericPersistenceException {
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .scriviWarningFascicolo(any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     private AppGenericPersistenceException appGenericPersistenceException() {
-	return new AppGenericPersistenceException(MOCK_ERR_CODE, MOCK_ERR_MSG);
+        return new AppGenericPersistenceException(MOCK_ERR_CODE, MOCK_ERR_MSG);
     }
 
     /**
@@ -324,20 +324,20 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviElvFascDaElabElencoFails_rollback()
-	    throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(elencoVersamentoFascicoliService)
-		.scriviElvFascDaElabElenco(any(), any());
+            throws AppGenericPersistenceException {
+        doThrow(appGenericPersistenceException()).when(elencoVersamentoFascicoliService)
+                .scriviElvFascDaElabElenco(any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -346,20 +346,20 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviStatoConservFascicoloFails_rollback()
-	    throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(elencoVersamentoFascicoliService)
-		.scriviStatoConservFascicolo(any(), any(), any(), any());
+            throws AppGenericPersistenceException {
+        doThrow(appGenericPersistenceException()).when(elencoVersamentoFascicoliService)
+                .scriviStatoConservFascicolo(any(), any(), any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -368,20 +368,20 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_scriviStatoFascicoloElencoFails_rollback()
-	    throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(elencoVersamentoFascicoliService)
-		.scriviStatoFascicoloElenco(any(), any(), any(), any());
+            throws AppGenericPersistenceException {
+        doThrow(appGenericPersistenceException()).when(elencoVersamentoFascicoliService)
+                .scriviStatoFascicoloElenco(any(), any(), any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -391,22 +391,22 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_ereditaVersamentiKoFails_rollback() throws AppGenericPersistenceException {
-	final RispostaControlli rispostaControlli = rispostaControlliTrue();
-	rispostaControlli.setrObject(new VrsFascicoloKo());
-	when(logSessioneFascicoliDao.cercaFascicoloKo(any())).thenReturn(rispostaControlli);
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.ereditaVersamentiKoFascicolo(any(), any());
+        final RispostaControlli rispostaControlli = rispostaControlliTrue();
+        rispostaControlli.setrObject(new VrsFascicoloKo());
+        when(logSessioneFascicoliDao.cercaFascicoloKo(any())).thenReturn(rispostaControlli);
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .ereditaVersamentiKoFascicolo(any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     /**
@@ -415,51 +415,51 @@ class SalvataggioFascicoliServiceRollbackTest {
      */
     @Test
     void salvaFascicolo_salvaWarningAATipoFascicoloFails_rollback()
-	    throws AppGenericPersistenceException {
-	doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
-		.salvaWarningAATipoFascicolo(any(), any());
+            throws AppGenericPersistenceException {
+        doThrow(appGenericPersistenceException()).when(salvataggioFascicoliDao)
+                .salvaWarningAATipoFascicolo(any(), any());
 
-	final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
-	assertThrows(AppGenericPersistenceException.class,
-		() -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
-			new BlockingFakeSession()),
-		"Should fail throwing AppGenericPersistenceException");
-	Assertions.assertEquals(0, getAllFasFascicolo().size());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
-	Assertions.assertNotNull(
-		rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
+        final RispostaWSFascicolo rispostaWs = rispostaWSFascicolo();
+        assertThrows(AppGenericPersistenceException.class,
+                () -> service.salvaFascicolo(rispostaWs, versFascicoloExt(),
+                        new BlockingFakeSession()),
+                "Should fail throwing AppGenericPersistenceException");
+        Assertions.assertEquals(0, getAllFasFascicolo().size());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getCodiceErrore());
+        Assertions.assertNotNull(
+                rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale().getMessaggioErrore());
     }
 
     private VersFascicoloExt versFascicoloExt() {
-	final VersFascicoloExt versFascicoloExt = new VersFascicoloExt();
-	versFascicoloExt.setStrutturaComponenti(strutturaComponenti());
-	return versFascicoloExt;
+        final VersFascicoloExt versFascicoloExt = new VersFascicoloExt();
+        versFascicoloExt.setStrutturaComponenti(strutturaComponenti());
+        return versFascicoloExt;
     }
 
     private StrutturaVersFascicolo strutturaComponenti() {
-	final StrutturaVersFascicolo strut = new StrutturaVersFascicolo();
-	strut.setWarningFormatoNumero(true);
-	return strut;
+        final StrutturaVersFascicolo strut = new StrutturaVersFascicolo();
+        strut.setWarningFormatoNumero(true);
+        return strut;
     }
 
     private List<FasFascicolo> getAllFasFascicolo() {
-	TypedQuery<FasFascicolo> query = entityManager.createQuery("SELECT f FROM FasFascicolo f",
-		FasFascicolo.class);
-	return query.getResultList();
+        TypedQuery<FasFascicolo> query = entityManager.createQuery("SELECT f FROM FasFascicolo f",
+                FasFascicolo.class);
+        return query.getResultList();
     }
 
     private RispostaControlli rispostaControlliTrue() {
-	final RispostaControlli rispostaControlli = new RispostaControlli();
-	rispostaControlli.setrBoolean(true);
-	return rispostaControlli;
+        final RispostaControlli rispostaControlli = new RispostaControlli();
+        rispostaControlli.setrBoolean(true);
+        return rispostaControlli;
     }
 
     private RispostaWSFascicolo rispostaWSFascicolo() {
-	final RispostaWSFascicolo rispostaWSFascicolo = new RispostaWSFascicolo();
-	rispostaWSFascicolo.setCompRapportoVersFascicolo(new CompRapportoVersFascicolo());
-	final EsitoGeneraleType esitoGenerale = new EsitoGeneraleType();
-	rispostaWSFascicolo.getCompRapportoVersFascicolo().setEsitoGenerale(esitoGenerale);
-	return rispostaWSFascicolo;
+        final RispostaWSFascicolo rispostaWSFascicolo = new RispostaWSFascicolo();
+        rispostaWSFascicolo.setCompRapportoVersFascicolo(new CompRapportoVersFascicolo());
+        final EsitoGeneraleType esitoGenerale = new EsitoGeneraleType();
+        rispostaWSFascicolo.getCompRapportoVersFascicolo().setEsitoGenerale(esitoGenerale);
+        return rispostaWSFascicolo;
     }
 }

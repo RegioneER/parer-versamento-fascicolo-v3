@@ -45,31 +45,31 @@ public class ApplicationInfo {
 
     @PostConstruct
     public void init() throws IOException {
-	try (InputStream input = getClass().getResourceAsStream("/git.properties")) {
-	    git = new Properties();
-	    // load a properties file
-	    git.load(input);
-	}
+        try (InputStream input = getClass().getResourceAsStream("/git.properties")) {
+            git = new Properties();
+            // load a properties file
+            git.load(input);
+        }
     }
 
     public Optional<String> getVersion() {
-	return version;
+        return version;
     }
 
     public Optional<String> getSwagger() {
-	return swagger;
+        return swagger;
     }
 
     public String getName() {
-	return name;
+        return name;
     }
 
     public Properties getGit() {
-	return git;
+        return git;
     }
 
     public String getIndex() {
-	return index;
+        return index;
     }
 
 }

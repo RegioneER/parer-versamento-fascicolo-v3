@@ -40,27 +40,27 @@ public class UsrUser implements Serializable {
     private AplSistemaVersante aplSistemaVersante;
 
     public UsrUser() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
     @Column(name = "ID_USER_IAM")
     public Long getIdUserIam() {
-	return this.idUserIam;
+        return this.idUserIam;
     }
 
     public void setIdUserIam(Long idUserIam) {
-	this.idUserIam = idUserIam;
+        this.idUserIam = idUserIam;
     }
 
     // bi-directional many-to-one association to AplSistemaVersante
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SISTEMA_VERSANTE")
     public AplSistemaVersante getAplSistemaVersante() {
-	return this.aplSistemaVersante;
+        return this.aplSistemaVersante;
     }
 
     public void setAplSistemaVersante(AplSistemaVersante aplSistemaVersante) {
-	this.aplSistemaVersante = aplSistemaVersante;
+        this.aplSistemaVersante = aplSistemaVersante;
     }
 }

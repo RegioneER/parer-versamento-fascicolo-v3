@@ -41,7 +41,7 @@ import jakarta.ws.rs.core.MediaType;
 public class VersamentoFascicoloStdMultipartForm implements IVersamentoFascicoloMultipartForm {
 
     public VersamentoFascicoloStdMultipartForm() {
-	super();
+        super();
     }
 
     @Schema(type = SchemaType.STRING, required = true, description = "Versione dell'xml versato (versione SIP)", examples = "3.0")
@@ -68,7 +68,7 @@ public class VersamentoFascicoloStdMultipartForm implements IVersamentoFascicolo
     public IndiceSIPFascicolo indiceSIPFascicolo;
 
     @Schema(type = SchemaType.OBJECT, properties = {
-	    @SchemaProperty(name = "IndiceSIPFascicolo", minLength = 1, examples = "<IndiceSIPFascicolo></IndiceSIPFascicolo>") }, required = true, description = "Xml versato")
+            @SchemaProperty(name = "IndiceSIPFascicolo", minLength = 1, examples = "<IndiceSIPFascicolo></IndiceSIPFascicolo>") }, required = true, description = "Xml versato")
     @FormParam("XMLSIP")
     @PartType(MediaType.TEXT_XML)
     @NotNull(message = "Necessario indicare il campo XMLSIP")

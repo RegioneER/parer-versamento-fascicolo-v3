@@ -46,91 +46,91 @@ public class DatiXmlProfiloArchivistico implements Serializable {
     private List<DXPAVoceClassificazione> vociClassificazione;
 
     public String getIndiceClassificazione() {
-	return indiceClassificazione;
+        return indiceClassificazione;
     }
 
     public void setIndiceClassificazione(String indiceClassificazione) {
-	this.indiceClassificazione = indiceClassificazione;
+        this.indiceClassificazione = indiceClassificazione;
     }
 
     public String getDescIndiceClassificazione() {
-	return descIndiceClassificazione;
+        return descIndiceClassificazione;
     }
 
     public void setDescIndiceClassificazione(String descIndiceClassificazione) {
-	this.descIndiceClassificazione = descIndiceClassificazione;
+        this.descIndiceClassificazione = descIndiceClassificazione;
     }
 
     public CSChiaveFasc getChiaveFascicoloDiAppartenenza() {
-	return chiaveFascicoloDiAppartenenza;
+        return chiaveFascicoloDiAppartenenza;
     }
 
     public void setChiaveFascicoloDiAppartenenza(CSChiaveFasc chiaveFascicoloDiAppartenenza) {
-	this.chiaveFascicoloDiAppartenenza = chiaveFascicoloDiAppartenenza;
+        this.chiaveFascicoloDiAppartenenza = chiaveFascicoloDiAppartenenza;
     }
 
     public BigDecimal getTempoConservazione() {
-	return tempoConservazione;
+        return tempoConservazione;
     }
 
     public void setTempoConservazione(BigDecimal tempoConservazione) {
-	Assert.assertNotNull(tempoConservazione);
-	this.tempoConservazione = tempoConservazione;
+        Assert.assertNotNull(tempoConservazione);
+        this.tempoConservazione = tempoConservazione;
     }
 
     public String getInfoPianoCoservazione() {
-	return infoPianoCoservazione;
+        return infoPianoCoservazione;
     }
 
     public void setInfoPianoCoservazione(String infoPianoCoservazione) {
-	this.infoPianoCoservazione = infoPianoCoservazione;
+        this.infoPianoCoservazione = infoPianoCoservazione;
     }
 
     public List<DXPAFascicoloCollegato> getFascCollegati() {
-	if (fascCollegati == null) {
-	    fascCollegati = new ArrayList<>(0);
-	}
-	// clean from null objects
-	fascCollegati.removeIf(Objects::isNull);
-	return fascCollegati;
+        if (fascCollegati == null) {
+            fascCollegati = new ArrayList<>(0);
+        }
+        // clean from null objects
+        fascCollegati.removeIf(Objects::isNull);
+        return fascCollegati;
     }
 
     public void setFascCollegati(List<DXPAFascicoloCollegato> fascCollegati) {
-	this.fascCollegati = fascCollegati;
+        this.fascCollegati = fascCollegati;
     }
 
     public DXPAFascicoloCollegato addFascCollegato(DXPAFascicoloCollegato fascCollegato) {
-	getFascCollegati().add(fascCollegato);
-	return fascCollegato;
+        getFascCollegati().add(fascCollegato);
+        return fascCollegato;
     }
 
     public DXPAFascicoloCollegato removeFascCollegato(DXPAFascicoloCollegato fascCollegato) {
-	getFascCollegati().remove(fascCollegato);
-	return fascCollegato;
+        getFascCollegati().remove(fascCollegato);
+        return fascCollegato;
     }
 
     public List<DXPAVoceClassificazione> getVociClassificazione() {
-	if (vociClassificazione == null) {
-	    vociClassificazione = new ArrayList<>(0);
-	}
-	// clean from null objects
-	vociClassificazione.removeIf(Objects::isNull);
-	return vociClassificazione;
+        if (vociClassificazione == null) {
+            vociClassificazione = new ArrayList<>(0);
+        }
+        // clean from null objects
+        vociClassificazione.removeIf(Objects::isNull);
+        return vociClassificazione;
     }
 
     public void setVociClassificazione(List<DXPAVoceClassificazione> vociClassificazione) {
-	this.vociClassificazione = vociClassificazione;
+        this.vociClassificazione = vociClassificazione;
     }
 
     public DXPAVoceClassificazione addVoceClassificazione(
-	    DXPAVoceClassificazione voceClassificazione) {
-	getVociClassificazione().add(voceClassificazione);
-	return voceClassificazione;
+            DXPAVoceClassificazione voceClassificazione) {
+        getVociClassificazione().add(voceClassificazione);
+        return voceClassificazione;
     }
 
     public DXPAVoceClassificazione removeVoceClassificazione(
-	    DXPAVoceClassificazione voceClassificazione) {
-	getVociClassificazione().remove(voceClassificazione);
-	return voceClassificazione;
+            DXPAVoceClassificazione voceClassificazione) {
+        getVociClassificazione().remove(voceClassificazione);
+        return voceClassificazione;
     }
 }

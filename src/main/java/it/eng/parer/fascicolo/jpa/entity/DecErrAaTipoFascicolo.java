@@ -16,17 +16,10 @@ package it.eng.parer.fascicolo.jpa.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -49,59 +42,56 @@ public class DecErrAaTipoFascicolo implements Serializable {
     private DecAaTipoFascicolo decAaTipoFascicolo;
 
     public DecErrAaTipoFascicolo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "DEC_ERR_AA_TIPO_FASCICOLO_IDERRAATIPOFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_ERR_AA_TIPO_FASCICOLO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_ERR_AA_TIPO_FASCICOLO_IDERRAATIPOFASCICOLO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SDEC_ERR_AA_TIPO_FASCICOLO", incrementBy = 1)
     @Column(name = "ID_ERR_AA_TIPO_FASCICOLO")
     public Long getIdErrAaTipoFascicolo() {
-	return this.idErrAaTipoFascicolo;
+        return this.idErrAaTipoFascicolo;
     }
 
     public void setIdErrAaTipoFascicolo(Long idErrAaTipoFascicolo) {
-	this.idErrAaTipoFascicolo = idErrAaTipoFascicolo;
+        this.idErrAaTipoFascicolo = idErrAaTipoFascicolo;
     }
 
     @Column(name = "AA_FASCICOLO")
     public BigDecimal getAaFascicolo() {
-	return this.aaFascicolo;
+        return this.aaFascicolo;
     }
 
     public void setAaFascicolo(BigDecimal aaFascicolo) {
-	this.aaFascicolo = aaFascicolo;
+        this.aaFascicolo = aaFascicolo;
     }
 
     @Column(name = "DS_ERR_FMT_NUMERO")
     public String getDsErrFmtNumero() {
-	return this.dsErrFmtNumero;
+        return this.dsErrFmtNumero;
     }
 
     public void setDsErrFmtNumero(String dsErrFmtNumero) {
-	this.dsErrFmtNumero = dsErrFmtNumero;
+        this.dsErrFmtNumero = dsErrFmtNumero;
     }
 
     @Column(name = "ID_FASCICOLO_ERR_FMT_NUMERO")
     public BigDecimal getIdFascicoloErrFmtNumero() {
-	return this.idFascicoloErrFmtNumero;
+        return this.idFascicoloErrFmtNumero;
     }
 
     public void setIdFascicoloErrFmtNumero(BigDecimal idFascicoloErrFmtNumero) {
-	this.idFascicoloErrFmtNumero = idFascicoloErrFmtNumero;
+        this.idFascicoloErrFmtNumero = idFascicoloErrFmtNumero;
     }
 
     // bi-directional many-to-one association to DecAaTipoFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AA_TIPO_FASCICOLO")
     public DecAaTipoFascicolo getDecAaTipoFascicolo() {
-	return this.decAaTipoFascicolo;
+        return this.decAaTipoFascicolo;
     }
 
     public void setDecAaTipoFascicolo(DecAaTipoFascicolo decAaTipoFascicolo) {
-	this.decAaTipoFascicolo = decAaTipoFascicolo;
+        this.decAaTipoFascicolo = decAaTipoFascicolo;
     }
 
 }

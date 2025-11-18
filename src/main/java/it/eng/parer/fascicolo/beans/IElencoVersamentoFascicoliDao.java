@@ -28,16 +28,16 @@ import jakarta.validation.constraints.NotNull;
 public interface IElencoVersamentoFascicoliDao {
 
     ElvFascDaElabElenco insertFascicoloOnCodaDaElab(
-	    @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") FasFascicolo fascicolo,
-	    long idTipoFasc,
-	    @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: status non inizializzato") TiStatoFascDaElab status);
+            @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") FasFascicolo fascicolo,
+            long idTipoFasc,
+            @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: status non inizializzato") TiStatoFascDaElab status);
 
     FasStatoConservFascicolo insertFascicoloOnStatoCons(
-	    @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") FasFascicolo fascicolo,
-	    @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") TiStatoConservazione status);
+            @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") FasFascicolo fascicolo,
+            @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") TiStatoConservazione status);
 
     FasStatoFascicoloElenco insertFascicoloOnStatoElenco(
-	    @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") FasFascicolo fascicolo,
-	    @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") TiStatoFascElenco status);
+            @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") FasFascicolo fascicolo,
+            @NotNull(message = "IElencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab: fascicolo non inizializzato") TiStatoFascElenco status);
 
 }

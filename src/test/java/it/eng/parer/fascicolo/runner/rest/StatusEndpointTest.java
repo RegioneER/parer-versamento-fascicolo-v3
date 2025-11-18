@@ -32,22 +32,22 @@ class StatusEndpointTest {
 
     @Test
     @TestSecurity(user = "test_microservizi", roles = {
-	    "admin" })
+            "admin" })
     void success() {
-	given().when().get(URL_GET_STATUS).then().statusCode(200).body("$", hasKey("status"))
-		.body("status", not(empty()));
+        given().when().get(URL_GET_STATUS).then().statusCode(200).body("$", hasKey("status"))
+                .body("status", not(empty()));
     }
 
     @Test
     @TestSecurity(authorizationEnabled = true)
     void authRequest() {
-	given().when().get(URL_GET_STATUS).then().statusCode(401);
+        given().when().get(URL_GET_STATUS).then().statusCode(401);
     }
 
     @Test
     @TestSecurity(user = "fakeuser", roles = {
-	    "not_admin" })
+            "not_admin" })
     void notAuthRequest() {
-	given().when().get(URL_GET_STATUS).then().statusCode(403);
+        given().when().get(URL_GET_STATUS).then().statusCode(403);
     }
 }

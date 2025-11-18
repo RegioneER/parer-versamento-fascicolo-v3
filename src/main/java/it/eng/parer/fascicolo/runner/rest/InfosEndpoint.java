@@ -82,88 +82,88 @@ public class InfosEndpoint {
     String rootToSkip;
 
     private Map<String, Map<String, String>> infos = Collections
-	    .synchronizedMap(new LinkedHashMap<>());
+            .synchronizedMap(new LinkedHashMap<>());
 
     @Inject
     public InfosEndpoint(SecurityContext securityCtx) {
-	this.securityCtx = securityCtx;
+        this.securityCtx = securityCtx;
     }
 
     @PostConstruct
     public void init() throws IOException {
-	try (InputStream input = getClass().getResourceAsStream("/git.properties")) {
-	    gitproperties = new Properties();
-	    // load a properties file
-	    gitproperties.load(input);
-	}
+        try (InputStream input = getClass().getResourceAsStream("/git.properties")) {
+            gitproperties = new Properties();
+            // load a properties file
+            gitproperties.load(input);
+        }
     }
 
     @Operation(summary = "App infos", description = "App infos")
     @SecurityRequirement(name = "bearerAuth")
     @SecurityRequirement(name = "basicAuth")
     @APIResponses(value = {
-	    @APIResponse(responseCode = "200", description = "Informazioni Applicazione", content = @Content(mediaType = "application/json")),
-	    @APIResponse(responseCode = "401", description = "Non autenticato"),
-	    @APIResponse(responseCode = "403", description = "Non autorizzato") })
+            @APIResponse(responseCode = "200", description = "Informazioni Applicazione", content = @Content(mediaType = "application/json")),
+            @APIResponse(responseCode = "401", description = "Non autenticato"),
+            @APIResponse(responseCode = "403", description = "Non autorizzato") })
     @GET
     @Path(RESOURCE_INFOS)
     @Produces(MediaType.APPLICATION_JSON)
     @NonBlocking
     public Response infos() {
 
-	// infos
-	// git
-	Map<String, String> git = gitproperties.entrySet().stream()
-		.filter(propName -> !String.valueOf(propName.getKey()).matches(propstoskip))
-		.collect(Collectors.toMap(e -> String.valueOf(e.getKey()),
-			e -> String.valueOf(e.getValue()), (prev, next) -> next, HashMap::new));
+        // infos
+        // git
+        Map<String, String> git = gitproperties.entrySet().stream()
+                .filter(propName -> !String.valueOf(propName.getKey()).matches(propstoskip))
+                .collect(Collectors.toMap(e -> String.valueOf(e.getKey()),
+                        e -> String.valueOf(e.getValue()), (prev, next) -> next, HashMap::new));
 
-	if (!MAP_GIT.matches(rootToSkip)) {
-	    infos.put(MAP_GIT, git);
-	}
-	// quarkus
-	Map<String, String> quarkus = Collections.synchronizedMap(new LinkedHashMap<>());
-	StreamSupport.stream(ConfigProvider.getConfig().getPropertyNames().spliterator(), false)
-		.sorted().filter(propName -> !propName.startsWith(QUARKUS_PROFILE_PROPS))
-		.filter(propName -> propName.startsWith(MAP_QUARKUS))
-		.filter(propName -> !propName.matches(propstoskip))
-		.forEach(propName -> quarkus.put(propName,
-			ConfigProvider.getConfig().getConfigValue(propName).getValue()));
+        if (!MAP_GIT.matches(rootToSkip)) {
+            infos.put(MAP_GIT, git);
+        }
+        // quarkus
+        Map<String, String> quarkus = Collections.synchronizedMap(new LinkedHashMap<>());
+        StreamSupport.stream(ConfigProvider.getConfig().getPropertyNames().spliterator(), false)
+                .sorted().filter(propName -> !propName.startsWith(QUARKUS_PROFILE_PROPS))
+                .filter(propName -> propName.startsWith(MAP_QUARKUS))
+                .filter(propName -> !propName.matches(propstoskip))
+                .forEach(propName -> quarkus.put(propName,
+                        ConfigProvider.getConfig().getConfigValue(propName).getValue()));
 
-	if (!MAP_QUARKUS.matches(rootToSkip)) {
-	    infos.put(MAP_QUARKUS, quarkus);
-	}
+        if (!MAP_QUARKUS.matches(rootToSkip)) {
+            infos.put(MAP_QUARKUS, quarkus);
+        }
 
-	// security infos
-	Principal caller = securityCtx.getUserPrincipal();
-	String name = caller == null ? "anonymous" : caller.getName();
-	String security = String.format("hello %s, isSecure: %s, authScheme: %s", name,
-		securityCtx.isSecure(), securityCtx.getAuthenticationScheme());
+        // security infos
+        Principal caller = securityCtx.getUserPrincipal();
+        String name = caller == null ? "anonymous" : caller.getName();
+        String security = String.format("hello %s, isSecure: %s, authScheme: %s", name,
+                securityCtx.isSecure(), securityCtx.getAuthenticationScheme());
 
-	if (!MAP_SEC.matches(rootToSkip)) {
-	    infos.put(MAP_SEC, Map.of("is_secure", security));
-	}
+        if (!MAP_SEC.matches(rootToSkip)) {
+            infos.put(MAP_SEC, Map.of("is_secure", security));
+        }
 
-	// others
-	List<String> allcurrkeys = infos.values().stream().map(Map::keySet)
-		.flatMap(Collection::stream).toList();
-	Map<String, String> others = Collections.synchronizedMap(new LinkedHashMap<>());
-	StreamSupport.stream(ConfigProvider.getConfig().getPropertyNames().spliterator(), false)
-		.sorted().filter(propName -> !propName.startsWith(QUARKUS_PROFILE_PROPS))
-		.filter(propName -> !allcurrkeys.contains(propName))
-		.filter(propName -> !propName.matches(propstoskip))
-		.forEach(propName -> others.put(propName,
-			ConfigProvider.getConfig().getConfigValue(propName).getValue()));
+        // others
+        List<String> allcurrkeys = infos.values().stream().map(Map::keySet)
+                .flatMap(Collection::stream).toList();
+        Map<String, String> others = Collections.synchronizedMap(new LinkedHashMap<>());
+        StreamSupport.stream(ConfigProvider.getConfig().getPropertyNames().spliterator(), false)
+                .sorted().filter(propName -> !propName.startsWith(QUARKUS_PROFILE_PROPS))
+                .filter(propName -> !allcurrkeys.contains(propName))
+                .filter(propName -> !propName.matches(propstoskip))
+                .forEach(propName -> others.put(propName,
+                        ConfigProvider.getConfig().getConfigValue(propName).getValue()));
 
-	if (!MAP_OTHERS.matches(rootToSkip)) {
-	    infos.put(MAP_OTHERS, others);
-	}
+        if (!MAP_OTHERS.matches(rootToSkip)) {
+            infos.put(MAP_OTHERS, others);
+        }
 
-	// preconditions are OK
-	return Response.ok(infos)
-		.lastModified(
-			Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
-		.tag(new EntityTag(ETAG)).build();
+        // preconditions are OK
+        return Response.ok(infos)
+                .lastModified(
+                        Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+                .tag(new EntityTag(ETAG)).build();
     }
 
 }

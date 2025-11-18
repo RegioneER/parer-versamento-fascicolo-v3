@@ -17,17 +17,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
@@ -63,126 +56,123 @@ public class ElvFileElencoVersFasc implements Serializable {
     }
 
     public ElvFileElencoVersFasc(byte[] blFileElencoVers, String cdVerXsdFile,
-	    String tiFileElencoVers) {
-	this.blFileElencoVers = blFileElencoVers;
-	this.cdVerXsdFile = cdVerXsdFile;
-	this.tiFileElencoVers = tiFileElencoVers;
+            String tiFileElencoVers) {
+        this.blFileElencoVers = blFileElencoVers;
+        this.cdVerXsdFile = cdVerXsdFile;
+        this.tiFileElencoVers = tiFileElencoVers;
     }
 
     @Id
-    @GenericGenerator(name = "ELV_FILE_ELENCO_VERS_FASC_IDFILEELENCOVERSFASC_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SELV_FILE_ELENCO_VERS_FASC"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ELV_FILE_ELENCO_VERS_FASC_IDFILEELENCOVERSFASC_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SELV_FILE_ELENCO_VERS_FASC", incrementBy = 1)
     @Column(name = "ID_FILE_ELENCO_VERS_FASC")
     public Long getIdFileElencoVersFasc() {
-	return this.idFileElencoVersFasc;
+        return this.idFileElencoVersFasc;
     }
 
     public void setIdFileElencoVersFasc(Long idFileElencoVersFasc) {
-	this.idFileElencoVersFasc = idFileElencoVersFasc;
+        this.idFileElencoVersFasc = idFileElencoVersFasc;
     }
 
     @Lob
     @Column(name = "BL_FILE_ELENCO_VERS")
     public byte[] getBlFileElencoVers() {
-	return this.blFileElencoVers;
+        return this.blFileElencoVers;
     }
 
     public void setBlFileElencoVers(byte[] blFileElencoVers) {
-	this.blFileElencoVers = blFileElencoVers;
+        this.blFileElencoVers = blFileElencoVers;
     }
 
     @Column(name = "CD_ENCODING_HASH_FILE")
     public String getCdEncodingHashFile() {
-	return this.cdEncodingHashFile;
+        return this.cdEncodingHashFile;
     }
 
     public void setCdEncodingHashFile(String cdEncodingHashFile) {
-	this.cdEncodingHashFile = cdEncodingHashFile;
+        this.cdEncodingHashFile = cdEncodingHashFile;
     }
 
     @Column(name = "CD_VER_XSD_FILE")
     public String getCdVerXsdFile() {
-	return this.cdVerXsdFile;
+        return this.cdVerXsdFile;
     }
 
     public void setCdVerXsdFile(String cdVerXsdFile) {
-	this.cdVerXsdFile = cdVerXsdFile;
+        this.cdVerXsdFile = cdVerXsdFile;
     }
 
     @Column(name = "DS_ALGO_HASH_FILE")
     public String getDsAlgoHashFile() {
-	return this.dsAlgoHashFile;
+        return this.dsAlgoHashFile;
     }
 
     public void setDsAlgoHashFile(String dsAlgoHashFile) {
-	this.dsAlgoHashFile = dsAlgoHashFile;
+        this.dsAlgoHashFile = dsAlgoHashFile;
     }
 
     @Column(name = "DS_HASH_FILE")
     public String getDsHashFile() {
-	return this.dsHashFile;
+        return this.dsHashFile;
     }
 
     public void setDsHashFile(String dsHashFile) {
-	this.dsHashFile = dsHashFile;
+        this.dsHashFile = dsHashFile;
     }
 
     @Column(name = "DS_URN_FILE")
     public String getDsUrnFile() {
-	return this.dsUrnFile;
+        return this.dsUrnFile;
     }
 
     public void setDsUrnFile(String dsUrnFile) {
-	this.dsUrnFile = dsUrnFile;
+        this.dsUrnFile = dsUrnFile;
     }
 
     @Column(name = "DS_URN_NORMALIZ_FILE")
     public String getDsUrnNormalizFile() {
-	return this.dsUrnNormalizFile;
+        return this.dsUrnNormalizFile;
     }
 
     public void setDsUrnNormalizFile(String dsUrnNormalizFile) {
-	this.dsUrnNormalizFile = dsUrnNormalizFile;
+        this.dsUrnNormalizFile = dsUrnNormalizFile;
     }
 
     @Column(name = "DT_CREAZIONE_FILE")
     public LocalDateTime getDtCreazioneFile() {
-	return this.dtCreazioneFile;
+        return this.dtCreazioneFile;
     }
 
     public void setDtCreazioneFile(LocalDateTime dtCreazioneFile) {
-	this.dtCreazioneFile = dtCreazioneFile;
+        this.dtCreazioneFile = dtCreazioneFile;
     }
 
     @Column(name = "ID_STRUT")
     public BigDecimal getIdStrut() {
-	return this.idStrut;
+        return this.idStrut;
     }
 
     public void setIdStrut(BigDecimal idStrut) {
-	this.idStrut = idStrut;
+        this.idStrut = idStrut;
     }
 
     @Column(name = "TI_FILE_ELENCO_VERS")
     public String getTiFileElencoVers() {
-	return this.tiFileElencoVers;
+        return this.tiFileElencoVers;
     }
 
     public void setTiFileElencoVers(String tiFileElencoVers) {
-	this.tiFileElencoVers = tiFileElencoVers;
+        this.tiFileElencoVers = tiFileElencoVers;
     }
 
     // bi-directional many-to-one association to ElvElencoVersFasc
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ELENCO_VERS_FASC")
     public ElvElencoVersFasc getElvElencoVersFasc() {
-	return this.elvElencoVersFasc;
+        return this.elvElencoVersFasc;
     }
 
     public void setElvElencoVersFasc(ElvElencoVersFasc elvElencoVersFasc) {
-	this.elvElencoVersFasc = elvElencoVersFasc;
+        this.elvElencoVersFasc = elvElencoVersFasc;
     }
 
 }

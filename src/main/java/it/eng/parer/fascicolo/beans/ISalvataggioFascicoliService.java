@@ -25,9 +25,9 @@ import jakarta.validation.constraints.NotNull;
 public interface ISalvataggioFascicoliService {
 
     void salvaFascicolo(
-	    @NotNull(message = "ISalvataggioFascicoliService.salvaFascicolo: rispostaWs non inizializzato") RispostaWSFascicolo rispostaWs,
-	    @NotNull(message = "ISalvataggioFascicoliService.salvaFascicolo: versamento non inizializzato") VersFascicoloExt versamento,
-	    @NotNull(message = "ISalvataggioFascicoliService.salvaFascicolo: sessione non inizializzato") BlockingFakeSession sessione)
-	    throws AppGenericPersistenceException;
+            @NotNull(message = "ISalvataggioFascicoliService.salvaFascicolo: rispostaWs non inizializzato") RispostaWSFascicolo rispostaWs,
+            @NotNull(message = "ISalvataggioFascicoliService.salvaFascicolo: versamento non inizializzato") VersFascicoloExt versamento,
+            @NotNull(message = "ISalvataggioFascicoliService.salvaFascicolo: sessione non inizializzato") BlockingFakeSession sessione)
+            throws AppGenericPersistenceException;
 
 }

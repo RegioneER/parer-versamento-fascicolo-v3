@@ -32,18 +32,18 @@ public class RispostaControlliAttSpec extends RispostaControlli {
     private Map<String, DatoSpecifico> datiSpecifici;
 
     public long getIdRecXsdDatiSpec() {
-	return idRecXsdDatiSpec;
+        return idRecXsdDatiSpec;
     }
 
     public void setIdRecXsdDatiSpec(long idRecXsdDatiSpec) {
-	this.idRecXsdDatiSpec = idRecXsdDatiSpec;
+        this.idRecXsdDatiSpec = idRecXsdDatiSpec;
     }
 
     public Map<String, DatoSpecifico> getDatiSpecifici() {
-	return datiSpecifici;
+        return datiSpecifici;
     }
 
     public void setDatiSpecifici(Map<String, DatoSpecifico> datiSpecifici) {
-	this.datiSpecifici = datiSpecifici;
+        this.datiSpecifici = datiSpecifici;
     }
 }

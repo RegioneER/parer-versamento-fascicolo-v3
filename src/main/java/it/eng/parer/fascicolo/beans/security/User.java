@@ -28,55 +28,55 @@ public class User extends BaseUser<Profile> {
     private String codiceFiscale;
 
     public User() {
-	super();
+        super();
     }
 
     public BigDecimal getIdOrganizzazioneFoglia() {
-	return idOrganizzazioneFoglia;
+        return idOrganizzazioneFoglia;
     }
 
     public void setIdOrganizzazioneFoglia(BigDecimal idOrganizzazioneFoglia) {
-	this.idOrganizzazioneFoglia = idOrganizzazioneFoglia;
+        this.idOrganizzazioneFoglia = idOrganizzazioneFoglia;
     }
 
     public String getNomeStruttura() {
-	return nomeStruttura;
+        return nomeStruttura;
     }
 
     public void setNomeStruttura(String nomeStruttura) {
-	this.nomeStruttura = nomeStruttura;
+        this.nomeStruttura = nomeStruttura;
     }
 
     public Long getIdApplicazione() {
-	return idApplicazione;
+        return idApplicazione;
     }
 
     public void setIdApplicazione(Long idApplicazione) {
-	this.idApplicazione = idApplicazione;
+        this.idApplicazione = idApplicazione;
     }
 
     public boolean isUtenteDaAssociare() {
-	return utenteDaAssociare;
+        return utenteDaAssociare;
     }
 
     public void setUtenteDaAssociare(boolean utenteDaAssociare) {
-	this.utenteDaAssociare = utenteDaAssociare;
+        this.utenteDaAssociare = utenteDaAssociare;
     }
 
     public String getCodiceFiscale() {
-	return codiceFiscale;
+        return codiceFiscale;
     }
 
     public void setCodiceFiscale(String codiceFiscale) {
-	this.codiceFiscale = codiceFiscale;
+        this.codiceFiscale = codiceFiscale;
     }
 
     public String getSistemaVersante() {
-	return sistemaVersante;
+        return sistemaVersante;
     }
 
     public void setSistemaVersante(String sistemaVersante) {
-	this.sistemaVersante = sistemaVersante;
+        this.sistemaVersante = sistemaVersante;
     }
 
 }

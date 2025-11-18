@@ -63,172 +63,172 @@ public class LogSessioneFascicoliService implements ILogSessioneFascicoliService
 
     @Override
     @Transactional(value = TxType.REQUIRES_NEW, rollbackOn = {
-	    AppGenericPersistenceException.class })
+            AppGenericPersistenceException.class })
     public void registraSessioneErrata(RispostaWSFascicolo rispostaWs, VersFascicoloExt versamento,
-	    BlockingFakeSession sessione) throws AppGenericPersistenceException {
-	// nota l'errore critico di persistenza viene contrassegnato con la lettera P
-	// per dare la possibilità all'eventuale chiamante di ripetere il tentativo
-	// quando possibile (non è infatti un errore "definitivo" dato dall'input, ma
-	// bensì
-	// un errore interno provocato da problemi al database)
-	RispostaControlli rcSessErr = null;
-	VrsSesFascicoloErr tmpSesFascicoloErr = null;
-	// MEV#30786
-	BackendStorage backendMetadata = null;
-	Map<String, String> sipBlob = new HashMap<>();
-	// end MEV#30786
-	try {
-	    backendMetadata = objectStorageService.lookupBackendVrsSessioniErrKo();
+            BlockingFakeSession sessione) throws AppGenericPersistenceException {
+        // nota l'errore critico di persistenza viene contrassegnato con la lettera P
+        // per dare la possibilità all'eventuale chiamante di ripetere il tentativo
+        // quando possibile (non è infatti un errore "definitivo" dato dall'input, ma
+        // bensì
+        // un errore interno provocato da problemi al database)
+        RispostaControlli rcSessErr = null;
+        VrsSesFascicoloErr tmpSesFascicoloErr = null;
+        // MEV#30786
+        BackendStorage backendMetadata = null;
+        Map<String, String> sipBlob = new HashMap<>();
+        // end MEV#30786
+        try {
+            backendMetadata = objectStorageService.lookupBackendVrsSessioniErrKo();
 
-	    // salvo sessione errata:
-	    rcSessErr = logSessioneFascicoliDao.scriviFascicoloErr(rispostaWs, versamento,
-		    sessione);
+            // salvo sessione errata:
+            rcSessErr = logSessioneFascicoliDao.scriviFascicoloErr(rispostaWs, versamento,
+                    sessione);
 
-	    // salvo gli xml di request & response
-	    tmpSesFascicoloErr = (VrsSesFascicoloErr) rcSessErr.getrObject();
-	    //
-	    logSessioneFascicoliDao.scriviXmlFascicoloErr(rispostaWs, versamento,
-		    tmpSesFascicoloErr, backendMetadata, sipBlob);
-	    //
-	    // MEV#30786
-	    /*
-	     * Se backendMetadata di tipo O.S. si effettua il salvataggio (con link su apposita
-	     * entity)
-	     */
-	    if (backendMetadata.isObjectStorage()) {
-		ObjectStorageResource res = objectStorageService.createSipInSessioniErr(
-			backendMetadata.getBackendName(), sipBlob,
-			tmpSesFascicoloErr.getIdSesFascicoloErr(), getIdStrut(versamento));
-		log.debug("Salvati i SIP nel bucket {} con chiave {} ", res.getBucket(),
-			res.getKey());
-	    }
-	    // end MEV#30786
-	    entityManager.flush();
-	} catch (AppGenericPersistenceException agpex) {
-	    rispostaWs.setSeverity(IRispostaWS.SeverityEnum.ERROR);
-	    rispostaWs.setEsitoWsError(agpex.getCodErr(), agpex.getDsErr());
-	    versamento.aggiungErroreFatale(
-		    rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale());
-	    throw agpex;
-	} catch (Exception ex) {
-	    final String msg = "Errore interno nella fase di salvataggio sessione errata del fascicolo: ";
-	    // l'errore di persistenza viene aggiunto alla pila
-	    // di errori esistenti e in seguito serializzato nell'xml
-	    // di risposta. Inoltre tenterò di salvare una sessione errata con questi stessi
-	    // dati.
-	    rispostaWs.setSeverity(IRispostaWS.SeverityEnum.ERROR);
-	    rispostaWs.setEsitoWsErrBundle(MessaggiWSBundle.ERR_666P,
-		    msg + ExceptionUtils.getRootCauseMessage(ex));
-	    versamento.aggiungErroreFatale(
-		    rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale());
-	    // si scatena una AppGenericPersistenceException contenente
-	    // l'eccezione runtime non gestita dalla catch precedente
-	    throw new AppGenericPersistenceException(ex,
-		    msg + ExceptionUtils.getRootCauseMessage(ex));
-	}
+            // salvo gli xml di request & response
+            tmpSesFascicoloErr = (VrsSesFascicoloErr) rcSessErr.getrObject();
+            //
+            logSessioneFascicoliDao.scriviXmlFascicoloErr(rispostaWs, versamento,
+                    tmpSesFascicoloErr, backendMetadata, sipBlob);
+            //
+            // MEV#30786
+            /*
+             * Se backendMetadata di tipo O.S. si effettua il salvataggio (con link su apposita
+             * entity)
+             */
+            if (backendMetadata.isObjectStorage()) {
+                ObjectStorageResource res = objectStorageService.createSipInSessioniErr(
+                        backendMetadata.getBackendName(), sipBlob,
+                        tmpSesFascicoloErr.getIdSesFascicoloErr(), getIdStrut(versamento));
+                log.debug("Salvati i SIP nel bucket {} con chiave {} ", res.getBucket(),
+                        res.getKey());
+            }
+            // end MEV#30786
+            entityManager.flush();
+        } catch (AppGenericPersistenceException agpex) {
+            rispostaWs.setSeverity(IRispostaWS.SeverityEnum.ERROR);
+            rispostaWs.setEsitoWsError(agpex.getCodErr(), agpex.getDsErr());
+            versamento.aggiungErroreFatale(
+                    rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale());
+            throw agpex;
+        } catch (Exception ex) {
+            final String msg = "Errore interno nella fase di salvataggio sessione errata del fascicolo: ";
+            // l'errore di persistenza viene aggiunto alla pila
+            // di errori esistenti e in seguito serializzato nell'xml
+            // di risposta. Inoltre tenterò di salvare una sessione errata con questi stessi
+            // dati.
+            rispostaWs.setSeverity(IRispostaWS.SeverityEnum.ERROR);
+            rispostaWs.setEsitoWsErrBundle(MessaggiWSBundle.ERR_666P,
+                    msg + ExceptionUtils.getRootCauseMessage(ex));
+            versamento.aggiungErroreFatale(
+                    rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale());
+            // si scatena una AppGenericPersistenceException contenente
+            // l'eccezione runtime non gestita dalla catch precedente
+            throw new AppGenericPersistenceException(ex,
+                    msg + ExceptionUtils.getRootCauseMessage(ex));
+        }
     }
 
     @Override
     @Transactional(value = TxType.REQUIRES_NEW, rollbackOn = {
-	    AppGenericPersistenceException.class })
+            AppGenericPersistenceException.class })
     public void registraSessioneFallita(RispostaWSFascicolo rispostaWs, VersFascicoloExt versamento,
-	    BlockingFakeSession sessione) throws AppGenericPersistenceException {
-	// nota l'errore critico di persistenza viene contrassegnato con la lettera P
-	// per dare la possibilità all'eventuale chiamante di ripetere il tentativo
-	// quando possibile (non è infatti un errore "definitivo" dato dall'input, ma
-	// bensì
-	// un errore interno provocato da problemi al database)
-	//
-	// gli errori di persistenza in questa fase vengono aggiunti alla pila
-	// di errori esistenti e in seguito serializzati nell'xml
-	// di risposta. Inoltre tenterò di salvare una sessione errata con questi stessi
-	// dati.
-	RispostaControlli rcSessFailed = null;
-	FasFascicolo tmpFasFascicolo = null;
-	VrsFascicoloKo tmpFascicoloKo = null;
-	VrsSesFascicoloKo tmpSesFascicoloKo = null;
-	// MEV#30786
-	BackendStorage backendMetadata = null;
-	Map<String, String> sipBlob = new HashMap<>();
-	// end MEV#30786
-	try {
-	    backendMetadata = objectStorageService.lookupBackendVrsSessioniErrKo();
+            BlockingFakeSession sessione) throws AppGenericPersistenceException {
+        // nota l'errore critico di persistenza viene contrassegnato con la lettera P
+        // per dare la possibilità all'eventuale chiamante di ripetere il tentativo
+        // quando possibile (non è infatti un errore "definitivo" dato dall'input, ma
+        // bensì
+        // un errore interno provocato da problemi al database)
+        //
+        // gli errori di persistenza in questa fase vengono aggiunti alla pila
+        // di errori esistenti e in seguito serializzati nell'xml
+        // di risposta. Inoltre tenterò di salvare una sessione errata con questi stessi
+        // dati.
+        RispostaControlli rcSessFailed = null;
+        FasFascicolo tmpFasFascicolo = null;
+        VrsFascicoloKo tmpFascicoloKo = null;
+        VrsSesFascicoloKo tmpSesFascicoloKo = null;
+        // MEV#30786
+        BackendStorage backendMetadata = null;
+        Map<String, String> sipBlob = new HashMap<>();
+        // end MEV#30786
+        try {
+            backendMetadata = objectStorageService.lookupBackendVrsSessioniErrKo();
 
-	    // se sono in errore di fascicolo doppio -> cerco il fascicolo originale
-	    if (rispostaWs.isErroreElementoDoppio()) {
-		tmpFasFascicolo = entityManager.find(FasFascicolo.class,
-			rispostaWs.getIdElementoDoppio());
-	    } else {
-		// altrimenti -> cerco se esiste una precedente registrazione fallita dello
-		// stesso fascicolo e se esiste, lo blocco in modo esclusivo: lo devo modificare
-		rcSessFailed = logSessioneFascicoliDao.cercaFascicoloKo(versamento);
+            // se sono in errore di fascicolo doppio -> cerco il fascicolo originale
+            if (rispostaWs.isErroreElementoDoppio()) {
+                tmpFasFascicolo = entityManager.find(FasFascicolo.class,
+                        rispostaWs.getIdElementoDoppio());
+            } else {
+                // altrimenti -> cerco se esiste una precedente registrazione fallita dello
+                // stesso fascicolo e se esiste, lo blocco in modo esclusivo: lo devo modificare
+                rcSessFailed = logSessioneFascicoliDao.cercaFascicoloKo(versamento);
 
-		if (rcSessFailed.getrObject() != null) {
-		    tmpFascicoloKo = (VrsFascicoloKo) rcSessFailed.getrObject();
-		} else {
-		    // se non ho fascicoli buoni o cattivi già creati -> creo fascicolo fallito
-		    rcSessFailed = logSessioneFascicoliDao.scriviFascicoloKo(rispostaWs, versamento,
-			    sessione);
-		    //
-		    tmpFascicoloKo = (VrsFascicoloKo) rcSessFailed.getrObject();
-		}
-	    }
+                if (rcSessFailed.getrObject() != null) {
+                    tmpFascicoloKo = (VrsFascicoloKo) rcSessFailed.getrObject();
+                } else {
+                    // se non ho fascicoli buoni o cattivi già creati -> creo fascicolo fallito
+                    rcSessFailed = logSessioneFascicoliDao.scriviFascicoloKo(rispostaWs, versamento,
+                            sessione);
+                    //
+                    tmpFascicoloKo = (VrsFascicoloKo) rcSessFailed.getrObject();
+                }
+            }
 
-	    // salvo sessione fallita
-	    rcSessFailed = logSessioneFascicoliDao.scriviSessioneFascicoloKo(rispostaWs, versamento,
-		    sessione, tmpFascicoloKo, tmpFasFascicolo);
-	    //
-	    tmpSesFascicoloKo = (VrsSesFascicoloKo) rcSessFailed.getrObject();
-	    // salvo xml di request & response
-	    logSessioneFascicoliDao.scriviXmlFascicoloKo(rispostaWs, versamento, sessione,
-		    tmpSesFascicoloKo, backendMetadata, sipBlob);
+            // salvo sessione fallita
+            rcSessFailed = logSessioneFascicoliDao.scriviSessioneFascicoloKo(rispostaWs, versamento,
+                    sessione, tmpFascicoloKo, tmpFasFascicolo);
+            //
+            tmpSesFascicoloKo = (VrsSesFascicoloKo) rcSessFailed.getrObject();
+            // salvo xml di request & response
+            logSessioneFascicoliDao.scriviXmlFascicoloKo(rispostaWs, versamento, sessione,
+                    tmpSesFascicoloKo, backendMetadata, sipBlob);
 
-	    // salvo i warning e gli errori ulteriori
-	    logSessioneFascicoliDao.scriviErroriFascicoloKo(versamento, tmpSesFascicoloKo);
-	    //
-	    // MEV#30786
-	    /*
-	     * Se backendMetadata di tipo O.S. si effettua il salvataggio (con link su apposita
-	     * entity)
-	     */
-	    if (backendMetadata.isObjectStorage()) {
-		ObjectStorageResource res = objectStorageService.createSipInSessioniKo(
-			backendMetadata.getBackendName(), sipBlob,
-			tmpSesFascicoloKo.getIdSesFascicoloKo(), getIdStrut(versamento));
-		log.debug("Salvati i SIP nel bucket {} con chiave {} ", res.getBucket(),
-			res.getKey());
-	    }
-	    // end MEV#30786
-	    entityManager.flush();
-	} catch (AppGenericPersistenceException agpex) {
-	    rispostaWs.setSeverity(IRispostaWS.SeverityEnum.ERROR);
-	    rispostaWs.setEsitoWsError(agpex.getCodErr(), agpex.getDsErr());
-	    versamento.aggiungErroreFatale(
-		    rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale());
-	    throw agpex;
-	} catch (Exception ex) {
-	    final String msg = "Errore interno nella fase di salvataggio sessione fallita del fascicolo: ";
-	    // l'errore di persistenza viene aggiunto alla pila
-	    // di errori esistenti e in seguito serializzato nell'xml
-	    // di risposta. Inoltre tenterò di salvare una sessione errata con questi stessi
-	    // dati.
-	    rispostaWs.setSeverity(IRispostaWS.SeverityEnum.ERROR);
-	    rispostaWs.setEsitoWsErrBundle(MessaggiWSBundle.ERR_666P,
-		    msg + ExceptionUtils.getRootCauseMessage(ex));
-	    versamento.aggiungErroreFatale(
-		    rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale());
-	    // si scatena una AppGenericPersistenceException contenente
-	    // l'eccezione runtime non gestita dalla catch precedente
-	    throw new AppGenericPersistenceException(ex,
-		    msg + ExceptionUtils.getRootCauseMessage(ex));
-	}
+            // salvo i warning e gli errori ulteriori
+            logSessioneFascicoliDao.scriviErroriFascicoloKo(versamento, tmpSesFascicoloKo);
+            //
+            // MEV#30786
+            /*
+             * Se backendMetadata di tipo O.S. si effettua il salvataggio (con link su apposita
+             * entity)
+             */
+            if (backendMetadata.isObjectStorage()) {
+                ObjectStorageResource res = objectStorageService.createSipInSessioniKo(
+                        backendMetadata.getBackendName(), sipBlob,
+                        tmpSesFascicoloKo.getIdSesFascicoloKo(), getIdStrut(versamento));
+                log.debug("Salvati i SIP nel bucket {} con chiave {} ", res.getBucket(),
+                        res.getKey());
+            }
+            // end MEV#30786
+            entityManager.flush();
+        } catch (AppGenericPersistenceException agpex) {
+            rispostaWs.setSeverity(IRispostaWS.SeverityEnum.ERROR);
+            rispostaWs.setEsitoWsError(agpex.getCodErr(), agpex.getDsErr());
+            versamento.aggiungErroreFatale(
+                    rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale());
+            throw agpex;
+        } catch (Exception ex) {
+            final String msg = "Errore interno nella fase di salvataggio sessione fallita del fascicolo: ";
+            // l'errore di persistenza viene aggiunto alla pila
+            // di errori esistenti e in seguito serializzato nell'xml
+            // di risposta. Inoltre tenterò di salvare una sessione errata con questi stessi
+            // dati.
+            rispostaWs.setSeverity(IRispostaWS.SeverityEnum.ERROR);
+            rispostaWs.setEsitoWsErrBundle(MessaggiWSBundle.ERR_666P,
+                    msg + ExceptionUtils.getRootCauseMessage(ex));
+            versamento.aggiungErroreFatale(
+                    rispostaWs.getCompRapportoVersFascicolo().getEsitoGenerale());
+            // si scatena una AppGenericPersistenceException contenente
+            // l'eccezione runtime non gestita dalla catch precedente
+            throw new AppGenericPersistenceException(ex,
+                    msg + ExceptionUtils.getRootCauseMessage(ex));
+        }
     }
 
     private BigDecimal getIdStrut(VersFascicoloExt versamento) {
-	if (versamento.getStrutturaComponenti() != null
-		&& versamento.getStrutturaComponenti().getIdStruttura() != 0) {
-	    return BigDecimal.valueOf(versamento.getStrutturaComponenti().getIdStruttura());
-	}
-	return null;
+        if (versamento.getStrutturaComponenti() != null
+                && versamento.getStrutturaComponenti().getIdStruttura() != 0) {
+            return BigDecimal.valueOf(versamento.getStrutturaComponenti().getIdStruttura());
+        }
+        return null;
     }
 }

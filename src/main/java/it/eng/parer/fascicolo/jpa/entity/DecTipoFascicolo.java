@@ -18,18 +18,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -60,57 +53,54 @@ public class DecTipoFascicolo implements Serializable {
     private List<DecAttribFascicolo> decAttribFascicolos = new ArrayList<>();
 
     public DecTipoFascicolo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "DEC_TIPO_FASCICOLO_IDTIPOFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_TIPO_FASCICOLO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_TIPO_FASCICOLO_IDTIPOFASCICOLO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SDEC_TIPO_FASCICOLO", incrementBy = 1)
     @Column(name = "ID_TIPO_FASCICOLO")
     public Long getIdTipoFascicolo() {
-	return this.idTipoFascicolo;
+        return this.idTipoFascicolo;
     }
 
     public void setIdTipoFascicolo(Long idTipoFascicolo) {
-	this.idTipoFascicolo = idTipoFascicolo;
+        this.idTipoFascicolo = idTipoFascicolo;
     }
 
     @Column(name = "DS_TIPO_FASCICOLO")
     public String getDsTipoFascicolo() {
-	return this.dsTipoFascicolo;
+        return this.dsTipoFascicolo;
     }
 
     public void setDsTipoFascicolo(String dsTipoFascicolo) {
-	this.dsTipoFascicolo = dsTipoFascicolo;
+        this.dsTipoFascicolo = dsTipoFascicolo;
     }
 
     @Column(name = "DT_ISTITUZ")
     public LocalDateTime getDtIstituz() {
-	return this.dtIstituz;
+        return this.dtIstituz;
     }
 
     public void setDtIstituz(LocalDateTime dtIstituz) {
-	this.dtIstituz = dtIstituz;
+        this.dtIstituz = dtIstituz;
     }
 
     @Column(name = "DT_SOPPRES")
     public LocalDateTime getDtSoppres() {
-	return this.dtSoppres;
+        return this.dtSoppres;
     }
 
     public void setDtSoppres(LocalDateTime dtSoppres) {
-	this.dtSoppres = dtSoppres;
+        this.dtSoppres = dtSoppres;
     }
 
     @Column(name = "NM_TIPO_FASCICOLO")
     public String getNmTipoFascicolo() {
-	return this.nmTipoFascicolo;
+        return this.nmTipoFascicolo;
     }
 
     public void setNmTipoFascicolo(String nmTipoFascicolo) {
-	this.nmTipoFascicolo = nmTipoFascicolo;
+        this.nmTipoFascicolo = nmTipoFascicolo;
     }
 
     // bi-directional many-to-one association to OrgStrut
@@ -118,66 +108,66 @@ public class DecTipoFascicolo implements Serializable {
     @JoinColumn(name = "ID_STRUT")
 
     public OrgStrut getOrgStrut() {
-	return this.orgStrut;
+        return this.orgStrut;
     }
 
     public void setOrgStrut(OrgStrut orgStrut) {
-	this.orgStrut = orgStrut;
+        this.orgStrut = orgStrut;
     }
 
     // bi-directional many-to-one association to DecAaTipoFascicolo
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "decTipoFascicolo", fetch = FetchType.LAZY)
     public List<DecAaTipoFascicolo> getDecAaTipoFascicolos() {
-	return this.decAaTipoFascicolos;
+        return this.decAaTipoFascicolos;
     }
 
     public void setDecAaTipoFascicolos(List<DecAaTipoFascicolo> decAaTipoFascicolos) {
-	this.decAaTipoFascicolos = decAaTipoFascicolos;
+        this.decAaTipoFascicolos = decAaTipoFascicolos;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @OneToMany(mappedBy = "decTipoFascicolo")
     public List<FasFascicolo> getFasFascicolos() {
-	return this.fasFascicolos;
+        return this.fasFascicolos;
     }
 
     public void setFasFascicolos(List<FasFascicolo> fasFascicolos) {
-	this.fasFascicolos = fasFascicolos;
+        this.fasFascicolos = fasFascicolos;
     }
 
     // bi-directional many-to-one association to DecSelCriterioRaggrFasc
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "decTipoFascicolo", fetch = FetchType.LAZY)
     public List<DecSelCriterioRaggrFasc> getDecSelCriterioRaggrFascicolos() {
-	return this.decSelCriterioRaggrFascicolos;
+        return this.decSelCriterioRaggrFascicolos;
     }
 
     public void setDecSelCriterioRaggrFascicolos(
-	    List<DecSelCriterioRaggrFasc> decSelCriterioRaggrFascicolos) {
-	this.decSelCriterioRaggrFascicolos = decSelCriterioRaggrFascicolos;
+            List<DecSelCriterioRaggrFasc> decSelCriterioRaggrFascicolos) {
+        this.decSelCriterioRaggrFascicolos = decSelCriterioRaggrFascicolos;
     }
 
     // bi-directional one-to-many association to DecAttribFascicolo
     @OneToMany(mappedBy = "decTipoFascicolo")
     public List<DecAttribFascicolo> getDecAttribFascicolos() {
-	return this.decAttribFascicolos;
+        return this.decAttribFascicolos;
     }
 
     public void setDecAttribFascicolos(List<DecAttribFascicolo> decAttribFascicolos) {
-	this.decAttribFascicolos = decAttribFascicolos;
+        this.decAttribFascicolos = decAttribFascicolos;
     }
 
     public DecAttribFascicolo addAplValoreParamApplic(DecAttribFascicolo decAttribFascicolo) {
-	getDecAttribFascicolos().add(decAttribFascicolo);
-	decAttribFascicolo.setDecTipoFascicolo(this);
+        getDecAttribFascicolos().add(decAttribFascicolo);
+        decAttribFascicolo.setDecTipoFascicolo(this);
 
-	return decAttribFascicolo;
+        return decAttribFascicolo;
     }
 
     public DecAttribFascicolo removeAplValoreParamApplic(DecAttribFascicolo decAttribFascicolo) {
-	getDecAttribFascicolos().remove(decAttribFascicolo);
-	decAttribFascicolo.setDecTipoFascicolo(null);
+        getDecAttribFascicolos().remove(decAttribFascicolo);
+        decAttribFascicolo.setDecTipoFascicolo(null);
 
-	return decAttribFascicolo;
+        return decAttribFascicolo;
     }
 
 }

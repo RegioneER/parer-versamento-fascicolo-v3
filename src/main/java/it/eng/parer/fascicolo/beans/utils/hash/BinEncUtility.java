@@ -36,55 +36,55 @@ public class BinEncUtility {
     private static final Logger log = LoggerFactory.getLogger(BinEncUtility.class);
 
     private BinEncUtility() {
-	throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("Utility class");
     }
 
     public static boolean isBase64String(String utf8str) {
-	return Base64.isBase64(utf8str);
+        return Base64.isBase64(utf8str);
     }
 
     public static String encodeUTF8Base64String(byte[] barray) {
-	if (barray != null && barray.length > 0) {
-	    try {
-		return new String(Base64.encodeBase64(barray), "UTF-8");
-	    } catch (UnsupportedEncodingException ex) {
-		log.atError().log("Encoding UTF-8 non supportato");
-		throw new AppGenericRuntimeException(ex.getMessage(), ErrorCategory.INTERNAL_ERROR);
-	    }
-	} else {
-	    return "";
-	}
+        if (barray != null && barray.length > 0) {
+            try {
+                return new String(Base64.encodeBase64(barray), "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                log.atError().log("Encoding UTF-8 non supportato");
+                throw new AppGenericRuntimeException(ex.getMessage(), ErrorCategory.INTERNAL_ERROR);
+            }
+        } else {
+            return "";
+        }
     }
 
     public static byte[] decodeUTF8Base64String(String utf8str) {
-	try {
-	    return Base64.decodeBase64(utf8str.getBytes("UTF-8"));
-	} catch (UnsupportedEncodingException ex) {
-	    log.atError().log("Encoding UTF-8 non supportato");
-	    throw new AppGenericRuntimeException(ex.getMessage(), ErrorCategory.INTERNAL_ERROR);
-	}
+        try {
+            return Base64.decodeBase64(utf8str.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException ex) {
+            log.atError().log("Encoding UTF-8 non supportato");
+            throw new AppGenericRuntimeException(ex.getMessage(), ErrorCategory.INTERNAL_ERROR);
+        }
     }
 
     public static boolean isHexString(String utf8str) {
-	return (utf8str.length() > 1 && utf8str.length() % 2 == 0)
-		&& utf8str.matches("^[0-9a-fA-F]+$");
+        return (utf8str.length() > 1 && utf8str.length() % 2 == 0)
+                && utf8str.matches("^[0-9a-fA-F]+$");
     }
 
     public static String encodeUTF8HexString(byte[] barray) {
-	if (barray != null && barray.length > 0) {
-	    return Hex.encodeHexString(barray);
-	} else {
-	    return "";
-	}
+        if (barray != null && barray.length > 0) {
+            return Hex.encodeHexString(barray);
+        } else {
+            return "";
+        }
     }
 
     public static byte[] decodeUTF8HexString(String hexstr) {
-	try {
-	    return Hex.decodeHex(hexstr.toCharArray());
-	} catch (DecoderException ex) {
-	    log.atError().log("La stringa non rappresenta un numero in base 16");
-	    throw new AppGenericRuntimeException(ex.getMessage(), ErrorCategory.INTERNAL_ERROR);
-	}
+        try {
+            return Hex.decodeHex(hexstr.toCharArray());
+        } catch (DecoderException ex) {
+            log.atError().log("La stringa non rappresenta un numero in base 16");
+            throw new AppGenericRuntimeException(ex.getMessage(), ErrorCategory.INTERNAL_ERROR);
+        }
     }
 
 }

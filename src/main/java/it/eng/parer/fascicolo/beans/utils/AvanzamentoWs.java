@@ -34,14 +34,14 @@ public class AvanzamentoWs implements java.io.Serializable {
 
     public enum Funzioni {
 
-	VERSAMENTO_FASCICOLO
+        VERSAMENTO_FASCICOLO
     }
 
     public enum CheckPoints {
 
-	INIZIO, VERIFICA_STRUTTURA_CHIAMATA_WS, VERIFICA_XML, VERIFICA_SEMANTICA,
-	SALVATAGGIO_DATI_VERSATI, SALVATAGGIO_SESSIONE_WS, CREAZIONE_RISPOSTA,
-	TRASFERIMENTO_PAYLOAD_IN, LETTURA_IP_VERSANTE, INVIO_RISPOSTA, FINE
+        INIZIO, VERIFICA_STRUTTURA_CHIAMATA_WS, VERIFICA_XML, VERIFICA_SEMANTICA,
+        SALVATAGGIO_DATI_VERSATI, SALVATAGGIO_SESSIONE_WS, CREAZIONE_RISPOSTA,
+        TRASFERIMENTO_PAYLOAD_IN, LETTURA_IP_VERSANTE, INVIO_RISPOSTA, FINE
     }
 
     //
@@ -68,93 +68,93 @@ public class AvanzamentoWs implements java.io.Serializable {
 
     // costruttore privato, la classe non è direttamente istanziabile
     private AvanzamentoWs() {
-	this.reset();
+        this.reset();
     }
 
     // factory
     public static AvanzamentoWs nuovoAvanzamentoWS(String instance, Funzioni funz) {
-	AvanzamentoWs tmpAvanzamentoWS = null;
-	/*
-	 * Vedi https://redmine.ente.regione.emr.it/issues/21627
-	 */
-	tmpAvanzamentoWS = new AvanzamentoWs();
-	tmpAvanzamentoWS.instanceName = instance;
-	tmpAvanzamentoWS.funzione = funz;
+        AvanzamentoWs tmpAvanzamentoWS = null;
+        /*
+         * Vedi https://redmine.ente.regione.emr.it/issues/21627
+         */
+        tmpAvanzamentoWS = new AvanzamentoWs();
+        tmpAvanzamentoWS.instanceName = instance;
+        tmpAvanzamentoWS.funzione = funz;
 
-	return tmpAvanzamentoWS;
+        return tmpAvanzamentoWS;
     }
 
     public AvanzamentoWs logAvanzamento() {
-	return logAvanzamento(false);
+        return logAvanzamento(false);
     }
 
     public AvanzamentoWs logAvanzamento(boolean needToVisual) {
 
-	StringBuilder tmpBuilder = new StringBuilder();
+        StringBuilder tmpBuilder = new StringBuilder();
 
-	tmpBuilder.append(String.format("I: %s ; ", this.getInstanceName()));
-	tmpBuilder.append(String.format("F: %s ; ", this.getFunzione().toString()));
-	tmpBuilder.append(String.format("CP: %s ; ", this.getCheckPoint().toString()));
+        tmpBuilder.append(String.format("I: %s ; ", this.getInstanceName()));
+        tmpBuilder.append(String.format("F: %s ; ", this.getFunzione().toString()));
+        tmpBuilder.append(String.format("CP: %s ; ", this.getCheckPoint().toString()));
 
-	if (!this.getFase().isEmpty()) {
-	    tmpBuilder.append(String.format("F: %s ; ", this.getFase()));
-	}
+        if (!this.getFase().isEmpty()) {
+            tmpBuilder.append(String.format("F: %s ; ", this.getFase()));
+        }
 
-	if (!this.getVrsAmbiente().isEmpty()) {
-	    tmpBuilder.append(String.format("Amb: %s ; ", this.getVrsAmbiente()));
-	    tmpBuilder.append(String.format("Ente: %s ; ", this.getVrsEnte()));
-	    tmpBuilder.append(String.format("Strutt: %s ; ", this.getVrsStruttura()));
-	}
+        if (!this.getVrsAmbiente().isEmpty()) {
+            tmpBuilder.append(String.format("Amb: %s ; ", this.getVrsAmbiente()));
+            tmpBuilder.append(String.format("Ente: %s ; ", this.getVrsEnte()));
+            tmpBuilder.append(String.format("Strutt: %s ; ", this.getVrsStruttura()));
+        }
 
-	if (!this.getIndirizzoIp().isEmpty()) {
-	    tmpBuilder.append(String.format("IP: %s ; ", this.getIndirizzoIp()));
-	}
+        if (!this.getIndirizzoIp().isEmpty()) {
+            tmpBuilder.append(String.format("IP: %s ; ", this.getIndirizzoIp()));
+        }
 
-	if (!this.getVrsUser().isEmpty()) {
-	    tmpBuilder.append(String.format("U: %s ; ", this.getVrsUser()));
-	}
+        if (!this.getVrsUser().isEmpty()) {
+            tmpBuilder.append(String.format("U: %s ; ", this.getVrsUser()));
+        }
 
-	if (!this.getChAnno().isEmpty()) {
-	    tmpBuilder.append(String.format("Anno: %s ; ", this.getChAnno()));
-	    tmpBuilder.append(String.format("Num: %s ; ", this.getChNumero()));
-	    tmpBuilder.append(String.format("Reg: %s ; ", this.getChRegistro()));
-	}
+        if (!this.getChAnno().isEmpty()) {
+            tmpBuilder.append(String.format("Anno: %s ; ", this.getChAnno()));
+            tmpBuilder.append(String.format("Num: %s ; ", this.getChNumero()));
+            tmpBuilder.append(String.format("Reg: %s ; ", this.getChRegistro()));
+        }
 
-	if (!this.getDocumento().isEmpty()) {
-	    tmpBuilder.append(String.format("Doc: %s ; ", this.getDocumento()));
-	}
+        if (!this.getDocumento().isEmpty()) {
+            tmpBuilder.append(String.format("Doc: %s ; ", this.getDocumento()));
+        }
 
-	if (!this.getComponente().isEmpty()) {
-	    tmpBuilder.append(String.format("Comp: %s ; ", this.getComponente()));
-	}
+        if (!this.getComponente().isEmpty()) {
+            tmpBuilder.append(String.format("Comp: %s ; ", this.getComponente()));
+        }
 
-	if (this.getTotalTime() != 0) {
-	    tmpBuilder.append(String.format("Tempo Impiegato: %s ms; ", this.getTotalTime()));
-	}
+        if (this.getTotalTime() != 0) {
+            tmpBuilder.append(String.format("Tempo Impiegato: %s ms; ", this.getTotalTime()));
+        }
 
-	log.atLevel(needToVisual ? Level.INFO : Level.DEBUG).log(tmpBuilder.toString());
-	return this;
+        log.atLevel(needToVisual ? Level.INFO : Level.DEBUG).log(tmpBuilder.toString());
+        return this;
     }
 
     public AvanzamentoWs reset() {
-	checkPoint = CheckPoints.INIZIO;
-	chNumero = StringUtils.EMPTY;
-	chAnno = StringUtils.EMPTY;
-	chRegistro = StringUtils.EMPTY;
-	vrsAmbiente = StringUtils.EMPTY;
-	vrsEnte = StringUtils.EMPTY;
-	vrsStruttura = StringUtils.EMPTY;
-	vrsUser = StringUtils.EMPTY;
-	indirizzoIp = StringUtils.EMPTY;
-	this.resetFase();
-	return this;
+        checkPoint = CheckPoints.INIZIO;
+        chNumero = StringUtils.EMPTY;
+        chAnno = StringUtils.EMPTY;
+        chRegistro = StringUtils.EMPTY;
+        vrsAmbiente = StringUtils.EMPTY;
+        vrsEnte = StringUtils.EMPTY;
+        vrsStruttura = StringUtils.EMPTY;
+        vrsUser = StringUtils.EMPTY;
+        indirizzoIp = StringUtils.EMPTY;
+        this.resetFase();
+        return this;
     }
 
     public AvanzamentoWs resetFase() {
-	fase = StringUtils.EMPTY;
-	documento = StringUtils.EMPTY;
-	componente = StringUtils.EMPTY;
-	return this;
+        fase = StringUtils.EMPTY;
+        documento = StringUtils.EMPTY;
+        componente = StringUtils.EMPTY;
+        return this;
     }
 
     /*
@@ -164,137 +164,137 @@ public class AvanzamentoWs implements java.io.Serializable {
      * )
      */
     public String getInstanceName() {
-	return instanceName;
+        return instanceName;
     }
 
     public AvanzamentoWs setInstanceName(String instanceName) {
-	this.instanceName = instanceName;
-	return this;
+        this.instanceName = instanceName;
+        return this;
     }
 
     public Funzioni getFunzione() {
-	return funzione;
+        return funzione;
     }
 
     public AvanzamentoWs setFunzione(Funzioni funzione) {
-	this.funzione = funzione;
-	return this;
+        this.funzione = funzione;
+        return this;
     }
 
     public CheckPoints getCheckPoint() {
-	return checkPoint;
+        return checkPoint;
     }
 
     public AvanzamentoWs setCheckPoint(CheckPoints checkPoint) {
-	this.checkPoint = checkPoint;
-	return this;
+        this.checkPoint = checkPoint;
+        return this;
     }
 
     public String getFase() {
-	return fase;
+        return fase;
     }
 
     public AvanzamentoWs setFase(String fase) {
-	this.fase = fase;
-	return this;
+        this.fase = fase;
+        return this;
     }
 
     public String getChNumero() {
-	return chNumero;
+        return chNumero;
     }
 
     public AvanzamentoWs setChNumero(String chNumero) {
-	this.chNumero = chNumero;
-	return this;
+        this.chNumero = chNumero;
+        return this;
     }
 
     public String getChAnno() {
-	return chAnno;
+        return chAnno;
     }
 
     public AvanzamentoWs setChAnno(String chAnno) {
-	this.chAnno = chAnno;
-	return this;
+        this.chAnno = chAnno;
+        return this;
     }
 
     public String getChRegistro() {
-	return chRegistro;
+        return chRegistro;
     }
 
     public AvanzamentoWs setChRegistro(String chRegistro) {
-	this.chRegistro = chRegistro;
-	return this;
+        this.chRegistro = chRegistro;
+        return this;
     }
 
     public String getVrsAmbiente() {
-	return vrsAmbiente;
+        return vrsAmbiente;
     }
 
     public AvanzamentoWs setVrsAmbiente(String vrsAmbiente) {
-	this.vrsAmbiente = vrsAmbiente;
-	return this;
+        this.vrsAmbiente = vrsAmbiente;
+        return this;
     }
 
     public String getVrsEnte() {
-	return vrsEnte;
+        return vrsEnte;
     }
 
     public AvanzamentoWs setVrsEnte(String vrsEnte) {
-	this.vrsEnte = vrsEnte;
-	return this;
+        this.vrsEnte = vrsEnte;
+        return this;
     }
 
     public String getVrsStruttura() {
-	return vrsStruttura;
+        return vrsStruttura;
     }
 
     public AvanzamentoWs setVrsStruttura(String vrsStruttura) {
-	this.vrsStruttura = vrsStruttura;
-	return this;
+        this.vrsStruttura = vrsStruttura;
+        return this;
     }
 
     public String getVrsUser() {
-	return vrsUser;
+        return vrsUser;
     }
 
     public AvanzamentoWs setVrsUser(String vrsUser) {
-	this.vrsUser = vrsUser;
-	return this;
+        this.vrsUser = vrsUser;
+        return this;
     }
 
     public String getDocumento() {
-	return documento;
+        return documento;
     }
 
     public AvanzamentoWs setDocumento(String documento) {
-	this.documento = documento;
-	return this;
+        this.documento = documento;
+        return this;
     }
 
     public String getComponente() {
-	return componente;
+        return componente;
     }
 
     public AvanzamentoWs setComponente(String componente) {
-	this.componente = componente;
-	return this;
+        this.componente = componente;
+        return this;
     }
 
     public long getTotalTime() {
-	return totalTime;
+        return totalTime;
     }
 
     public AvanzamentoWs setTotalTime(long totalTime) {
-	this.totalTime = totalTime;
-	return this;
+        this.totalTime = totalTime;
+        return this;
     }
 
     public String getIndirizzoIp() {
-	return indirizzoIp;
+        return indirizzoIp;
     }
 
     public AvanzamentoWs setIndirizzoIp(String indirizzoIp) {
-	this.indirizzoIp = indirizzoIp;
-	return this;
+        this.indirizzoIp = indirizzoIp;
+        return this;
     }
 }

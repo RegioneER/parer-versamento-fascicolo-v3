@@ -27,32 +27,32 @@ public class DXPGProcAmmininistrativo implements Serializable {
     String materiaArgStrut;
 
     public String getCodice() {
-	return codice;
+        return codice;
     }
 
     public void setCodice(String codice) {
-	this.codice = codice;
+        this.codice = codice;
     }
 
     public String getDenominazione() {
-	return denominazione;
+        return denominazione;
     }
 
     public void setDenominazione(String denominazione) {
-	this.denominazione = denominazione;
+        this.denominazione = denominazione;
     }
 
     public String getMateriaArgStrut() {
-	return materiaArgStrut;
+        return materiaArgStrut;
     }
 
     public void setMateriaArgStrut(String materiaArgStrut) {
-	this.materiaArgStrut = materiaArgStrut;
+        this.materiaArgStrut = materiaArgStrut;
     }
 
     @Override
     public String toString() {
-	return codice + " - " + denominazione + " - " + materiaArgStrut;
+        return codice + " - " + denominazione + " - " + materiaArgStrut;
     }
 
 }

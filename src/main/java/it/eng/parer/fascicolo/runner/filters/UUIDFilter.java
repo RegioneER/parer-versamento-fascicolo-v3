@@ -33,10 +33,10 @@ public class UUIDFilter {
     @ServerRequestFilter
     public Optional<RestResponse<Void>> getFilter(ContainerRequestContext ctx) {
 
-	if (ctx.getMethod().equals(HttpMethod.POST)) {
-	    UUIDMdcLogUtil.genUuid();
-	}
+        if (ctx.getMethod().equals(HttpMethod.POST)) {
+            UUIDMdcLogUtil.genUuid();
+        }
 
-	return Optional.empty();
+        return Optional.empty();
     }
 }

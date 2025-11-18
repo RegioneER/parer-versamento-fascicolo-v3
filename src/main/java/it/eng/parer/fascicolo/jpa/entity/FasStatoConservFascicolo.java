@@ -16,20 +16,13 @@ package it.eng.parer.fascicolo.jpa.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
 import it.eng.parer.fascicolo.jpa.entity.constraint.FasStatoConservFascicolo.TiStatoConservazione;
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -53,63 +46,60 @@ public class FasStatoConservFascicolo implements Serializable {
     private LocalDateTime tsStato;
 
     public FasStatoConservFascicolo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "FAS_STATO_CONSERV_FASCICOLO_IDSTATOCONSERVFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_STATO_CONSERV_FASCICOLO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_STATO_CONSERV_FASCICOLO_IDSTATOCONSERVFASCICOLO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SFAS_STATO_CONSERV_FASCICOLO", incrementBy = 1)
     @Column(name = "ID_STATO_CONSERV_FASCICOLO")
     public Long getIdStatoConservFascicolo() {
-	return this.idStatoConservFascicolo;
+        return this.idStatoConservFascicolo;
     }
 
     public void setIdStatoConservFascicolo(Long idStatoConservFascicolo) {
-	this.idStatoConservFascicolo = idStatoConservFascicolo;
+        this.idStatoConservFascicolo = idStatoConservFascicolo;
     }
 
     // bi-directional many-to-one association to IamUser
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCICOLO")
     public FasFascicolo getFasFascicolo() {
-	return this.fasFascicolo;
+        return this.fasFascicolo;
     }
 
     public void setFasFascicolo(FasFascicolo fasFascicolo) {
-	this.fasFascicolo = fasFascicolo;
+        this.fasFascicolo = fasFascicolo;
     }
 
     // bi-directional many-to-one association to IamUser
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER_IAM")
     public IamUser getIamUser() {
-	return this.iamUser;
+        return this.iamUser;
     }
 
     public void setIamUser(IamUser iamUser) {
-	this.iamUser = iamUser;
+        this.iamUser = iamUser;
     }
 
     /* XML non serializable */
     @Enumerated(EnumType.STRING)
     @Column(name = "TI_STATO_CONSERVAZIONE")
     public TiStatoConservazione getTiStatoConservazione() {
-	return this.tiStatoConservazione;
+        return this.tiStatoConservazione;
     }
 
     public void setTiStatoConservazione(TiStatoConservazione tiStatoConservazione) {
-	this.tiStatoConservazione = tiStatoConservazione;
+        this.tiStatoConservazione = tiStatoConservazione;
     }
 
     @Column(name = "TS_STATO")
     public LocalDateTime getTsStato() {
-	return this.tsStato;
+        return this.tsStato;
     }
 
     public void setTsStato(LocalDateTime tsStato) {
-	this.tsStato = tsStato;
+        this.tsStato = tsStato;
     }
 
 }

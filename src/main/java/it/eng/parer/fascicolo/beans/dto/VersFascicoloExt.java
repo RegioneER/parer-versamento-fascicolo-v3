@@ -35,48 +35,48 @@ public class VersFascicoloExt extends AbsVersFascicoloExt {
 
     private transient IWSDesc descrizione;
     private Set<Costanti.ModificatoriWS> modificatoriWS = EnumSet
-	    .noneOf(Costanti.ModificatoriWS.class);
+            .noneOf(Costanti.ModificatoriWS.class);
 
     @Override
     public void setDatiXml(String datiXml) {
-	this.datiXml = datiXml;
+        this.datiXml = datiXml;
     }
 
     @Override
     public String getDatiXml() {
-	return datiXml;
+        return datiXml;
     }
 
     @Override
     public boolean isSimulaScrittura() {
-	return simulaScrittura;
+        return simulaScrittura;
     }
 
     @Override
     public void setSimulaScrittura(boolean simulaScrittura) {
-	this.simulaScrittura = simulaScrittura;
+        this.simulaScrittura = simulaScrittura;
     }
 
     @Override
     public IWSDesc getDescrizione() {
-	return descrizione;
+        return descrizione;
     }
 
     @Override
     public void setDescrizione(IWSDesc descrizione) {
-	this.descrizione = descrizione;
+        this.descrizione = descrizione;
     }
 
     @Override
     public Set<Costanti.ModificatoriWS> getModificatoriWSCalc() {
-	return this.modificatoriWS;
+        return this.modificatoriWS;
     }
 
     public Set<Costanti.ModificatoriWS> getModificatoriWS() {
-	return modificatoriWS;
+        return modificatoriWS;
     }
 
     public void setModificatoriWS(Set<Costanti.ModificatoriWS> modificatoriWS) {
-	this.modificatoriWS = modificatoriWS;
+        this.modificatoriWS = modificatoriWS;
     }
 }

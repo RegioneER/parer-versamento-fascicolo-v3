@@ -15,17 +15,10 @@ package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -48,71 +41,68 @@ public class FasSipVerAipFascicolo implements Serializable {
     private FasXmlVersFascicolo fasXmlVersFascicoloRisp;
 
     public FasSipVerAipFascicolo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "FAS_SIP_VER_AIP_FASCICOLO_IDSIPVERAIPFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_SIP_VER_AIP_FASCICOLO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_SIP_VER_AIP_FASCICOLO_IDSIPVERAIPFASCICOLO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SFAS_SIP_VER_AIP_FASCICOLO", incrementBy = 1)
     @Column(name = "ID_SIP_VER_AIP_FASCICOLO")
     public Long getIdSipVerAipFascicolo() {
-	return this.idSipVerAipFascicolo;
+        return this.idSipVerAipFascicolo;
     }
 
     public void setIdSipVerAipFascicolo(Long idSipVerAipFascicolo) {
-	this.idSipVerAipFascicolo = idSipVerAipFascicolo;
+        this.idSipVerAipFascicolo = idSipVerAipFascicolo;
     }
 
     // bi-directional many-to-one association to FasVerAipFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_VER_AIP_FASCICOLO")
     public FasVerAipFascicolo getFasVerAipFascicolo() {
-	return this.fasVerAipFascicolo;
+        return this.fasVerAipFascicolo;
     }
 
     public void setFasVerAipFascicolo(FasVerAipFascicolo fasVerAipFascicolo) {
-	this.fasVerAipFascicolo = fasVerAipFascicolo;
+        this.fasVerAipFascicolo = fasVerAipFascicolo;
     }
 
     @Column(name = "NM_SIP")
     public String getNmSip() {
-	return this.nmSip;
+        return this.nmSip;
     }
 
     public void setNmSip(String nmSip) {
-	this.nmSip = nmSip;
+        this.nmSip = nmSip;
     }
 
     @Column(name = "TI_SIP")
     public String getTiSip() {
-	return this.tiSip;
+        return this.tiSip;
     }
 
     public void setTiSip(String tiSip) {
-	this.tiSip = tiSip;
+        this.tiSip = tiSip;
     }
 
     // bi-directional many-to-one association to FasXmlVersFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_XML_VERS_FASCICOLO_RICH")
     public FasXmlVersFascicolo getFasXmlVersFascicoloRich() {
-	return this.fasXmlVersFascicoloRich;
+        return this.fasXmlVersFascicoloRich;
     }
 
     public void setFasXmlVersFascicoloRich(FasXmlVersFascicolo fasXmlVersFascicoloRich) {
-	this.fasXmlVersFascicoloRich = fasXmlVersFascicoloRich;
+        this.fasXmlVersFascicoloRich = fasXmlVersFascicoloRich;
     }
 
     // bi-directional many-to-one association to FasXmlVersFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_XML_VERS_FASCICOLO_RISP")
     public FasXmlVersFascicolo getFasXmlVersFascicoloRisp() {
-	return this.fasXmlVersFascicoloRisp;
+        return this.fasXmlVersFascicoloRisp;
     }
 
     public void setFasXmlVersFascicoloRisp(FasXmlVersFascicolo fasXmlVersFascicoloRisp) {
-	this.fasXmlVersFascicoloRisp = fasXmlVersFascicoloRisp;
+        this.fasXmlVersFascicoloRisp = fasXmlVersFascicoloRisp;
     }
 }

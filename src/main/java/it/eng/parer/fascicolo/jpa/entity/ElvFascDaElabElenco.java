@@ -17,20 +17,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
 import it.eng.parer.fascicolo.jpa.entity.constraint.ElvFascDaElabElenco.TiStatoFascDaElab;
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -56,78 +49,75 @@ public class ElvFascDaElabElenco implements Serializable {
     private BigDecimal idTipoFascicolo;
 
     public ElvFascDaElabElenco() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "ELV_FASC_DA_ELAB_ELENCO_IDFASCDAELABELENCO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SELV_FASC_DA_ELAB_ELENCO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ELV_FASC_DA_ELAB_ELENCO_IDFASCDAELABELENCO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SELV_FASC_DA_ELAB_ELENCO", incrementBy = 1)
     @Column(name = "ID_FASC_DA_ELAB_ELENCO")
     public Long getIdFascDaElabElenco() {
-	return this.idFascDaElabElenco;
+        return this.idFascDaElabElenco;
     }
 
     public void setIdFascDaElabElenco(Long idFascDaElabElenco) {
-	this.idFascDaElabElenco = idFascDaElabElenco;
+        this.idFascDaElabElenco = idFascDaElabElenco;
     }
 
     @Column(name = "AA_FASCICOLO")
     public BigDecimal getAaFascicolo() {
-	return this.aaFascicolo;
+        return this.aaFascicolo;
     }
 
     public void setAaFascicolo(BigDecimal aaFascicolo) {
-	this.aaFascicolo = aaFascicolo;
+        this.aaFascicolo = aaFascicolo;
     }
 
     @Column(name = "TS_VERS_FASCICOLO")
     public LocalDateTime getTsVersFascicolo() {
-	return this.tsVersFascicolo;
+        return this.tsVersFascicolo;
     }
 
     public void setTsVersFascicolo(LocalDateTime tsVersFascicolo) {
-	this.tsVersFascicolo = tsVersFascicolo;
+        this.tsVersFascicolo = tsVersFascicolo;
     }
 
     @Column(name = "ID_STRUT")
     public BigDecimal getIdStrut() {
-	return this.idStrut;
+        return this.idStrut;
     }
 
     public void setIdStrut(BigDecimal idStrut) {
-	this.idStrut = idStrut;
+        this.idStrut = idStrut;
     }
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TI_STATO_FASC_DA_ELAB")
     public TiStatoFascDaElab getTiStatoFascDaElab() {
-	return this.tiStatoFascDaElab;
+        return this.tiStatoFascDaElab;
     }
 
     public void setTiStatoFascDaElab(TiStatoFascDaElab tiStatoFascDaElab) {
-	this.tiStatoFascDaElab = tiStatoFascDaElab;
+        this.tiStatoFascDaElab = tiStatoFascDaElab;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCICOLO")
     public FasFascicolo getFasFascicolo() {
-	return this.fasFascicolo;
+        return this.fasFascicolo;
     }
 
     public void setFasFascicolo(FasFascicolo fasFascicolo) {
-	this.fasFascicolo = fasFascicolo;
+        this.fasFascicolo = fasFascicolo;
     }
 
     @Column(name = "ID_TIPO_FASCICOLO")
     public BigDecimal getIdTipoFascicolo() {
-	return this.idTipoFascicolo;
+        return this.idTipoFascicolo;
     }
 
     public void setIdTipoFascicolo(BigDecimal idTipoFascicolo) {
-	this.idTipoFascicolo = idTipoFascicolo;
+        this.idTipoFascicolo = idTipoFascicolo;
     }
 
 }

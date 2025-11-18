@@ -32,7 +32,7 @@ public class XmlDateUtility {
     private static final String LOG_ERR_CONVERSION = "Exception in conversion of Date to XMLGregorianCalendar";
 
     private XmlDateUtility() {
-	throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("Utility class");
     }
 
     /**
@@ -43,19 +43,19 @@ public class XmlDateUtility {
      * @return restituisce XMLGregorianCalendar
      */
     public static XMLGregorianCalendar dateToXMLGregorianCalendar(Date date, TimeZone zone) {
-	XMLGregorianCalendar xmlGregorianCalendar = null;
-	GregorianCalendar gregorianCalendar = new GregorianCalendar();
-	gregorianCalendar.setTime(date);
-	gregorianCalendar.setTimeZone(zone);
-	try {
-	    DatatypeFactory dataTypeFactory = DatatypeFactory.newInstance();
-	    xmlGregorianCalendar = dataTypeFactory.newXMLGregorianCalendar(gregorianCalendar);
-	} catch (Exception e) {
-	    throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
-		    ErrorCategory.VALIDATION_ERROR);
-	}
+        XMLGregorianCalendar xmlGregorianCalendar = null;
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTime(date);
+        gregorianCalendar.setTimeZone(zone);
+        try {
+            DatatypeFactory dataTypeFactory = DatatypeFactory.newInstance();
+            xmlGregorianCalendar = dataTypeFactory.newXMLGregorianCalendar(gregorianCalendar);
+        } catch (Exception e) {
+            throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
+                    ErrorCategory.VALIDATION_ERROR);
+        }
 
-	return xmlGregorianCalendar;
+        return xmlGregorianCalendar;
     }
 
     /**
@@ -66,49 +66,49 @@ public class XmlDateUtility {
      *
      */
     public static XMLGregorianCalendar dateToXMLGregorianCalendarOrNull(Date date) {
-	if (date != null) {
-	    XMLGregorianCalendar xmlGregorianCalendar = null;
-	    GregorianCalendar gregorianCalendar = new GregorianCalendar();
-	    gregorianCalendar.setTime(date);
-	    try {
-		DatatypeFactory dataTypeFactory = DatatypeFactory.newInstance();
-		xmlGregorianCalendar = dataTypeFactory.newXMLGregorianCalendar(gregorianCalendar);
-	    } catch (Exception e) {
-		throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
-			ErrorCategory.VALIDATION_ERROR);
-	    }
-	    return xmlGregorianCalendar;
-	} else {
-	    return null;
-	}
+        if (date != null) {
+            XMLGregorianCalendar xmlGregorianCalendar = null;
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            gregorianCalendar.setTime(date);
+            try {
+                DatatypeFactory dataTypeFactory = DatatypeFactory.newInstance();
+                xmlGregorianCalendar = dataTypeFactory.newXMLGregorianCalendar(gregorianCalendar);
+            } catch (Exception e) {
+                throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
+                        ErrorCategory.VALIDATION_ERROR);
+            }
+            return xmlGregorianCalendar;
+        } else {
+            return null;
+        }
     }
 
     public static XMLGregorianCalendar dateToXMLGregorianCalendarOrNull(
-	    ZonedDateTime zonedDateTime) {
-	if (zonedDateTime != null) {
-	    XMLGregorianCalendar xmlGregorianCalendar = null;
-	    try {
-		GregorianCalendar gregorianCalendar = GregorianCalendar.from(zonedDateTime);
-		xmlGregorianCalendar = DatatypeFactory.newInstance()
-			.newXMLGregorianCalendar(gregorianCalendar);
-	    } catch (Exception e) {
-		throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
-			ErrorCategory.VALIDATION_ERROR);
-	    }
-	    return xmlGregorianCalendar;
-	} else {
-	    return null;
-	}
+            ZonedDateTime zonedDateTime) {
+        if (zonedDateTime != null) {
+            XMLGregorianCalendar xmlGregorianCalendar = null;
+            try {
+                GregorianCalendar gregorianCalendar = GregorianCalendar.from(zonedDateTime);
+                xmlGregorianCalendar = DatatypeFactory.newInstance()
+                        .newXMLGregorianCalendar(gregorianCalendar);
+            } catch (Exception e) {
+                throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
+                        ErrorCategory.VALIDATION_ERROR);
+            }
+            return xmlGregorianCalendar;
+        } else {
+            return null;
+        }
 
     }
 
     public static Date xmlGregorianCalendarToDateOrNull(XMLGregorianCalendar xmlGregorianCalendar) {
-	if (xmlGregorianCalendar != null) {
-	    ZonedDateTime zdt = xmlGregorianCalendar.toGregorianCalendar().toZonedDateTime();
-	    return convert(zdt);
-	} else {
-	    return null;
-	}
+        if (xmlGregorianCalendar != null) {
+            ZonedDateTime zdt = xmlGregorianCalendar.toGregorianCalendar().toZonedDateTime();
+            return convert(zdt);
+        } else {
+            return null;
+        }
     }
 
 }

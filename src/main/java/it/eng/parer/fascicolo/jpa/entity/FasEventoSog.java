@@ -16,17 +16,10 @@ package it.eng.parer.fascicolo.jpa.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -50,59 +43,56 @@ public class FasEventoSog implements Serializable {
     private FasSogFascicolo fasSogFascicolo;
 
     public FasEventoSog() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "FAS_EVENTO_FASCICOLO_IDEVENTOSOG_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_EVENTO_SOG"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_EVENTO_FASCICOLO_IDEVENTOSOG_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SFAS_EVENTO_SOG", incrementBy = 1)
     @Column(name = "ID_EVENTO_SOG")
     public Long getIdEventoSog() {
-	return this.idEventoSog;
+        return this.idEventoSog;
     }
 
     public void setIdEventoSog(Long idEventoFascicolo) {
-	this.idEventoSog = idEventoFascicolo;
+        this.idEventoSog = idEventoFascicolo;
     }
 
     @Column(name = "DS_DENOM_EVENTO")
     public String getDsDenomEvento() {
-	return this.dsDenomEvento;
+        return this.dsDenomEvento;
     }
 
     public void setDsDenomEvento(String dsDenomEvento) {
-	this.dsDenomEvento = dsDenomEvento;
+        this.dsDenomEvento = dsDenomEvento;
     }
 
     @Column(name = "TS_APERTURA")
     public LocalDateTime getTsApertura() {
-	return this.tsApertura;
+        return this.tsApertura;
     }
 
     public void setTsApertura(LocalDateTime tsApertura) {
-	this.tsApertura = tsApertura;
+        this.tsApertura = tsApertura;
     }
 
     @Column(name = "TS_CHIUSURA")
     public LocalDateTime getTsChiusura() {
-	return this.tsChiusura;
+        return this.tsChiusura;
     }
 
     public void setTsChiusura(LocalDateTime tsChiusura) {
-	this.tsChiusura = tsChiusura;
+        this.tsChiusura = tsChiusura;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SOG_FASCICOLO")
     public FasSogFascicolo getFasSogFascicolo() {
-	return this.fasSogFascicolo;
+        return this.fasSogFascicolo;
     }
 
     public void setFasSogFascicolo(FasSogFascicolo fasSogFascicolo) {
-	this.fasSogFascicolo = fasSogFascicolo;
+        this.fasSogFascicolo = fasSogFascicolo;
     }
 
 }

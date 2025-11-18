@@ -15,18 +15,11 @@ package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -52,63 +45,60 @@ public class DecSelCriterioRaggrFasc implements Serializable {
     private DecVoceTitol decVoceTitol;
 
     public DecSelCriterioRaggrFasc() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "DEC_SEL_CRITERIO_RAGGR_FASC_IDSELCRITERIORAGGRFASC_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SDEC_SEL_CRITERIO_RAGGR_FASC"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEC_SEL_CRITERIO_RAGGR_FASC_IDSELCRITERIORAGGRFASC_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SDEC_SEL_CRITERIO_RAGGR_FASC", incrementBy = 1)
     @Column(name = "ID_SEL_CRITERIO_RAGGR_FASC")
     public Long getIdSelCriterioRaggrFasc() {
-	return this.idSelCriterioRaggrFasc;
+        return this.idSelCriterioRaggrFasc;
     }
 
     public void setIdSelCriterioRaggrFasc(Long idSelCriterioRaggrFasc) {
-	this.idSelCriterioRaggrFasc = idSelCriterioRaggrFasc;
+        this.idSelCriterioRaggrFasc = idSelCriterioRaggrFasc;
     }
 
     // bi-directional many-to-one association to DecCriterioRaggrFasc
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_CRITERIO_RAGGR_FASC")
     public DecCriterioRaggrFasc getDecCriterioRaggrFasc() {
-	return this.decCriterioRaggrFasc;
+        return this.decCriterioRaggrFasc;
     }
 
     public void setDecCriterioRaggrFasc(DecCriterioRaggrFasc decCriterioRaggrFasc) {
-	this.decCriterioRaggrFasc = decCriterioRaggrFasc;
+        this.decCriterioRaggrFasc = decCriterioRaggrFasc;
     }
 
     @Column(name = "TI_SEL")
     public String getTiSel() {
-	return this.tiSel;
+        return this.tiSel;
     }
 
     public void setTiSel(String tiSel) {
-	this.tiSel = tiSel;
+        this.tiSel = tiSel;
     }
 
     // bi-directional many-to-one association to AplSistemaMigraz
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SISTEMA_MIGRAZ")
     public AplSistemaMigraz getAplSistemaMigraz() {
-	return this.aplSistemaMigraz;
+        return this.aplSistemaMigraz;
     }
 
     public void setAplSistemaMigraz(AplSistemaMigraz aplSistemaMigraz) {
-	this.aplSistemaMigraz = aplSistemaMigraz;
+        this.aplSistemaMigraz = aplSistemaMigraz;
     }
 
     // bi-directional many-to-one association to DecTipoFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_FASCICOLO")
     public DecTipoFascicolo getDecTipoFascicolo() {
-	return this.decTipoFascicolo;
+        return this.decTipoFascicolo;
     }
 
     public void setDecTipoFascicolo(DecTipoFascicolo decTipoFascicolo) {
-	this.decTipoFascicolo = decTipoFascicolo;
+        this.decTipoFascicolo = decTipoFascicolo;
     }
 
     // bi-directional many-to-one association to DecVoceTitol
@@ -116,11 +106,11 @@ public class DecSelCriterioRaggrFasc implements Serializable {
     @JoinColumn(name = "ID_VOCE_TITOL")
 
     public DecVoceTitol getDecVoceTitol() {
-	return this.decVoceTitol;
+        return this.decVoceTitol;
     }
 
     public void setDecVoceTitol(DecVoceTitol decVoceTitol) {
-	this.decVoceTitol = decVoceTitol;
+        this.decVoceTitol = decVoceTitol;
     }
 
 }

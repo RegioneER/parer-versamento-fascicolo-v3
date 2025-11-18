@@ -41,49 +41,49 @@ public class ElencoVersamentoFascicoliService implements IElencoVersamentoFascic
     @Override
     @Transactional
     public void scriviElvFascDaElabElenco(VersFascicoloExt versamento, FasFascicolo fascicolo)
-	    throws AppGenericPersistenceException {
-	StrutturaVersFascicolo svf = versamento.getStrutturaComponenti();
-	try {
-	    elencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab(fascicolo,
-		    svf.getIdTipoFascicolo(), TiStatoFascDaElab.IN_ATTESA_SCHED);
-	} catch (Exception e) {
-	    throw new AppGenericPersistenceException(e,
-		    MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666P,
-			    "Errore interno nella fase di salvataggio coda da elaborare: "
-				    + ExceptionUtils.getRootCauseMessage(e)));
-	}
+            throws AppGenericPersistenceException {
+        StrutturaVersFascicolo svf = versamento.getStrutturaComponenti();
+        try {
+            elencoVersamentoFascicoliDao.insertFascicoloOnCodaDaElab(fascicolo,
+                    svf.getIdTipoFascicolo(), TiStatoFascDaElab.IN_ATTESA_SCHED);
+        } catch (Exception e) {
+            throw new AppGenericPersistenceException(e,
+                    MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666P,
+                            "Errore interno nella fase di salvataggio coda da elaborare: "
+                                    + ExceptionUtils.getRootCauseMessage(e)));
+        }
     }
 
     @Override
     @Transactional
     public void scriviStatoConservFascicolo(RispostaWSFascicolo rispostaWs,
-	    VersFascicoloExt versamento, BlockingFakeSession sessione, FasFascicolo fascicolo)
-	    throws AppGenericPersistenceException {
-	try {
-	    elencoVersamentoFascicoliDao.insertFascicoloOnStatoCons(fascicolo,
-		    TiStatoConservazione.PRESA_IN_CARICO);
-	} catch (Exception e) {
-	    throw new AppGenericPersistenceException(e, MessaggiWSBundle.getString(
-		    MessaggiWSBundle.ERR_666P,
-		    "Errore interno nella fase di salvataggio stato conservazione fascicolo: "
-			    + ExceptionUtils.getRootCauseMessage(e)));
-	}
+            VersFascicoloExt versamento, BlockingFakeSession sessione, FasFascicolo fascicolo)
+            throws AppGenericPersistenceException {
+        try {
+            elencoVersamentoFascicoliDao.insertFascicoloOnStatoCons(fascicolo,
+                    TiStatoConservazione.PRESA_IN_CARICO);
+        } catch (Exception e) {
+            throw new AppGenericPersistenceException(e, MessaggiWSBundle.getString(
+                    MessaggiWSBundle.ERR_666P,
+                    "Errore interno nella fase di salvataggio stato conservazione fascicolo: "
+                            + ExceptionUtils.getRootCauseMessage(e)));
+        }
     }
 
     @Override
     @Transactional
     public void scriviStatoFascicoloElenco(RispostaWSFascicolo rispostaWs,
-	    VersFascicoloExt versamento, BlockingFakeSession sessione, FasFascicolo fascicolo)
-	    throws AppGenericPersistenceException {
-	try {
-	    elencoVersamentoFascicoliDao.insertFascicoloOnStatoElenco(fascicolo,
-		    TiStatoFascElenco.IN_ATTESA_SCHED);
-	} catch (Exception e) {
-	    throw new AppGenericPersistenceException(e,
-		    MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666P,
-			    "Errore interno nella fase di salvataggio stato fascicolo elenco: "
-				    + ExceptionUtils.getRootCauseMessage(e)));
-	}
+            VersFascicoloExt versamento, BlockingFakeSession sessione, FasFascicolo fascicolo)
+            throws AppGenericPersistenceException {
+        try {
+            elencoVersamentoFascicoliDao.insertFascicoloOnStatoElenco(fascicolo,
+                    TiStatoFascElenco.IN_ATTESA_SCHED);
+        } catch (Exception e) {
+            throw new AppGenericPersistenceException(e,
+                    MessaggiWSBundle.getString(MessaggiWSBundle.ERR_666P,
+                            "Errore interno nella fase di salvataggio stato fascicolo elenco: "
+                                    + ExceptionUtils.getRootCauseMessage(e)));
+        }
     }
 
 }

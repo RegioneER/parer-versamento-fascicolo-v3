@@ -16,17 +16,10 @@ package it.eng.parer.fascicolo.jpa.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -49,61 +42,58 @@ public class FasWarnFascicolo implements Serializable {
     private FasFascicolo fasFascicolo;
 
     public FasWarnFascicolo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "FAS_WARN_FASCICOLO_IDWARNFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_WARN_FASCICOLO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_WARN_FASCICOLO_IDWARNFASCICOLO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SFAS_WARN_FASCICOLO", incrementBy = 1)
     @Column(name = "ID_WARN_FASCICOLO")
     public Long getIdWarnFascicolo() {
-	return this.idWarnFascicolo;
+        return this.idWarnFascicolo;
     }
 
     public void setIdWarnFascicolo(Long idWarnFascicolo) {
-	this.idWarnFascicolo = idWarnFascicolo;
+        this.idWarnFascicolo = idWarnFascicolo;
     }
 
     @Column(name = "DS_WARN")
     public String getDsWarn() {
-	return this.dsWarn;
+        return this.dsWarn;
     }
 
     public void setDsWarn(String dsWarn) {
-	this.dsWarn = dsWarn;
+        this.dsWarn = dsWarn;
     }
 
     @Column(name = "PG_WARN")
     public BigDecimal getPgWarn() {
-	return this.pgWarn;
+        return this.pgWarn;
     }
 
     public void setPgWarn(BigDecimal pgWarn) {
-	this.pgWarn = pgWarn;
+        this.pgWarn = pgWarn;
     }
 
     // bi-directional many-to-one association to DecErrSacer
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ERR_SACER")
     public DecErrSacer getDecErrSacer() {
-	return this.decErrSacer;
+        return this.decErrSacer;
     }
 
     public void setDecErrSacer(DecErrSacer decErrSacer) {
-	this.decErrSacer = decErrSacer;
+        this.decErrSacer = decErrSacer;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCICOLO")
     public FasFascicolo getFasFascicolo() {
-	return this.fasFascicolo;
+        return this.fasFascicolo;
     }
 
     public void setFasFascicolo(FasFascicolo fasFascicolo) {
-	this.fasFascicolo = fasFascicolo;
+        this.fasFascicolo = fasFascicolo;
     }
 
 }
