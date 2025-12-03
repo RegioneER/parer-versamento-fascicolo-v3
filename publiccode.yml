@@ -2,7 +2,7 @@
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/italia/publiccode.yml
 
-publiccodeYmlVersion: '0.4'
+publiccodeYmlVersion: '0.5'
 categories:
   - data-collection
   - data-visualization
@@ -24,29 +24,24 @@ description:
 developmentStatus: stable
 intendedAudience:
   countries:
-    - it
+    - IT
 it:
-  conforme:
-    gdpr: false
-    lineeGuidaDesign: false
-    misureMinimeSicurezza: false
-    modelloInteroperabilita: false
   countryExtensionVersion: '0.2'
   piattaforme:
     anpr: false
     cie: false
     pagopa: false
     spid: false
-  riuso:
-    codiceIPA: r_emiro
 landingURL: 'https://github.com/RegioneER/parer-versamento-fascicolo-v3'
 legal:
   license: AGPL-3.0-or-later
   mainCopyrightOwner: Regione Emilia-Romagna
-  repoOwner: Regione Emilia-Romagna
+organisation:
+  name: Regione Emilia-Romagna
+  uri: urn:x-italian-pa:r_emiro    
 localisation:
   availableLanguages:
-    - it
+    - IT
   localisationReady: true
 logo: |-
   https://raw.githubusercontent.com/RegioneER/parer-versamento-fascicolo-v3/master/src/docs/rer-logo.png
