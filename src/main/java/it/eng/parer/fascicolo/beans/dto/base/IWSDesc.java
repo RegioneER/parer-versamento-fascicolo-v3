@@ -29,9 +29,9 @@ public interface IWSDesc {
     String getNomeWs();
 
     default String getVersione(Map<String, String> mapWsVersion) { // versione standard, senza
-								   // modifiche indotte
-								   // dalla versione chiamata
-	return VerificaVersione.latestVersion(getNomeWs(), mapWsVersion);
+        // modifiche indotte
+        // dalla versione chiamata
+        return VerificaVersione.latestVersion(getNomeWs(), mapWsVersion);
     }
 
     // public String[] getCompatibilitaWS(); // lista di versioni compatibili con il parser

@@ -16,17 +16,10 @@ package it.eng.parer.fascicolo.jpa.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -51,79 +44,76 @@ public class VrsErrSesFascicoloKo implements Serializable {
     private VrsSesFascicoloKo vrsSesFascicoloKo;
 
     public VrsErrSesFascicoloKo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "VRS_ERR_SES_FASCICOLO_KO_IDERRSESFASCICOLOKO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SVRS_ERR_SES_FASCICOLO_KO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VRS_ERR_SES_FASCICOLO_KO_IDERRSESFASCICOLOKO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SVRS_ERR_SES_FASCICOLO_KO", incrementBy = 1)
     @Column(name = "ID_ERR_SES_FASCICOLO_KO")
     public Long getIdErrSesFascicoloKo() {
-	return this.idErrSesFascicoloKo;
+        return this.idErrSesFascicoloKo;
     }
 
     public void setIdErrSesFascicoloKo(Long idErrSesFascicoloKo) {
-	this.idErrSesFascicoloKo = idErrSesFascicoloKo;
+        this.idErrSesFascicoloKo = idErrSesFascicoloKo;
     }
 
     @Column(name = "DS_ERR")
     public String getDsErr() {
-	return this.dsErr;
+        return this.dsErr;
     }
 
     public void setDsErr(String dsErr) {
-	this.dsErr = dsErr;
+        this.dsErr = dsErr;
     }
 
     @Column(name = "FL_ERR_PRINC", columnDefinition = "CHAR")
     public String getFlErrPrinc() {
-	return this.flErrPrinc;
+        return this.flErrPrinc;
     }
 
     public void setFlErrPrinc(String flErrPrinc) {
-	this.flErrPrinc = flErrPrinc;
+        this.flErrPrinc = flErrPrinc;
     }
 
     @Column(name = "PG_ERR")
     public BigDecimal getPgErr() {
-	return this.pgErr;
+        return this.pgErr;
     }
 
     public void setPgErr(BigDecimal pgErr) {
-	this.pgErr = pgErr;
+        this.pgErr = pgErr;
     }
 
     @Column(name = "TI_ERR")
     public String getTiErr() {
-	return this.tiErr;
+        return this.tiErr;
     }
 
     public void setTiErr(String tiErr) {
-	this.tiErr = tiErr;
+        this.tiErr = tiErr;
     }
 
     // bi-directional many-to-one association to DecErrSacer
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ERR_SACER")
     public DecErrSacer getDecErrSacer() {
-	return this.decErrSacer;
+        return this.decErrSacer;
     }
 
     public void setDecErrSacer(DecErrSacer decErrSacer) {
-	this.decErrSacer = decErrSacer;
+        this.decErrSacer = decErrSacer;
     }
 
     // bi-directional many-to-one association to VrsSesFascicoloKo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SES_FASCICOLO_KO")
     public VrsSesFascicoloKo getVrsSesFascicoloKo() {
-	return this.vrsSesFascicoloKo;
+        return this.vrsSesFascicoloKo;
     }
 
     public void setVrsSesFascicoloKo(VrsSesFascicoloKo vrsSesFascicoloKo) {
-	this.vrsSesFascicoloKo = vrsSesFascicoloKo;
+        this.vrsSesFascicoloKo = vrsSesFascicoloKo;
     }
 
 }

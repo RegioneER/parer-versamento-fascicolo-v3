@@ -43,16 +43,16 @@ class TransactionRollbackTest {
      */
     @Test
     void savingThrowsRuntimeException_shouldRollback() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	try {
-	    service.saveThrowsRuntimeExceptions(aplParamApplic, aplValoreParamApplic,
-		    new TransactionRuntimeTestingException());
-	} catch (Exception e) {
-	    Assertions.assertNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	    Assertions.assertNull(
-		    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	}
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        try {
+            service.saveThrowsRuntimeExceptions(aplParamApplic, aplValoreParamApplic,
+                    new TransactionRuntimeTestingException());
+        } catch (Exception e) {
+            Assertions.assertNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+            Assertions.assertNull(
+                    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+        }
     }
 
     /**
@@ -60,17 +60,17 @@ class TransactionRollbackTest {
      */
     @Test
     void savingThrowsCustomException_shouldSave() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	try {
-	    service.saveThrowsCustomExceptions(aplParamApplic, aplValoreParamApplic);
-	} catch (Exception e) {
-	    Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	    Assertions.assertNotNull(
-		    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	    delete(aplParamApplic.getIdParamApplic(),
-		    aplValoreParamApplic.getIdValoreParamApplic());
-	}
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        try {
+            service.saveThrowsCustomExceptions(aplParamApplic, aplValoreParamApplic);
+        } catch (Exception e) {
+            Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+            Assertions.assertNotNull(
+                    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+            delete(aplParamApplic.getIdParamApplic(),
+                    aplValoreParamApplic.getIdValoreParamApplic());
+        }
     }
 
     /**
@@ -79,16 +79,16 @@ class TransactionRollbackTest {
      */
     @Test
     void savingThrowsExceptionRollbackOn_shouldRollback() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	try {
-	    service.saveThrowsRuntimeExceptionsWithRollbackOn(aplParamApplic, aplValoreParamApplic,
-		    new TransactionRuntimeTestingException());
-	} catch (Exception e) {
-	    Assertions.assertNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	    Assertions.assertNull(
-		    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	}
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        try {
+            service.saveThrowsRuntimeExceptionsWithRollbackOn(aplParamApplic, aplValoreParamApplic,
+                    new TransactionRuntimeTestingException());
+        } catch (Exception e) {
+            Assertions.assertNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+            Assertions.assertNull(
+                    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+        }
     }
 
     /**
@@ -98,17 +98,17 @@ class TransactionRollbackTest {
      */
     @Test
     void savingThrowsAnotherExceptionRollbackOn_shouldSave() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	try {
-	    service.saveThrowsCustomExceptionsWithRollbackOn(aplParamApplic, aplValoreParamApplic);
-	} catch (Exception e) {
-	    Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	    Assertions.assertNotNull(
-		    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	    delete(aplParamApplic.getIdParamApplic(),
-		    aplValoreParamApplic.getIdValoreParamApplic());
-	}
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        try {
+            service.saveThrowsCustomExceptionsWithRollbackOn(aplParamApplic, aplValoreParamApplic);
+        } catch (Exception e) {
+            Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+            Assertions.assertNotNull(
+                    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+            delete(aplParamApplic.getIdParamApplic(),
+                    aplValoreParamApplic.getIdValoreParamApplic());
+        }
     }
 
     /**
@@ -118,16 +118,16 @@ class TransactionRollbackTest {
      */
     @Test
     void savingThrowsAnyRuntimeExceptionRollbackOn_shouldRollback() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	try {
-	    service.saveThrowsRuntimeExceptionsWithRollbackOn(aplParamApplic, aplValoreParamApplic,
-		    new AnotherRuntimeTestingException());
-	} catch (Exception e) {
-	    Assertions.assertNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	    Assertions.assertNull(
-		    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	}
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        try {
+            service.saveThrowsRuntimeExceptionsWithRollbackOn(aplParamApplic, aplValoreParamApplic,
+                    new AnotherRuntimeTestingException());
+        } catch (Exception e) {
+            Assertions.assertNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+            Assertions.assertNull(
+                    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+        }
     }
 
     /**
@@ -136,18 +136,18 @@ class TransactionRollbackTest {
      */
     @Test
     void savingThrowsExceptionDontRollbackOn_shouldSave() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	try {
-	    service.saveThrowsRuntimeExceptionsWithDontRollbackOn(aplParamApplic,
-		    aplValoreParamApplic, new TransactionRuntimeTestingException());
-	} catch (Exception e) {
-	    Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	    Assertions.assertNotNull(
-		    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	    delete(aplParamApplic.getIdParamApplic(),
-		    aplValoreParamApplic.getIdValoreParamApplic());
-	}
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        try {
+            service.saveThrowsRuntimeExceptionsWithDontRollbackOn(aplParamApplic,
+                    aplValoreParamApplic, new TransactionRuntimeTestingException());
+        } catch (Exception e) {
+            Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+            Assertions.assertNotNull(
+                    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+            delete(aplParamApplic.getIdParamApplic(),
+                    aplValoreParamApplic.getIdValoreParamApplic());
+        }
     }
 
     /**
@@ -156,16 +156,16 @@ class TransactionRollbackTest {
      */
     @Test
     void savingThrowsAnotherExceptionDontRollbackOn_shouldRollback() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	try {
-	    service.saveThrowsRuntimeExceptionsWithDontRollbackOn(aplParamApplic,
-		    aplValoreParamApplic, new AnotherRuntimeTestingException());
-	} catch (Exception e) {
-	    Assertions.assertNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	    Assertions.assertNull(
-		    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	}
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        try {
+            service.saveThrowsRuntimeExceptionsWithDontRollbackOn(aplParamApplic,
+                    aplValoreParamApplic, new AnotherRuntimeTestingException());
+        } catch (Exception e) {
+            Assertions.assertNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+            Assertions.assertNull(
+                    findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+        }
     }
 
     /**
@@ -173,14 +173,14 @@ class TransactionRollbackTest {
      */
     @Test
     void savingHandledException_shouldSave() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	service.saveHandleExceptions(aplParamApplic, aplValoreParamApplic,
-		new TransactionRuntimeTestingException());
-	Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	Assertions.assertNotNull(
-		findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	delete(aplParamApplic.getIdParamApplic(), aplValoreParamApplic.getIdValoreParamApplic());
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        service.saveHandleExceptions(aplParamApplic, aplValoreParamApplic,
+                new TransactionRuntimeTestingException());
+        Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+        Assertions.assertNotNull(
+                findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+        delete(aplParamApplic.getIdParamApplic(), aplValoreParamApplic.getIdValoreParamApplic());
     }
 
     /**
@@ -189,14 +189,14 @@ class TransactionRollbackTest {
      */
     @Test
     void savingHandledExceptionWithRollbackOn_shouldSave() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	service.saveHanldeExceptionsWithRollbackOn(aplParamApplic, aplValoreParamApplic,
-		new TransactionRuntimeTestingException());
-	Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	Assertions.assertNotNull(
-		findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	delete(aplParamApplic.getIdParamApplic(), aplValoreParamApplic.getIdValoreParamApplic());
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        service.saveHanldeExceptionsWithRollbackOn(aplParamApplic, aplValoreParamApplic,
+                new TransactionRuntimeTestingException());
+        Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+        Assertions.assertNotNull(
+                findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+        delete(aplParamApplic.getIdParamApplic(), aplValoreParamApplic.getIdValoreParamApplic());
     }
 
     /**
@@ -205,52 +205,52 @@ class TransactionRollbackTest {
      */
     @Test
     void savingHandledExceptionWithDontRollbackOn_shouldSave() {
-	final AplParamApplic aplParamApplic = createAplParamApplic();
-	final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
-	service.saveHanldeExceptionsWithDontRollbackOn(aplParamApplic, aplValoreParamApplic,
-		new TransactionRuntimeTestingException());
-	Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
-	Assertions.assertNotNull(
-		findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
-	delete(aplParamApplic.getIdParamApplic(), aplValoreParamApplic.getIdValoreParamApplic());
+        final AplParamApplic aplParamApplic = createAplParamApplic();
+        final AplValoreParamApplic aplValoreParamApplic = createAplValoreParamApplic();
+        service.saveHanldeExceptionsWithDontRollbackOn(aplParamApplic, aplValoreParamApplic,
+                new TransactionRuntimeTestingException());
+        Assertions.assertNotNull(findAplParamApplic(aplParamApplic.getIdParamApplic()));
+        Assertions.assertNotNull(
+                findAplValoreParamApplic(aplValoreParamApplic.getIdValoreParamApplic()));
+        delete(aplParamApplic.getIdParamApplic(), aplValoreParamApplic.getIdValoreParamApplic());
     }
 
     private AplParamApplic createAplParamApplic() {
-	final AplParamApplic aplParamApplic = new AplParamApplic();
-	aplParamApplic.setNmParamApplic("TEST_TRANSACTION_" + UUID.randomUUID());
-	aplParamApplic.setDsParamApplic("Per testare la rollback delle tranasazioni");
-	aplParamApplic.setTiParamApplic(ParametroApplDB.TipoParametroAppl.LOG_APPLIC);
-	aplParamApplic.setTiGestioneParam("amministrazione");
-	aplParamApplic.setFlAppartApplic("0");
-	aplParamApplic.setFlAppartAmbiente("0");
-	aplParamApplic.setFlAppartStrut("0");
-	aplParamApplic.setFlAppartTipoUnitaDoc("0");
-	aplParamApplic.setFlAppartAaTipoFascicolo("0");
-	aplParamApplic.setFlMulti("0");
-	return aplParamApplic;
+        final AplParamApplic aplParamApplic = new AplParamApplic();
+        aplParamApplic.setNmParamApplic("TEST_TRANSACTION_" + UUID.randomUUID());
+        aplParamApplic.setDsParamApplic("Per testare la rollback delle tranasazioni");
+        aplParamApplic.setTiParamApplic(ParametroApplDB.TipoParametroAppl.LOG_APPLIC);
+        aplParamApplic.setTiGestioneParam("amministrazione");
+        aplParamApplic.setFlAppartApplic("0");
+        aplParamApplic.setFlAppartAmbiente("0");
+        aplParamApplic.setFlAppartStrut("0");
+        aplParamApplic.setFlAppartTipoUnitaDoc("0");
+        aplParamApplic.setFlAppartAaTipoFascicolo("0");
+        aplParamApplic.setFlMulti("0");
+        return aplParamApplic;
     }
 
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     AplParamApplic findAplParamApplic(Long idParamApplic) {
-	return em.find(AplParamApplic.class, idParamApplic);
+        return em.find(AplParamApplic.class, idParamApplic);
     }
 
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     AplValoreParamApplic findAplValoreParamApplic(Long idValore) {
-	return em.find(AplValoreParamApplic.class, idValore);
+        return em.find(AplValoreParamApplic.class, idValore);
     }
 
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     void delete(Long idParamApplic, Long idValoreParamApplic) {
-	em.remove(em.find(AplValoreParamApplic.class, idValoreParamApplic));
-	em.remove(em.find(AplParamApplic.class, idParamApplic));
+        em.remove(em.find(AplValoreParamApplic.class, idValoreParamApplic));
+        em.remove(em.find(AplParamApplic.class, idParamApplic));
     }
 
     private AplValoreParamApplic createAplValoreParamApplic() {
-	AplValoreParamApplic aplValoreParamApplic = new AplValoreParamApplic();
-	aplValoreParamApplic.setDsValoreParamApplic("Per testare la rollback delle tranasazioni");
-	aplValoreParamApplic.setTiAppart("APPLIC");
-	return aplValoreParamApplic;
+        AplValoreParamApplic aplValoreParamApplic = new AplValoreParamApplic();
+        aplValoreParamApplic.setDsValoreParamApplic("Per testare la rollback delle tranasazioni");
+        aplValoreParamApplic.setTiAppart("APPLIC");
+        return aplValoreParamApplic;
     }
 
 }

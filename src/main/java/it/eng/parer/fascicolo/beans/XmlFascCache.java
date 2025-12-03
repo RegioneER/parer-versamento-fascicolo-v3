@@ -61,42 +61,42 @@ public class XmlFascCache {
 
     @PostConstruct
     protected void initSingleton() {
-	ClassLoader classLoader = getClass().getClassLoader();
-	try (InputStream is = classLoader.getResourceAsStream(URL_SCHEMA_REQUEST_FASCICOLO)) {
-	    log.atInfo().log("Inizializzazione singleton XmlFascCache...");
+        ClassLoader classLoader = getClass().getClassLoader();
+        try (InputStream is = classLoader.getResourceAsStream(URL_SCHEMA_REQUEST_FASCICOLO)) {
+            log.atInfo().log("Inizializzazione singleton XmlFascCache...");
 
-	    versReqFascicoloCtx = JAXBContext.newInstance(IndiceSIPFascicolo.class);
-	    versRespFascicoloCtx = JAXBContext.newInstance(EsitoVersamentoFascicolo.class);
+            versReqFascicoloCtx = JAXBContext.newInstance(IndiceSIPFascicolo.class);
+            versRespFascicoloCtx = JAXBContext.newInstance(EsitoVersamentoFascicolo.class);
 
-	    // profili
-	    versReqFascicoloCtxProfiloSpec = JAXBContext.newInstance(ProfiloSpecificoType.class);
+            // profili
+            versReqFascicoloCtxProfiloSpec = JAXBContext.newInstance(ProfiloSpecificoType.class);
 
-	    SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-	    versReqFascicoloSchema = sf.newSchema(new StreamSource(is));
-	    log.atInfo().log("Inizializzazione singleton XmlFascCache... completata.");
-	} catch (Exception ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            versReqFascicoloSchema = sf.newSchema(new StreamSource(is));
+            log.atInfo().log("Inizializzazione singleton XmlFascCache... completata.");
+        } catch (Exception ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
     }
 
     @Lock(value = Lock.Type.READ)
     public JAXBContext getVersReqFascicoloCtx() {
-	return versReqFascicoloCtx;
+        return versReqFascicoloCtx;
     }
 
     @Lock(value = Lock.Type.READ)
     public JAXBContext getVersRespFascicoloCtx() {
-	return versRespFascicoloCtx;
+        return versRespFascicoloCtx;
     }
 
     @Lock(value = Lock.Type.READ)
     public JAXBContext getVersReqFascicoloCtxProfiloSpec() {
-	return versReqFascicoloCtxProfiloSpec;
+        return versReqFascicoloCtxProfiloSpec;
     }
 
     @Lock(value = Lock.Type.READ)
     public Schema getVersReqFascicoloSchema() {
-	return versReqFascicoloSchema;
+        return versReqFascicoloSchema;
     }
 
 }

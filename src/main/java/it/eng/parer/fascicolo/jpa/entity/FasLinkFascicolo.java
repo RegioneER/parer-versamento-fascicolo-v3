@@ -16,17 +16,10 @@ package it.eng.parer.fascicolo.jpa.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -53,74 +46,71 @@ public class FasLinkFascicolo implements Serializable {
     private FasFascicolo fasFascicoloLink;
 
     public FasLinkFascicolo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "FAS_LINK_FASCICOLO_IDLINKFASCICOLO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SFAS_LINK_FASCICOLO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_LINK_FASCICOLO_IDLINKFASCICOLO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SFAS_LINK_FASCICOLO", incrementBy = 1)
     @Column(name = "ID_LINK_FASCICOLO")
     public Long getIdLinkFascicolo() {
-	return this.idLinkFascicolo;
+        return this.idLinkFascicolo;
     }
 
     public void setIdLinkFascicolo(Long idLinkFascicolo) {
-	this.idLinkFascicolo = idLinkFascicolo;
+        this.idLinkFascicolo = idLinkFascicolo;
     }
 
     @Column(name = "AA_FASCICOLO_LINK")
     public BigDecimal getAaFascicoloLink() {
-	return this.aaFascicoloLink;
+        return this.aaFascicoloLink;
     }
 
     public void setAaFascicoloLink(BigDecimal aaFascicoloLink) {
-	this.aaFascicoloLink = aaFascicoloLink;
+        this.aaFascicoloLink = aaFascicoloLink;
     }
 
     @Column(name = "CD_KEY_FASCICOLO_LINK")
     public String getCdKeyFascicoloLink() {
-	return this.cdKeyFascicoloLink;
+        return this.cdKeyFascicoloLink;
     }
 
     public void setCdKeyFascicoloLink(String cdKeyFascicoloLink) {
-	this.cdKeyFascicoloLink = cdKeyFascicoloLink;
+        this.cdKeyFascicoloLink = cdKeyFascicoloLink;
     }
 
     @Column(name = "DS_LINK")
     public String getDsLink() {
-	return this.dsLink;
+        return this.dsLink;
     }
 
     public void setDsLink(String dsLink) {
-	this.dsLink = dsLink;
+        this.dsLink = dsLink;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCICOLO_LINK")
     public FasFascicolo getFasFascicoloLink() {
-	return this.fasFascicoloLink;
+        return this.fasFascicoloLink;
     }
 
     public void setFasFascicoloLink(FasFascicolo fasFascicoloLink) {
-	this.fasFascicoloLink = fasFascicoloLink;
+        this.fasFascicoloLink = fasFascicoloLink;
     }
 
     // bi-directional many-to-one association to FasFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_FASCICOLO")
     public FasFascicolo getFasFascicolo() {
-	return this.fasFascicolo;
+        return this.fasFascicolo;
     }
 
     public void setFasFascicolo(FasFascicolo fasFascicolo) {
-	this.fasFascicolo = fasFascicolo;
+        this.fasFascicolo = fasFascicolo;
     }
 
     @Transient
     public boolean hasLink() {
-	return this.fasFascicoloLink != null;
+        return this.fasFascicoloLink != null;
     }
 }

@@ -36,7 +36,7 @@ public class RequestPrsr {
     private static final Logger log = LoggerFactory.getLogger(RequestPrsr.class);
 
     private RequestPrsr() {
-	throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("Utility class");
     }
 
     /**
@@ -50,80 +50,80 @@ public class RequestPrsr {
      *
      */
     public static void parseStdForm(BlockingFakeSession syncFakeSession,
-	    AvanzamentoWs avanzamentoWs, VersamentoFascicoloStdMultipartForm formData) {
+            AvanzamentoWs avanzamentoWs, VersamentoFascicoloStdMultipartForm formData) {
 
-	avanzamentoWs.setCheckPoint(AvanzamentoWs.CheckPoints.TRASFERIMENTO_PAYLOAD_IN)
-		.setFase("Payload verificato ricevuto").logAvanzamento();
+        avanzamentoWs.setCheckPoint(AvanzamentoWs.CheckPoints.TRASFERIMENTO_PAYLOAD_IN)
+                .setFase("Payload verificato ricevuto").logAvanzamento();
 
-	/*
-	 * verifica della struttura della chiamata al WS: non è un WS SOAP perciò la signature del
-	 * WS va controllata a mano, leggendo quanto effettivamente versato.
-	 */
-	// verifica strutturale del campo VERSIONE e memorizzazione dello stesso nella
-	// sessione finta
+        /*
+         * verifica della struttura della chiamata al WS: non è un WS SOAP perciò la signature del
+         * WS va controllata a mano, leggendo quanto effettivamente versato.
+         */
+        // verifica strutturale del campo VERSIONE e memorizzazione dello stesso nella
+        // sessione finta
 
-	String versione = formData.VERSIONE;
-	log.debug("VERSIONE {}", versione);
-	syncFakeSession.setVersioneWS(versione);
+        String versione = formData.VERSIONE;
+        log.debug("VERSIONE {}", versione);
+        syncFakeSession.setVersioneWS(versione);
 
-	// verifica strutturale del campo LOGINNAME e memorizzazione dello stesso nella
-	// sessione finta
-	String loginame = formData.LOGINNAME;
-	log.debug("LOGINNAME {}", loginame);
-	syncFakeSession.setLoginName(loginame);
-	avanzamentoWs.setVrsUser(loginame).logAvanzamento();
+        // verifica strutturale del campo LOGINNAME e memorizzazione dello stesso nella
+        // sessione finta
+        String loginame = formData.LOGINNAME;
+        log.debug("LOGINNAME {}", loginame);
+        syncFakeSession.setLoginName(loginame);
+        avanzamentoWs.setVrsUser(loginame).logAvanzamento();
 
-	// verifica strutturale del campo PASSWORD e memorizzazione dello stesso nella
-	// sessione finta
-	String pwd = formData.PASSWORD;
-	log.debug("PASSWORD {}", pwd);
-	syncFakeSession.setPassword(pwd);
+        // verifica strutturale del campo PASSWORD e memorizzazione dello stesso nella
+        // sessione finta
+        String pwd = formData.PASSWORD;
+        log.debug("PASSWORD {}", pwd);
+        syncFakeSession.setPassword(pwd);
 
-	// verifica strutturale del campo XMLSIP e memorizzazione dello stesso nella
-	// sessione finta
-	String xmlsip = formData.XMLSIP;
-	log.debug("XMLSIP {}", xmlsip);
-	syncFakeSession.setDatiIndiceSipXml(xmlsip);
-	syncFakeSession.setDatiDaSalvareIndiceSip(xmlsip);
+        // verifica strutturale del campo XMLSIP e memorizzazione dello stesso nella
+        // sessione finta
+        String xmlsip = formData.XMLSIP;
+        log.debug("XMLSIP {}", xmlsip);
+        syncFakeSession.setDatiIndiceSipXml(xmlsip);
+        syncFakeSession.setDatiDaSalvareIndiceSip(xmlsip);
 
-	// indice sip (xml serialized)
-	syncFakeSession.setIndiceSIPFascicolo(formData.indiceSIPFascicolo);
+        // indice sip (xml serialized)
+        syncFakeSession.setIndiceSIPFascicolo(formData.indiceSIPFascicolo);
     }
 
     public static void parseOAuth2Form(BlockingFakeSession syncFakeSession,
-	    AvanzamentoWs avanzamentoWs, VersamentoFascicoloOauth2MultipartForm formData,
-	    Principal principal) {
+            AvanzamentoWs avanzamentoWs, VersamentoFascicoloOauth2MultipartForm formData,
+            Principal principal) {
 
-	avanzamentoWs.setCheckPoint(AvanzamentoWs.CheckPoints.TRASFERIMENTO_PAYLOAD_IN)
-		.setFase("Payload verificato ricevuto").logAvanzamento();
+        avanzamentoWs.setCheckPoint(AvanzamentoWs.CheckPoints.TRASFERIMENTO_PAYLOAD_IN)
+                .setFase("Payload verificato ricevuto").logAvanzamento();
 
-	/*
-	 * verifica della struttura della chiamata al WS: non è un WS SOAP perciò la signature del
-	 * WS va controllata a mano, leggendo quanto effettivamente versato.
-	 */
-	// verifica strutturale del campo VERSIONE e memorizzazione dello stesso nella
-	// sessione finta
+        /*
+         * verifica della struttura della chiamata al WS: non è un WS SOAP perciò la signature del
+         * WS va controllata a mano, leggendo quanto effettivamente versato.
+         */
+        // verifica strutturale del campo VERSIONE e memorizzazione dello stesso nella
+        // sessione finta
 
-	String versione = formData.VERSIONE;
-	log.debug("VERSIONE {}", versione);
-	syncFakeSession.setVersioneWS(versione);
+        String versione = formData.VERSIONE;
+        log.debug("VERSIONE {}", versione);
+        syncFakeSession.setVersioneWS(versione);
 
-	// verifica strutturale del campo LOGINNAME e memorizzazione dello stesso nella
-	// sessione finta
-	String loginame = principal.getName();
-	log.debug("OAUTH2 LOGINNAME {}", loginame);
-	syncFakeSession.setLoginName(loginame);
-	avanzamentoWs.setVrsUser(loginame).logAvanzamento();
+        // verifica strutturale del campo LOGINNAME e memorizzazione dello stesso nella
+        // sessione finta
+        String loginame = principal.getName();
+        log.debug("OAUTH2 LOGINNAME {}", loginame);
+        syncFakeSession.setLoginName(loginame);
+        avanzamentoWs.setVrsUser(loginame).logAvanzamento();
 
-	// verifica strutturale del campo XMLSIP e memorizzazione dello stesso nella
-	// sessione finta
-	String xmlsip = formData.XMLSIP;
-	log.debug("XMLSIP {}", xmlsip);
-	syncFakeSession.setDatiIndiceSipXml(xmlsip);
-	syncFakeSession.setDatiDaSalvareIndiceSip(xmlsip);
+        // verifica strutturale del campo XMLSIP e memorizzazione dello stesso nella
+        // sessione finta
+        String xmlsip = formData.XMLSIP;
+        log.debug("XMLSIP {}", xmlsip);
+        syncFakeSession.setDatiIndiceSipXml(xmlsip);
+        syncFakeSession.setDatiDaSalvareIndiceSip(xmlsip);
 
-	// indice sip (xml serialized)
-	syncFakeSession.setIndiceSIPFascicolo(formData.indiceSIPFascicolo);
+        // indice sip (xml serialized)
+        syncFakeSession.setIndiceSIPFascicolo(formData.indiceSIPFascicolo);
     }
 
     /**
@@ -142,22 +142,22 @@ public class RequestPrsr {
      * @return ip client letto ottenuto da request
      */
     public static String leggiIpVersante(HttpServerRequest request, AvanzamentoWs avanzamentoWs) {
-	String ipVers = request.getHeader("RERFwFor");
-	// cerco l'header custom della RER
-	if (ipVers == null || ipVers.isEmpty()) {
-	    ipVers = request.getHeader("X-FORWARDED-FOR");
-	    // se non c'e`, uso l'header standard
-	}
-	if (ipVers == null || ipVers.isEmpty()) {
-	    ipVers = request.remoteAddress().hostAddress();
-	    // se non c'e` perche' la macchina e' esposta direttamente,
-	    // leggo l'IP fisico del chiamante
-	}
-	log.debug("Request, indirizzo di provenienza - IP: {}", ipVers);
-	avanzamentoWs.setCheckPoint(AvanzamentoWs.CheckPoints.LETTURA_IP_VERSANTE)
-		.setFase("Lettura Ip Versante da header chiamata").setIndirizzoIp(ipVers)
-		.logAvanzamento(true);
-	return ipVers;
+        String ipVers = request.getHeader("RERFwFor");
+        // cerco l'header custom della RER
+        if (ipVers == null || ipVers.isEmpty()) {
+            ipVers = request.getHeader("X-FORWARDED-FOR");
+            // se non c'e`, uso l'header standard
+        }
+        if (ipVers == null || ipVers.isEmpty()) {
+            ipVers = request.remoteAddress().hostAddress();
+            // se non c'e` perche' la macchina e' esposta direttamente,
+            // leggo l'IP fisico del chiamante
+        }
+        log.debug("Request, indirizzo di provenienza - IP: {}", ipVers);
+        avanzamentoWs.setCheckPoint(AvanzamentoWs.CheckPoints.LETTURA_IP_VERSANTE)
+                .setFase("Lettura Ip Versante da header chiamata").setIndirizzoIp(ipVers)
+                .logAvanzamento(true);
+        return ipVers;
     }
 
 }

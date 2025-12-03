@@ -17,17 +17,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -55,79 +48,76 @@ public class MonContaFascicoliKo implements Serializable {
     private OrgStrut orgStrut;
 
     public MonContaFascicoliKo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "MON_CONTA_FASCICOLI_KO_IDCONTAFASCICOLIKO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SMON_CONTA_FASCICOLI_KO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MON_CONTA_FASCICOLI_KO_IDCONTAFASCICOLIKO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SMON_CONTA_FASCICOLI_KO", incrementBy = 1)
     @Column(name = "ID_CONTA_FASCICOLI_KO")
     public Long getIdContaFascicoliKo() {
-	return this.idContaFascicoliKo;
+        return this.idContaFascicoliKo;
     }
 
     public void setIdContaFascicoliKo(Long idContaFascicoliKo) {
-	this.idContaFascicoliKo = idContaFascicoliKo;
+        this.idContaFascicoliKo = idContaFascicoliKo;
     }
 
     @Column(name = "AA_FASCICOLO")
     public BigDecimal getAaFascicolo() {
-	return this.aaFascicolo;
+        return this.aaFascicolo;
     }
 
     public void setAaFascicolo(BigDecimal aaFascicolo) {
-	this.aaFascicolo = aaFascicolo;
+        this.aaFascicolo = aaFascicolo;
     }
 
     @Column(name = "DT_RIF_CONTA")
     public LocalDate getDtRifConta() {
-	return this.dtRifConta;
+        return this.dtRifConta;
     }
 
     public void setDtRifConta(LocalDate dtRifConta) {
-	this.dtRifConta = dtRifConta;
+        this.dtRifConta = dtRifConta;
     }
 
     @Column(name = "NI_FASCICOLI_KO")
     public BigDecimal getNiFascicoliKo() {
-	return this.niFascicoliKo;
+        return this.niFascicoliKo;
     }
 
     public void setNiFascicoliKo(BigDecimal niFascicoliKo) {
-	this.niFascicoliKo = niFascicoliKo;
+        this.niFascicoliKo = niFascicoliKo;
     }
 
     @Column(name = "TI_STATO_FASCICOLO_KO")
     public String getTiStatoFascicoloKo() {
-	return this.tiStatoFascicoloKo;
+        return this.tiStatoFascicoloKo;
     }
 
     public void setTiStatoFascicoloKo(String tiStatoFascicoloKo) {
-	this.tiStatoFascicoloKo = tiStatoFascicoloKo;
+        this.tiStatoFascicoloKo = tiStatoFascicoloKo;
     }
 
     // bi-directional many-to-one association to DecTipoFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_FASCICOLO")
     public DecTipoFascicolo getDecTipoFascicolo() {
-	return this.decTipoFascicolo;
+        return this.decTipoFascicolo;
     }
 
     public void setDecTipoFascicolo(DecTipoFascicolo decTipoFascicolo) {
-	this.decTipoFascicolo = decTipoFascicolo;
+        this.decTipoFascicolo = decTipoFascicolo;
     }
 
     // bi-directional many-to-one association to OrgStrut
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_STRUT")
     public OrgStrut getOrgStrut() {
-	return this.orgStrut;
+        return this.orgStrut;
     }
 
     public void setOrgStrut(OrgStrut orgStrut) {
-	this.orgStrut = orgStrut;
+        this.orgStrut = orgStrut;
     }
 
 }

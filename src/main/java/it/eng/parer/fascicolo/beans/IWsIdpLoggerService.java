@@ -22,6 +22,6 @@ import jakarta.validation.constraints.NotNull;
 public interface IWsIdpLoggerService {
 
     void scriviLog(
-	    @NotNull(message = "IWsIdpLoggerService.scriviLog: logDto non inizializzato") LogDto logDto);
+            @NotNull(message = "IWsIdpLoggerService.scriviLog: logDto non inizializzato") LogDto logDto);
 
 }

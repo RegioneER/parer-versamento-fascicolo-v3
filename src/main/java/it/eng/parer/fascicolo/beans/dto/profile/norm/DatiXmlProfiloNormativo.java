@@ -36,34 +36,34 @@ public class DatiXmlProfiloNormativo implements Serializable {
     private String tipoAggreg;
 
     public List<DXPNSoggetto> getSoggetti() {
-	if (soggetti == null) {
-	    soggetti = new ArrayList<>(0);
-	}
-	// clean from null objects
-	soggetti.removeIf(Objects::isNull);
-	return soggetti;
+        if (soggetti == null) {
+            soggetti = new ArrayList<>(0);
+        }
+        // clean from null objects
+        soggetti.removeIf(Objects::isNull);
+        return soggetti;
     }
 
     public void setSoggetti(List<DXPNSoggetto> soggetti) {
-	this.soggetti = soggetti;
+        this.soggetti = soggetti;
     }
 
     public DXPNSoggetto addSoggetto(DXPNSoggetto soggetto) {
-	getSoggetti().add(soggetto);
-	return soggetto;
+        getSoggetti().add(soggetto);
+        return soggetto;
     }
 
     public DXPNSoggetto removeSoggetto(DXPNSoggetto soggetto) {
-	getSoggetti().remove(soggetto);
-	return soggetto;
+        getSoggetti().remove(soggetto);
+        return soggetto;
     }
 
     public String getTipoAggreg() {
-	return tipoAggreg;
+        return tipoAggreg;
     }
 
     public void setTipoAggreg(String tipoAggreg) {
-	this.tipoAggreg = tipoAggreg;
+        this.tipoAggreg = tipoAggreg;
     }
 
 }

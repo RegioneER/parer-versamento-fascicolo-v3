@@ -40,58 +40,58 @@ public class ElencoVersamentoFascicoliDao implements IElencoVersamentoFascicoliD
 
     @Override
     public ElvFascDaElabElenco insertFascicoloOnCodaDaElab(FasFascicolo fascicolo, long idTipoFasc,
-	    TiStatoFascDaElab status) {
-	// init
-	fascicolo.setElvFascDaElabElencos(new ArrayList<>());
+            TiStatoFascDaElab status) {
+        // init
+        fascicolo.setElvFascDaElabElencos(new ArrayList<>());
 
-	ElvFascDaElabElenco fascVersDaElab = new ElvFascDaElabElenco();
-	fascVersDaElab.setFasFascicolo(fascicolo);
-	fascVersDaElab.setIdTipoFascicolo(new BigDecimal(idTipoFasc));
-	fascVersDaElab.setTiStatoFascDaElab(status);
-	fascVersDaElab.setIdStrut(new BigDecimal(fascicolo.getOrgStrut().getIdStrut()));
-	fascVersDaElab.setAaFascicolo(fascicolo.getAaFascicolo());
-	fascVersDaElab.setTsVersFascicolo(fascicolo.getTsFineSes());
+        ElvFascDaElabElenco fascVersDaElab = new ElvFascDaElabElenco();
+        fascVersDaElab.setFasFascicolo(fascicolo);
+        fascVersDaElab.setIdTipoFascicolo(new BigDecimal(idTipoFasc));
+        fascVersDaElab.setTiStatoFascDaElab(status);
+        fascVersDaElab.setIdStrut(new BigDecimal(fascicolo.getOrgStrut().getIdStrut()));
+        fascVersDaElab.setAaFascicolo(fascicolo.getAaFascicolo());
+        fascVersDaElab.setTsVersFascicolo(fascicolo.getTsFineSes());
 
-	fascicolo.getElvFascDaElabElencos().add(fascVersDaElab);
-	entityManager.persist(fascVersDaElab);
-	entityManager.flush();
-	return fascVersDaElab;
+        fascicolo.getElvFascDaElabElencos().add(fascVersDaElab);
+        entityManager.persist(fascVersDaElab);
+        entityManager.flush();
+        return fascVersDaElab;
     }
 
     @Override
     public FasStatoConservFascicolo insertFascicoloOnStatoCons(FasFascicolo fascicolo,
-	    TiStatoConservazione status) {
-	// init
-	fascicolo.setFasStatoConservFascicoloElencos(new ArrayList<>());
+            TiStatoConservazione status) {
+        // init
+        fascicolo.setFasStatoConservFascicoloElencos(new ArrayList<>());
 
-	FasStatoConservFascicolo statoConservFascicolo = new FasStatoConservFascicolo();
-	statoConservFascicolo.setFasFascicolo(fascicolo);
-	statoConservFascicolo.setIamUser(fascicolo.getIamUser());
-	statoConservFascicolo.setTiStatoConservazione(status);
-	statoConservFascicolo.setTsStato(fascicolo.getTsFineSes());
+        FasStatoConservFascicolo statoConservFascicolo = new FasStatoConservFascicolo();
+        statoConservFascicolo.setFasFascicolo(fascicolo);
+        statoConservFascicolo.setIamUser(fascicolo.getIamUser());
+        statoConservFascicolo.setTiStatoConservazione(status);
+        statoConservFascicolo.setTsStato(fascicolo.getTsFineSes());
 
-	fascicolo.getFasStatoConservFascicoloElencos().add(statoConservFascicolo);
-	entityManager.persist(statoConservFascicolo);
-	entityManager.flush();
-	return statoConservFascicolo;
+        fascicolo.getFasStatoConservFascicoloElencos().add(statoConservFascicolo);
+        entityManager.persist(statoConservFascicolo);
+        entityManager.flush();
+        return statoConservFascicolo;
     }
 
     @Override
     public FasStatoFascicoloElenco insertFascicoloOnStatoElenco(FasFascicolo fascicolo,
-	    TiStatoFascElenco status) {
-	// init
-	fascicolo.setFasStatoFascicoloElencos(new ArrayList<>());
+            TiStatoFascElenco status) {
+        // init
+        fascicolo.setFasStatoFascicoloElencos(new ArrayList<>());
 
-	FasStatoFascicoloElenco statoFascicoloElenco = new FasStatoFascicoloElenco();
-	statoFascicoloElenco.setFasFascicolo(fascicolo);
-	statoFascicoloElenco.setIamUser(fascicolo.getIamUser());
-	statoFascicoloElenco.setTiStatoFascElencoVers(status);
-	statoFascicoloElenco.setTsStato(fascicolo.getTsFineSes());
+        FasStatoFascicoloElenco statoFascicoloElenco = new FasStatoFascicoloElenco();
+        statoFascicoloElenco.setFasFascicolo(fascicolo);
+        statoFascicoloElenco.setIamUser(fascicolo.getIamUser());
+        statoFascicoloElenco.setTiStatoFascElencoVers(status);
+        statoFascicoloElenco.setTsStato(fascicolo.getTsFineSes());
 
-	fascicolo.getFasStatoFascicoloElencos().add(statoFascicoloElenco);
-	entityManager.persist(statoFascicoloElenco);
-	entityManager.flush();
-	return statoFascicoloElenco;
+        fascicolo.getFasStatoFascicoloElencos().add(statoFascicoloElenco);
+        entityManager.persist(statoFascicoloElenco);
+        entityManager.flush();
+        return statoFascicoloElenco;
     }
 
 }

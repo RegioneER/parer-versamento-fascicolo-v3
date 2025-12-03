@@ -22,18 +22,18 @@ import it.eng.parer.fascicolo.beans.utils.CostantiDB;
 public class FlagConverter {
 
     private FlagConverter() {
-	throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("Utility class");
     }
 
     // true / false -> 1 / 0
     public static String fromBoolToFl(String value) {
-	return Boolean.parseBoolean(value) ? CostantiDB.Flag.TRUE : CostantiDB.Flag.FALSE;//
+        return Boolean.parseBoolean(value) ? CostantiDB.Flag.TRUE : CostantiDB.Flag.FALSE;//
     }
 
     // 1 / 0 -> true / false
     public static String fromFlToBool(String value) {
-	return value.equals(CostantiDB.Flag.TRUE) ? Boolean.TRUE.toString()
-		: Boolean.FALSE.toString();//
+        return value.equals(CostantiDB.Flag.TRUE) ? Boolean.TRUE.toString()
+                : Boolean.FALSE.toString();//
     }
 
 }

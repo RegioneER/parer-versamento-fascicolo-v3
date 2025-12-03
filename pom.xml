@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<artifactId>versamento-fascicolo-v3</artifactId>
+	<version>1.6.1-SNAPSHOT</version>
+	<name>Versamento Fascicolo 3.0</name>
+	<description>Progetto versamento-fascicolo-v3</description>
+
 	<parent>
 		<groupId>it.eng.parer</groupId>
 		<artifactId>parer-pom</artifactId>
-        <version>7.1.2</version>
+        <version>7.1.3</version>
 	</parent>
-	<artifactId>versamento-fascicolo-v3</artifactId>
-	<version>1.5.2-SNAPSHOT</version>
-	<name>Versamento Fascicolo 3.0</name>
-	<description>Progetto versamento-fascicolo-v3</description>
+
 <scm>
 		<developerConnection>scm:git:https://github.com/RegioneER/parer-versamento-fascicolo-v3.git</developerConnection>
 		<tag>versamento-fascicolo-v3-1.5.0</tag>
 	</scm>
+
 <distributionManagement>
 		<repository>
 			<id>github</id>
@@ -27,25 +30,20 @@
 			<url>https://maven.pkg.github.com/RegioneER/parer-framework-parerpom</url>
 		</repository>
 	</repositories>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.release>21</maven.compiler.release>
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-		<quarkus.platform.version>3.21.0</quarkus.platform.version>
+		<quarkus.platform.version>3.28.4</quarkus.platform.version>
 		<xmlsec.version>4.0.2</xmlsec.version>
-		<surefire-plugin.version>3.5.2</surefire-plugin.version>
+		<surefire-plugin.version>3.5.4</surefire-plugin.version>
 		<osgi.version>2.0.0</osgi.version>
         <dom4j.version>2.1.3</dom4j.version>
         <!-- commons -->
-        <commons-text.version>1.13.0</commons-text.version>
-        <commons-codec.version>1.18.0</commons-codec.version>
-        <commons-lang3.version>3.17.0</commons-lang3.version>
-        <commons-compress.version>1.27.1</commons-compress.version>
-        <commons-io.version>2.18.0</commons-io.version>
-        <commons-collections4.version>4.5.0-M3</commons-collections4.version>
-        <commons-net.version>3.11.1</commons-net.version>
+        <commons-collections4.version>4.5.0</commons-collections4.version>
 		<quarkus.custom.log.version>1.3.0</quarkus.custom.log.version>
 		<jandex-maven-plugin.version>1.2.3</jandex-maven-plugin.version>
 		<jaxb2-maven-plugin.version>3.2.0</jaxb2-maven-plugin.version>
@@ -149,10 +147,6 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-security-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-arc</artifactId>
 		</dependency>
 		<dependency>
@@ -230,10 +224,6 @@
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-smallrye-health</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-logging-json</artifactId>
 		</dependency>
 		<!-- security with token -->
 		<dependency>

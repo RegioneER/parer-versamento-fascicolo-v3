@@ -25,15 +25,15 @@ import jakarta.validation.constraints.NotNull;
 public interface IControlliCollFascicoloService {
 
     boolean verificaUdFascicolo(
-	    @NotNull(message = "IControlliCollFascicoloService.verificaUdFascicolo: versamento non inizializzato") VersFascicoloExt versamento,
-	    @NotNull(message = "IControlliCollFascicoloService.verificaUdFascicolo: fascicoloResp non inizializzato") ECFascicoloType fascicoloResp,
-	    @NotNull(message = "IControlliCollFascicoloService.verificaUdFascicolo: syncFakeSession non inizializzato") BlockingFakeSession syncFakeSession);
+            @NotNull(message = "IControlliCollFascicoloService.verificaUdFascicolo: versamento non inizializzato") VersFascicoloExt versamento,
+            @NotNull(message = "IControlliCollFascicoloService.verificaUdFascicolo: fascicoloResp non inizializzato") ECFascicoloType fascicoloResp,
+            @NotNull(message = "IControlliCollFascicoloService.verificaUdFascicolo: syncFakeSession non inizializzato") BlockingFakeSession syncFakeSession);
 
     /*
      * Restituisce una lista (nel peggiore dei casi vuota) di fascicoli da inserire (non
      * controllati)
      */
     RispostaControlli buildCollegamentiFascicolo(
-	    @NotNull(message = "IControlliCollFascicoloService.buildCollegamentiFascicolo: versamento non inizializzato") VersFascicoloExt versamento,
-	    @NotNull(message = "IControlliCollFascicoloService.buildCollegamentiFascicolo: versamento non inizializzato") ECFascicoloType.EsitoControlliFascicolo myControlliFascicolo);
+            @NotNull(message = "IControlliCollFascicoloService.buildCollegamentiFascicolo: versamento non inizializzato") VersFascicoloExt versamento,
+            @NotNull(message = "IControlliCollFascicoloService.buildCollegamentiFascicolo: versamento non inizializzato") ECFascicoloType.EsitoControlliFascicolo myControlliFascicolo);
 }

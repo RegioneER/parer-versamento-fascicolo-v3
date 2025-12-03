@@ -26,15 +26,15 @@ import static org.mockito.Mockito.*;
 class VersFascicoloServiceTest {
     @Test
     void parseXML_emptyUser_fails() {
-	IVersFascicoloService service = new VersFascicoloService();
-	// il mock di RispostaWSFascicolo deve fare solo la get/set della severity
-	final RispostaWSFascicolo rispostaWs = mock(RispostaWSFascicolo.class);
-	doCallRealMethod().when(rispostaWs).setSeverity(any());
-	when(rispostaWs.getSeverity()).thenCallRealMethod();
+        IVersFascicoloService service = new VersFascicoloService();
+        // il mock di RispostaWSFascicolo deve fare solo la get/set della severity
+        final RispostaWSFascicolo rispostaWs = mock(RispostaWSFascicolo.class);
+        doCallRealMethod().when(rispostaWs).setSeverity(any());
+        when(rispostaWs.getSeverity()).thenCallRealMethod();
 
-	final VersFascicoloExt versamento = new VersFascicoloExt();
-	versamento.setLoginName("");
-	service.parseXML(new BlockingFakeSession(), rispostaWs, versamento);
-	Assertions.assertEquals(IRispostaWS.SeverityEnum.ERROR, rispostaWs.getSeverity());
+        final VersFascicoloExt versamento = new VersFascicoloExt();
+        versamento.setLoginName("");
+        service.parseXML(new BlockingFakeSession(), rispostaWs, versamento);
+        Assertions.assertEquals(IRispostaWS.SeverityEnum.ERROR, rispostaWs.getSeverity());
     }
 }

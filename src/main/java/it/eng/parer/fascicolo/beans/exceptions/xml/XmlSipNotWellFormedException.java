@@ -28,22 +28,22 @@ public class XmlSipNotWellFormedException extends Exception implements IXmlSipVa
     private final String xmlSip;
 
     public XmlSipNotWellFormedException() {
-	super();
-	this.xmlSip = StringUtils.EMPTY;
+        super();
+        this.xmlSip = StringUtils.EMPTY;
     }
 
     public XmlSipNotWellFormedException(Throwable cause, String xmlSip) {
-	super(cause);
-	this.xmlSip = xmlSip;
+        super(cause);
+        this.xmlSip = xmlSip;
     }
 
     public XmlSipNotWellFormedException(String message, Throwable cause, String xmlSip) {
-	super(message, cause);
-	this.xmlSip = xmlSip;
+        super(message, cause);
+        this.xmlSip = xmlSip;
     }
 
     public String getXmlSip() {
-	return xmlSip;
+        return xmlSip;
     }
 
 }

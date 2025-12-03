@@ -33,57 +33,57 @@ public class DXPNEvento implements IEvento, Serializable {
 
     @Override
     public String getDescrizione() {
-	return descrizione;
+        return descrizione;
     }
 
     @Override
     public void setDescrizione(String descrizione) {
-	Assert.assertNotNull(descrizione);
-	this.descrizione = descrizione;
+        Assert.assertNotNull(descrizione);
+        this.descrizione = descrizione;
     }
 
     @Override
     public Date getDataInizio() {
-	return dataInizio;
+        return dataInizio;
     }
 
     @Override
     public void setDataInizio(Date dataInizio) {
-	this.dataInizio = dataInizio;
+        this.dataInizio = dataInizio;
     }
 
     @Override
     public Date getDataFine() {
-	return dataFine;
+        return dataFine;
     }
 
     @Override
     public void setDataFine(Date dataFine) {
-	this.dataFine = dataFine;
+        this.dataFine = dataFine;
     }
 
     public Date getOraInizio() {
-	return oraInizio;
+        return oraInizio;
     }
 
     public void setOraInizio(Date oraInizio) {
-	this.oraInizio = oraInizio;
+        this.oraInizio = oraInizio;
     }
 
     public Date getOraFine() {
-	return oraFine;
+        return oraFine;
     }
 
     public void setOraFine(Date oraFine) {
-	this.oraFine = oraFine;
+        this.oraFine = oraFine;
     }
 
     @Override
     public String toString() {
-	return "DXPNEvento [" + (descrizione != null ? "descrizione - " + descrizione + ", " : "")
-		+ (dataInizio != null ? "dataInizio - " + dataInizio + ", " : "")
-		+ (dataFine != null ? "dataFine - " + dataFine + ", " : "") + "oraInizio - "
-		+ oraInizio + ", oraFine - " + oraFine + "]";
+        return "DXPNEvento [" + (descrizione != null ? "descrizione - " + descrizione + ", " : "")
+                + (dataInizio != null ? "dataInizio - " + dataInizio + ", " : "")
+                + (dataFine != null ? "dataFine - " + dataFine + ", " : "") + "oraInizio - "
+                + oraInizio + ", oraFine - " + oraFine + "]";
     }
 
 }

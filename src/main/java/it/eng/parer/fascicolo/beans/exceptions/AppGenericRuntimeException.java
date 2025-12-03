@@ -29,37 +29,37 @@ public class AppGenericRuntimeException extends WebApplicationException {
     private final ErrorCategory category;
 
     public AppGenericRuntimeException() {
-	super();
-	this.category = ErrorCategory.INTERNAL_ERROR; // default
+        super();
+        this.category = ErrorCategory.INTERNAL_ERROR; // default
     }
 
     public AppGenericRuntimeException(ErrorCategory category) {
-	super();
-	this.category = category;
+        super();
+        this.category = category;
     }
 
     public AppGenericRuntimeException(String message, Throwable throwable, ErrorCategory category) {
-	super(message, throwable);
-	this.category = category;
+        super(message, throwable);
+        this.category = category;
     }
 
     public AppGenericRuntimeException(Throwable throwable, ErrorCategory category) {
-	super(throwable);
-	this.category = category;
+        super(throwable);
+        this.category = category;
     }
 
     public AppGenericRuntimeException(String message, ErrorCategory category) {
-	super(message);
-	this.category = category;
+        super(message);
+        this.category = category;
     }
 
     public ErrorCategory getCategory() {
-	return category;
+        return category;
     }
 
     @Override
     public String getMessage() {
-	return "[" + getCategory().toString() + "]" + "  " + super.getMessage();
+        return "[" + getCategory().toString() + "]" + "  " + super.getMessage();
     }
 
 }

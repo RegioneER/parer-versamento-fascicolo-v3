@@ -19,19 +19,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -97,280 +90,277 @@ public class OrgStrut implements Serializable {
     private String flArchivioRestituito;
 
     public OrgStrut() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "ORG_STRUT_IDSTRUT_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SORG_STRUT"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORG_STRUT_IDSTRUT_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SORG_STRUT", incrementBy = 1)
     @Column(name = "ID_STRUT")
     public Long getIdStrut() {
-	return this.idStrut;
+        return this.idStrut;
     }
 
     public void setIdStrut(Long idStrut) {
-	this.idStrut = idStrut;
+        this.idStrut = idStrut;
     }
 
     @Column(name = "CD_IPA")
     public String getCdIpa() {
-	return cdIpa;
+        return cdIpa;
     }
 
     public void setCdIpa(String cdIpa) {
-	this.cdIpa = cdIpa;
+        this.cdIpa = cdIpa;
     }
 
     @Column(name = "DL_NOTE_STRUT")
     public String getDlNoteStrut() {
-	return this.dlNoteStrut;
+        return this.dlNoteStrut;
     }
 
     public void setDlNoteStrut(String dlNoteStrut) {
-	this.dlNoteStrut = dlNoteStrut;
+        this.dlNoteStrut = dlNoteStrut;
     }
 
     @Column(name = "DS_STRUT")
     public String getDsStrut() {
-	return this.dsStrut;
+        return this.dsStrut;
     }
 
     public void setDsStrut(String dsStrut) {
-	this.dsStrut = dsStrut;
+        this.dsStrut = dsStrut;
     }
 
     @Column(name = "CD_STRUT_NORMALIZ")
     public String getCdStrutNormaliz() {
-	return this.cdStrutNormaliz;
+        return this.cdStrutNormaliz;
     }
 
     public void setCdStrutNormaliz(String cdStrutNormaliz) {
-	this.cdStrutNormaliz = cdStrutNormaliz;
+        this.cdStrutNormaliz = cdStrutNormaliz;
     }
 
     @Column(name = "DT_INI_VAL")
     public LocalDateTime getDtIniVal() {
-	return dtIniVal;
+        return dtIniVal;
     }
 
     public void setDtIniVal(LocalDateTime dtIniVal) {
-	this.dtIniVal = dtIniVal;
+        this.dtIniVal = dtIniVal;
     }
 
     @Column(name = "DT_FINE_VAL")
     public LocalDateTime getDtFineVal() {
-	return dtFineVal;
+        return dtFineVal;
     }
 
     public void setDtFineVal(LocalDateTime dtFineVal) {
-	this.dtFineVal = dtFineVal;
+        this.dtFineVal = dtFineVal;
     }
 
     @Column(name = "DT_INI_VAL_STRUT")
     public LocalDateTime getDtIniValStrut() {
-	return dtIniValStrut;
+        return dtIniValStrut;
     }
 
     public void setDtIniValStrut(LocalDateTime dtIniValStrut) {
-	this.dtIniValStrut = dtIniValStrut;
+        this.dtIniValStrut = dtIniValStrut;
     }
 
     @Column(name = "DT_FINE_VAL_STRUT")
     public LocalDateTime getDtFineValStrut() {
-	return dtFineValStrut;
+        return dtFineValStrut;
     }
 
     public void setDtFineValStrut(LocalDateTime dtFineValStrut) {
-	this.dtFineValStrut = dtFineValStrut;
+        this.dtFineValStrut = dtFineValStrut;
     }
 
     @Column(name = "FL_TEMPLATE", columnDefinition = "CHAR")
     public String getFlTemplate() {
-	return this.flTemplate;
+        return this.flTemplate;
     }
 
     public void setFlTemplate(String flTemplate) {
-	this.flTemplate = flTemplate;
+        this.flTemplate = flTemplate;
     }
 
     @Column(name = "ID_ENTE_CONVENZ")
     public BigDecimal getIdEnteConvenz() {
-	return idEnteConvenz;
+        return idEnteConvenz;
     }
 
     public void setIdEnteConvenz(BigDecimal idEnteConvenz) {
-	this.idEnteConvenz = idEnteConvenz;
+        this.idEnteConvenz = idEnteConvenz;
     }
 
     @Column(name = "NM_STRUT")
     public String getNmStrut() {
-	return this.nmStrut;
+        return this.nmStrut;
     }
 
     public void setNmStrut(String nmStrut) {
-	this.nmStrut = nmStrut;
+        this.nmStrut = nmStrut;
     }
 
     @Column(name = "FL_CESSATO", columnDefinition = "CHAR")
     public String getFlCessato() {
-	return this.flCessato;
+        return this.flCessato;
     }
 
     public void setFlCessato(String flCessato) {
-	this.flCessato = flCessato;
+        this.flCessato = flCessato;
     }
 
     @Column(name = "FL_ARCHIVIO_RESTITUITO", columnDefinition = "CHAR")
     public String getFlArchivioRestituito() {
-	return this.flArchivioRestituito;
+        return this.flArchivioRestituito;
     }
 
     public void setFlArchivioRestituito(String flArchivioRestituito) {
-	this.flArchivioRestituito = flArchivioRestituito;
+        this.flArchivioRestituito = flArchivioRestituito;
     }
 
     // bi-directional many-to-one association to AroUnitaDoc
     @OneToMany(mappedBy = "orgStrut", fetch = FetchType.LAZY)
     public List<AroUnitaDoc> getAroUnitaDocs() {
-	return this.aroUnitaDocs;
+        return this.aroUnitaDocs;
     }
 
     public void setAroUnitaDocs(List<AroUnitaDoc> aroUnitaDocs) {
-	this.aroUnitaDocs = aroUnitaDocs;
+        this.aroUnitaDocs = aroUnitaDocs;
     }
 
     // bi-directional many-to-one association to DecRegistroUnitaDoc
     @OneToMany(mappedBy = "orgStrut", cascade = {
-	    CascadeType.PERSIST, CascadeType.DETACH })
+            CascadeType.PERSIST, CascadeType.DETACH })
     public List<DecRegistroUnitaDoc> getDecRegistroUnitaDocs() {
-	return this.decRegistroUnitaDocs;
+        return this.decRegistroUnitaDocs;
     }
 
     public void setDecRegistroUnitaDocs(List<DecRegistroUnitaDoc> decRegistroUnitaDocs) {
-	this.decRegistroUnitaDocs = decRegistroUnitaDocs;
+        this.decRegistroUnitaDocs = decRegistroUnitaDocs;
     }
 
     // bi-directional many-to-one association to DecTipoUnitaDoc
     @OneToMany(mappedBy = "orgStrut", cascade = CascadeType.PERSIST)
     public List<DecTipoUnitaDoc> getDecTipoUnitaDocs() {
-	return this.decTipoUnitaDocs;
+        return this.decTipoUnitaDocs;
     }
 
     public void setDecTipoUnitaDocs(List<DecTipoUnitaDoc> decTipoUnitaDocs) {
-	this.decTipoUnitaDocs = decTipoUnitaDocs;
+        this.decTipoUnitaDocs = decTipoUnitaDocs;
     }
 
     // bi-directional many-to-one association to DecTitol
     @OneToMany(mappedBy = "orgStrut", cascade = {
-	    CascadeType.PERSIST, CascadeType.REMOVE })
+            CascadeType.PERSIST, CascadeType.REMOVE })
 
     public List<DecTitol> getDecTitols() {
-	return this.decTitols;
+        return this.decTitols;
     }
 
     public void setDecTitols(List<DecTitol> decTitols) {
-	this.decTitols = decTitols;
+        this.decTitols = decTitols;
     }
 
     // bi-directional many-to-one association to OrgCategStrut
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_CATEG_STRUT")
     public BigDecimal getOrgCategStrut() {
-	return this.orgCategStrut;
+        return this.orgCategStrut;
     }
 
     public void setOrgCategStrut(BigDecimal orgCategStrut) {
-	this.orgCategStrut = orgCategStrut;
+        this.orgCategStrut = orgCategStrut;
     }
 
     // bi-directional many-to-one association to OrgEnte
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ENTE")
     public OrgEnte getOrgEnte() {
-	return this.orgEnte;
+        return this.orgEnte;
     }
 
     public void setOrgEnte(OrgEnte orgEnte) {
-	this.orgEnte = orgEnte;
+        this.orgEnte = orgEnte;
     }
 
     // bi-directional many-to-one association to DecTipoFascicolo
     @OneToMany(mappedBy = "orgStrut", cascade = CascadeType.PERSIST)
     public List<DecTipoFascicolo> getDecTipoFascicolos() {
-	return this.decTipoFascicolos;
+        return this.decTipoFascicolos;
     }
 
     public void setDecTipoFascicolos(List<DecTipoFascicolo> decTipoFascicolos) {
-	this.decTipoFascicolos = decTipoFascicolos;
+        this.decTipoFascicolos = decTipoFascicolos;
     }
 
     // bi-directional many-to-one association to OrgUsoSistemaMigraz
     @OneToMany(mappedBy = "orgStrut")
 
     public List<OrgUsoSistemaMigraz> getOrgUsoSistemaMigrazs() {
-	return this.orgUsoSistemaMigrazs;
+        return this.orgUsoSistemaMigrazs;
     }
 
     public void setOrgUsoSistemaMigrazs(List<OrgUsoSistemaMigraz> orgUsoSistemaMigrazs) {
-	this.orgUsoSistemaMigrazs = orgUsoSistemaMigrazs;
+        this.orgUsoSistemaMigrazs = orgUsoSistemaMigrazs;
     }
 
     // bi-directional many-to-one association to AplValoreParamApplic
     @OneToMany(mappedBy = "orgStrut")
     public List<AplValoreParamApplic> getAplValoreParamApplics() {
-	return this.aplValoreParamApplics;
+        return this.aplValoreParamApplics;
     }
 
     public void setAplValoreParamApplics(List<AplValoreParamApplic> aplValoreParamApplics) {
-	this.aplValoreParamApplics = aplValoreParamApplics;
+        this.aplValoreParamApplics = aplValoreParamApplics;
     }
 
     public AplValoreParamApplic addAplValoreParamApplic(AplValoreParamApplic aplValoreParamApplic) {
-	getAplValoreParamApplics().add(aplValoreParamApplic);
-	aplValoreParamApplic.setOrgStrut(this);
+        getAplValoreParamApplics().add(aplValoreParamApplic);
+        aplValoreParamApplic.setOrgStrut(this);
 
-	return aplValoreParamApplic;
+        return aplValoreParamApplic;
     }
 
     public AplValoreParamApplic removeAplValoreParamApplic(
-	    AplValoreParamApplic aplValoreParamApplic) {
-	getAplValoreParamApplics().remove(aplValoreParamApplic);
-	aplValoreParamApplic.setOrgStrut(null);
+            AplValoreParamApplic aplValoreParamApplic) {
+        getAplValoreParamApplics().remove(aplValoreParamApplic);
+        aplValoreParamApplic.setOrgStrut(null);
 
-	return aplValoreParamApplic;
+        return aplValoreParamApplic;
     }
 
     @Override
     public int hashCode() {
-	int hash = 7;
-	hash = 43 * hash + (int) (this.idStrut ^ (this.idStrut >>> 32));
-	return hash;
+        int hash = 7;
+        hash = 43 * hash + (int) (this.idStrut ^ (this.idStrut >>> 32));
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final OrgStrut other = (OrgStrut) obj;
-	return this.idStrut == other.idStrut;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OrgStrut other = (OrgStrut) obj;
+        return this.idStrut == other.idStrut;
     }
 
     @PrePersist
     void preInsert() {
-	if (this.flCessato == null) {
-	    this.flCessato = "0";
-	}
-	if (this.flArchivioRestituito == null) {
-	    this.flArchivioRestituito = "0";
-	}
+        if (this.flCessato == null) {
+            this.flCessato = "0";
+        }
+        if (this.flArchivioRestituito == null) {
+            this.flArchivioRestituito = "0";
+        }
     }
 }

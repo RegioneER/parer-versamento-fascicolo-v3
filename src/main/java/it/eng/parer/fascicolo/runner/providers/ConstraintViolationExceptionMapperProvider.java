@@ -50,10 +50,10 @@ import jakarta.ws.rs.ext.Provider;
  */
 @Provider
 public class ConstraintViolationExceptionMapperProvider
-	implements ExceptionMapper<ConstraintViolationException> {
+        implements ExceptionMapper<ConstraintViolationException> {
 
     private static final Logger log = LoggerFactory
-	    .getLogger(ConstraintViolationExceptionMapperProvider.class);
+            .getLogger(ConstraintViolationExceptionMapperProvider.class);
 
     @Inject
     IVersFascicoloService versFascicoloSync;
@@ -67,80 +67,80 @@ public class ConstraintViolationExceptionMapperProvider
 
     @Override
     public Response toResponse(ConstraintViolationException exception) {
-	// log
-	log.atError().log("ConstraintViolationExceptionMapperProvider errore registrato",
-		exception);
-	// init
-	AvanzamentoWs avanzamentoWs = init();
-	// esito
-	CompRapportoVersFascicolo myEsito = rispostaWSFascicolo.getCompRapportoVersFascicolo();
+        // log
+        log.atError().log("ConstraintViolationExceptionMapperProvider errore registrato",
+                exception);
+        // init
+        AvanzamentoWs avanzamentoWs = init();
+        // esito
+        CompRapportoVersFascicolo myEsito = rispostaWSFascicolo.getCompRapportoVersFascicolo();
 
-	// check possible error after init
-	if (rispostaWSFascicolo.getSeverity() == IRispostaWS.SeverityEnum.ERROR) {
-	    versFascicoloExt.listErrAddError(StringUtils.EMPTY,
-		    myEsito.getEsitoGenerale().getCodiceErrore(),
-		    myEsito.getEsitoGenerale().getMessaggioErrore());
-	}
+        // check possible error after init
+        if (rispostaWSFascicolo.getSeverity() == IRispostaWS.SeverityEnum.ERROR) {
+            versFascicoloExt.listErrAddError(StringUtils.EMPTY,
+                    myEsito.getEsitoGenerale().getCodiceErrore(),
+                    myEsito.getEsitoGenerale().getMessaggioErrore());
+        }
 
-	// default
-	rispostaWSFascicolo.setErrorType(IRispostaWS.ErrorTypeEnum.WS_SIGNATURE);
+        // default
+        rispostaWSFascicolo.setErrorType(IRispostaWS.ErrorTypeEnum.WS_SIGNATURE);
 
-	// check violation errors
-	exception.getConstraintViolations().forEach(c -> {
-	    if (c.getLeafBean() instanceof IVersamentoFascicoloMultipartForm) {
-		versFascicoloExt.listErrAddError(StringUtils.EMPTY, MessaggiWSBundle.WS_CHECK,
-			c.getMessage());
-	    } else {
-		// default
-		versFascicoloExt.listErrAddError(StringUtils.EMPTY, MessaggiWSBundle.ERR_666,
-			c.getMessage());
-	    }
-	});
+        // check violation errors
+        exception.getConstraintViolations().forEach(c -> {
+            if (c.getLeafBean() instanceof IVersamentoFascicoloMultipartForm) {
+                versFascicoloExt.listErrAddError(StringUtils.EMPTY, MessaggiWSBundle.WS_CHECK,
+                        c.getMessage());
+            } else {
+                // default
+                versFascicoloExt.listErrAddError(StringUtils.EMPTY, MessaggiWSBundle.ERR_666,
+                        c.getMessage());
+            }
+        });
 
-	// calcolo errore principale
-	VoceDiErrore tmpVdE = versFascicoloExt.calcolaErrorePrincipale();
-	rispostaWSFascicolo.setSeverity(IRispostaWS.SeverityEnum.ERROR);
-	rispostaWSFascicolo.setEsitoWsError(tmpVdE.getErrorCode(), tmpVdE.getErrorMessage());
-	rispostaWSFascicolo.setErrorMessage(
-		MessaggiWSBundle.getString(tmpVdE.getErrorCode(), tmpVdE.getErrorMessage()));
+        // calcolo errore principale
+        VoceDiErrore tmpVdE = versFascicoloExt.calcolaErrorePrincipale();
+        rispostaWSFascicolo.setSeverity(IRispostaWS.SeverityEnum.ERROR);
+        rispostaWSFascicolo.setEsitoWsError(tmpVdE.getErrorCode(), tmpVdE.getErrorMessage());
+        rispostaWSFascicolo.setErrorMessage(
+                MessaggiWSBundle.getString(tmpVdE.getErrorCode(), tmpVdE.getErrorMessage()));
 
-	// gestione sessione
-	blockingFakeSession.setTmApertura(ZonedDateTime.now());
-	blockingFakeSession.setIpChiamante(RequestPrsr.leggiIpVersante(request, avanzamentoWs));
-	blockingFakeSession.setTmChiusura(ZonedDateTime.now());
+        // gestione sessione
+        blockingFakeSession.setTmApertura(ZonedDateTime.now());
+        blockingFakeSession.setIpChiamante(RequestPrsr.leggiIpVersante(request, avanzamentoWs));
+        blockingFakeSession.setTmChiusura(ZonedDateTime.now());
 
-	// esito chiamata NEGATIVO / il resto non eseguito
-	myEsito.setEsitoChiamataWS(new ECEsitoChiamataWSType());
-	myEsito.getEsitoChiamataWS().setCodiceEsito(ECEsitoPosNegNesType.NEGATIVO);
-	myEsito.getEsitoChiamataWS().setCredenzialiOperatore(ECEsitoPosNegNesType.NON_ESEGUITO);
-	myEsito.getEsitoChiamataWS().setVersioneWSCorretta(ECEsitoPosNegNesType.NON_ESEGUITO);
+        // esito chiamata NEGATIVO / il resto non eseguito
+        myEsito.setEsitoChiamataWS(new ECEsitoChiamataWSType());
+        myEsito.getEsitoChiamataWS().setCodiceEsito(ECEsitoPosNegNesType.NEGATIVO);
+        myEsito.getEsitoChiamataWS().setCredenzialiOperatore(ECEsitoPosNegNesType.NON_ESEGUITO);
+        myEsito.getEsitoChiamataWS().setVersioneWSCorretta(ECEsitoPosNegNesType.NON_ESEGUITO);
 
-	// gestione errori ulteriori
-	myEsito.setErroriUlteriori(versFascicoloExt.produciEsitoErroriSec());
-	myEsito.setWarningUlteriori(versFascicoloExt.produciEsitoWarningSec());
+        // gestione errori ulteriori
+        myEsito.setErroriUlteriori(versFascicoloExt.produciEsitoErroriSec());
+        myEsito.setWarningUlteriori(versFascicoloExt.produciEsitoWarningSec());
 
-	avanzamentoWs.setCheckPoint(AvanzamentoWs.CheckPoints.VERIFICA_STRUTTURA_CHIAMATA_WS)
-		.setFase("completata").logAvanzamento();
+        avanzamentoWs.setCheckPoint(AvanzamentoWs.CheckPoints.VERIFICA_STRUTTURA_CHIAMATA_WS)
+                .setFase("completata").logAvanzamento();
 
-	// salva sessione
-	versFascicoloSync.salvaTutto(blockingFakeSession, rispostaWSFascicolo, versFascicoloExt);
+        // salva sessione
+        versFascicoloSync.salvaTutto(blockingFakeSession, rispostaWSFascicolo, versFascicoloExt);
 
-	return Response.status(Response.Status.BAD_REQUEST).entity(myEsito.produciEsitoFascicolo())
-		.build();
+        return Response.status(Response.Status.BAD_REQUEST).entity(myEsito.produciEsitoFascicolo())
+                .build();
     }
 
     /**
      *
      */
     private AvanzamentoWs init() {
-	rispostaWSFascicolo = new RispostaWSFascicolo();
-	versFascicoloExt = new VersFascicoloExt();
-	blockingFakeSession = new BlockingFakeSession();
+        rispostaWSFascicolo = new RispostaWSFascicolo();
+        versFascicoloExt = new VersFascicoloExt();
+        blockingFakeSession = new BlockingFakeSession();
 
-	// init
-	AvanzamentoWs avanzamentoWs = versFascicoloSync.init(rispostaWSFascicolo, versFascicoloExt);
-	avanzamentoWs.logAvanzamento(true);
-	return avanzamentoWs;
+        // init
+        AvanzamentoWs avanzamentoWs = versFascicoloSync.init(rispostaWSFascicolo, versFascicoloExt);
+        avanzamentoWs.logAvanzamento(true);
+        return avanzamentoWs;
     }
 
 }

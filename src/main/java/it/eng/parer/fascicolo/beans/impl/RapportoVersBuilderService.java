@@ -35,7 +35,7 @@ public class RapportoVersBuilderService implements IRapportoVersBuilderService {
      */
     @Override
     public RispostaControlli canonicalizzaDaSalvareIndiceSip(BlockingFakeSession sessione) {
-	return canonicalizzaDaSalvareIndiceSip(sessione, false);
+        return canonicalizzaDaSalvareIndiceSip(sessione, false);
     }
 
     /**
@@ -50,23 +50,23 @@ public class RapportoVersBuilderService implements IRapportoVersBuilderService {
      * @return RispostaControlli con indice sip canonicalizzato
      */
     private RispostaControlli canonicalizzaDaSalvareIndiceSip(BlockingFakeSession sessione,
-	    boolean unPrettyPrint) {
-	String xmlSip = sessione.getDatiDaSalvareIndiceSip();
-	RispostaControlli rcCanonXml = new RispostaControlli();
-	try {
-	    // refactor
-	    String xmlOut = XmlUtils.doCanonicalizzazioneXml(xmlSip, unPrettyPrint);
-	    //
-	    rcCanonXml.setrString(xmlOut);
-	    rcCanonXml.setrBoolean(true);
-	} catch (Exception e) {
-	    rcCanonXml.setrBoolean(false);
-	    rcCanonXml.setCodErr(MessaggiWSBundle.XSD_001_002);
-	    rcCanonXml.setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.XSD_001_002,
-		    ExceptionUtils.getRootCauseMessage(e)));
-	}
+            boolean unPrettyPrint) {
+        String xmlSip = sessione.getDatiDaSalvareIndiceSip();
+        RispostaControlli rcCanonXml = new RispostaControlli();
+        try {
+            // refactor
+            String xmlOut = XmlUtils.doCanonicalizzazioneXml(xmlSip, unPrettyPrint);
+            //
+            rcCanonXml.setrString(xmlOut);
+            rcCanonXml.setrBoolean(true);
+        } catch (Exception e) {
+            rcCanonXml.setrBoolean(false);
+            rcCanonXml.setCodErr(MessaggiWSBundle.XSD_001_002);
+            rcCanonXml.setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.XSD_001_002,
+                    ExceptionUtils.getRootCauseMessage(e)));
+        }
 
-	return rcCanonXml;
+        return rcCanonXml;
     }
 
 }

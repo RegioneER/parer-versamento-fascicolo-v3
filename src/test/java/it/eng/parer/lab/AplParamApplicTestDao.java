@@ -26,8 +26,8 @@ public class AplParamApplicTestDao implements IAplParamApplicTestDao {
 
     @Override
     public AplParamApplic save(AplParamApplic aplParamApplic) {
-	entityManager.persist(aplParamApplic);
-	entityManager.flush();
-	return aplParamApplic;
+        entityManager.persist(aplParamApplic);
+        entityManager.flush();
+        return aplParamApplic;
     }
 }

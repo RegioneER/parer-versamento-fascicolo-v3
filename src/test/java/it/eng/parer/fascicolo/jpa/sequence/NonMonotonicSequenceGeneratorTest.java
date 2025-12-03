@@ -37,17 +37,17 @@ class NonMonotonicSequenceGeneratorTest {
     @Test
     @TestTransaction
     public void checkNonMonotonicSequenceValues() {
-	OrgAmbiente entity1 = new OrgAmbiente();
-	entityManager.persist(entity1);
-	OrgAmbiente entity2 = new OrgAmbiente();
-	entityManager.persist(entity2);
-	Assertions.assertNotNull(entity1.getIdAmbiente());
-	Assertions.assertNotNull(entity2.getIdAmbiente());
-	// verifico che il numero generato non sia il precedente e/o il successivo rispetto
-	// all'insert precedente
-	Assertions.assertNotEquals(entity1.getIdAmbiente(), entity2.getIdAmbiente());
-	Assertions.assertNotEquals(entity1.getIdAmbiente(), entity2.getIdAmbiente() + 1);
-	Assertions.assertNotEquals(entity1.getIdAmbiente(), entity2.getIdAmbiente() - 1);
+        OrgAmbiente entity1 = new OrgAmbiente();
+        entityManager.persist(entity1);
+        OrgAmbiente entity2 = new OrgAmbiente();
+        entityManager.persist(entity2);
+        Assertions.assertNotNull(entity1.getIdAmbiente());
+        Assertions.assertNotNull(entity2.getIdAmbiente());
+        // verifico che il numero generato non sia il precedente e/o il successivo rispetto
+        // all'insert precedente
+        Assertions.assertNotEquals(entity1.getIdAmbiente(), entity2.getIdAmbiente());
+        Assertions.assertNotEquals(entity1.getIdAmbiente(), entity2.getIdAmbiente() + 1);
+        Assertions.assertNotEquals(entity1.getIdAmbiente(), entity2.getIdAmbiente() - 1);
     }
 
 }

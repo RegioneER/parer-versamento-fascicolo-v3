@@ -17,17 +17,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
@@ -54,78 +47,75 @@ public class VrsXmlSesFascicoloKo implements Serializable {
     private VrsSesFascicoloKo vrsSesFascicoloKo;
 
     public VrsXmlSesFascicoloKo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "VRS_XML_SES_FASCICOLO_KO_IDXMLSESFASCICOLOKO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SVRS_XML_SES_FASCICOLO_KO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VRS_XML_SES_FASCICOLO_KO_IDXMLSESFASCICOLOKO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SVRS_XML_SES_FASCICOLO_KO", incrementBy = 1)
     @Column(name = "ID_XML_SES_FASCICOLO_KO")
     public Long getIdXmlSesFascicoloKo() {
-	return this.idXmlSesFascicoloKo;
+        return this.idXmlSesFascicoloKo;
     }
 
     public void setIdXmlSesFascicoloKo(Long idXmlSesFascicoloKo) {
-	this.idXmlSesFascicoloKo = idXmlSesFascicoloKo;
+        this.idXmlSesFascicoloKo = idXmlSesFascicoloKo;
     }
 
     @Lob
     @Column(name = "BL_XML")
     public String getBlXml() {
-	return this.blXml;
+        return this.blXml;
     }
 
     public void setBlXml(String blXml) {
-	this.blXml = blXml;
+        this.blXml = blXml;
     }
 
     @Column(name = "CD_VERSIONE_XML")
     public String getCdVersioneXml() {
-	return this.cdVersioneXml;
+        return this.cdVersioneXml;
     }
 
     public void setCdVersioneXml(String cdVersioneXml) {
-	this.cdVersioneXml = cdVersioneXml;
+        this.cdVersioneXml = cdVersioneXml;
     }
 
     @Column(name = "DT_REG_XML_SES_KO")
     public LocalDate getDtRegXmlSesKo() {
-	return this.dtRegXmlSesKo;
+        return this.dtRegXmlSesKo;
     }
 
     public void setDtRegXmlSesKo(LocalDate dtRegXmlSesKo) {
-	this.dtRegXmlSesKo = dtRegXmlSesKo;
+        this.dtRegXmlSesKo = dtRegXmlSesKo;
     }
 
     @Column(name = "ID_STRUT")
     public BigDecimal getIdStrut() {
-	return this.idStrut;
+        return this.idStrut;
     }
 
     public void setIdStrut(BigDecimal idStrut) {
-	this.idStrut = idStrut;
+        this.idStrut = idStrut;
     }
 
     @Column(name = "TI_XML")
     public String getTiXml() {
-	return this.tiXml;
+        return this.tiXml;
     }
 
     public void setTiXml(String tiXml) {
-	this.tiXml = tiXml;
+        this.tiXml = tiXml;
     }
 
     // bi-directional many-to-one association to VrsSesFascicoloKo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SES_FASCICOLO_KO")
     public VrsSesFascicoloKo getVrsSesFascicoloKo() {
-	return this.vrsSesFascicoloKo;
+        return this.vrsSesFascicoloKo;
     }
 
     public void setVrsSesFascicoloKo(VrsSesFascicoloKo vrsSesFascicoloKo) {
-	this.vrsSesFascicoloKo = vrsSesFascicoloKo;
+        this.vrsSesFascicoloKo = vrsSesFascicoloKo;
     }
 
 }

@@ -40,7 +40,7 @@ public class Welcome {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {
-	return welcome.data("appinfo", appinfo);
+        return welcome.data("appinfo", appinfo);
     }
 
 }

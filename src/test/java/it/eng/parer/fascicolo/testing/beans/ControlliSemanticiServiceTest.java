@@ -32,8 +32,8 @@ public class ControlliSemanticiServiceTest {
 
     @Test
     public void testCaricaDefaultDaDB() {
-	Assertions
-		.assertTrue(service.caricaDefaultDaDB(TipoParametroAppl.VERSIONI_WS).isrBoolean());
+        Assertions
+                .assertTrue(service.caricaDefaultDaDB(TipoParametroAppl.VERSIONI_WS).isrBoolean());
     }
 
 }

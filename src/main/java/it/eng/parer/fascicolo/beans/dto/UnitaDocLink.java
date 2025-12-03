@@ -33,42 +33,42 @@ public class UnitaDocLink implements Serializable {
     BigInteger posizione;
 
     public Long getIdLinkUnitaDoc() {
-	return idLinkUnitaDoc;
+        return idLinkUnitaDoc;
     }
 
     public void setIdLinkUnitaDoc(Long idLinkUnitaDoc) {
-	this.idLinkUnitaDoc = idLinkUnitaDoc;
+        this.idLinkUnitaDoc = idLinkUnitaDoc;
     }
 
     public CSChiave getCsChiave() {
-	return csChiave;
+        return csChiave;
     }
 
     public void setCsChiave(CSChiave csChiave) {
-	this.csChiave = csChiave;
+        this.csChiave = csChiave;
     }
 
     public Date getDataInserimentoFas() {
-	return dataInserimentoFas;
+        return dataInserimentoFas;
     }
 
     public void setDataInserimentoFas(Date dataInserimentoFas) {
-	this.dataInserimentoFas = dataInserimentoFas;
+        this.dataInserimentoFas = dataInserimentoFas;
     }
 
     public BigInteger getPosizione() {
-	return posizione;
+        return posizione;
     }
 
     public void setPosizione(BigInteger posizione) {
-	this.posizione = posizione;
+        this.posizione = posizione;
     }
 
     @Override
     public String toString() {
-	return "FasUnitaDocColl [idLinkUnitaDoc - " + idLinkUnitaDoc + " , csChiave - " + csChiave
-		+ " , dataInserimentoFas - " + dataInserimentoFas + " , posizione - " + posizione
-		+ "]";
+        return "FasUnitaDocColl [idLinkUnitaDoc - " + idLinkUnitaDoc + " , csChiave - " + csChiave
+                + " , dataInserimentoFas - " + dataInserimentoFas + " , posizione - " + posizione
+                + "]";
     }
 
 }

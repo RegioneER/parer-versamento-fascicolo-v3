@@ -16,15 +16,13 @@ package it.eng.parer.fascicolo.jpa.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 /**
@@ -40,41 +38,40 @@ public class FasUdAipFascicoloDaElab implements Serializable {
     private FasAipFascicoloDaElab fasAipFascicoloDaElab;
 
     public FasUdAipFascicoloDaElab() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @SequenceGenerator(name = "FAS_UD_AIP_FASCICOLO_DA_ELAB_IDUDAIPFASCICOLODAELAB_GENERATOR", allocationSize = 1, sequenceName = "SFAS_UD_AIP_FASCICOLO_DA_ELAB")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FAS_UD_AIP_FASCICOLO_DA_ELAB_IDUDAIPFASCICOLODAELAB_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SFAS_UD_AIP_FASCICOLO_DA_ELAB", incrementBy = 1)
     @Column(name = "ID_UD_AIP_FASCICOLO_DA_ELAB")
     public Long getIdUdAipFascicoloDaElab() {
-	return this.idUdAipFascicoloDaElab;
+        return this.idUdAipFascicoloDaElab;
     }
 
     public void setIdUdAipFascicoloDaElab(Long idUdAipFascicoloDaElab) {
-	this.idUdAipFascicoloDaElab = idUdAipFascicoloDaElab;
+        this.idUdAipFascicoloDaElab = idUdAipFascicoloDaElab;
     }
 
     // bi-directional many-to-one association to AroVerIndiceAipUd
     // @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "ID_VER_INDICE_AIP")
     public BigDecimal getAroVerIndiceAipUd() {
-	return this.aroVerIndiceAipUd;
+        return this.aroVerIndiceAipUd;
     }
 
     public void setAroVerIndiceAipUd(BigDecimal aroVerIndiceAipUd) {
-	this.aroVerIndiceAipUd = aroVerIndiceAipUd;
+        this.aroVerIndiceAipUd = aroVerIndiceAipUd;
     }
 
     // bi-directional many-to-one association to FasAipFascicoloDaElab
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_AIP_FASCICOLO_DA_ELAB")
     public FasAipFascicoloDaElab getFasAipFascicoloDaElab() {
-	return this.fasAipFascicoloDaElab;
+        return this.fasAipFascicoloDaElab;
     }
 
     public void setFasAipFascicoloDaElab(FasAipFascicoloDaElab fasAipFascicoloDaElab) {
-	this.fasAipFascicoloDaElab = fasAipFascicoloDaElab;
+        this.fasAipFascicoloDaElab = fasAipFascicoloDaElab;
     }
 
 }

@@ -15,17 +15,10 @@ package it.eng.parer.fascicolo.jpa.entity;
 
 import java.io.Serializable;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
@@ -50,60 +43,57 @@ public class VrsXmlSesFascicoloErr implements Serializable {
     private VrsSesFascicoloErr vrsSesFascicoloErr;
 
     public VrsXmlSesFascicoloErr() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "VRS_XML_SES_FASCICOLO_ERR_IDXMLSESFASCICOLOERR_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SVRS_XML_SES_FASCICOLO_ERR"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VRS_XML_SES_FASCICOLO_ERR_IDXMLSESFASCICOLOERR_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SVRS_XML_SES_FASCICOLO_ERR", incrementBy = 1)
     @Column(name = "ID_XML_SES_FASCICOLO_ERR")
     public Long getIdXmlSesFascicoloErr() {
-	return this.idXmlSesFascicoloErr;
+        return this.idXmlSesFascicoloErr;
     }
 
     public void setIdXmlSesFascicoloErr(Long idXmlSesFascicoloErr) {
-	this.idXmlSesFascicoloErr = idXmlSesFascicoloErr;
+        this.idXmlSesFascicoloErr = idXmlSesFascicoloErr;
     }
 
     @Lob
     @Column(name = "BL_XML")
     public String getBlXml() {
-	return this.blXml;
+        return this.blXml;
     }
 
     public void setBlXml(String blXml) {
-	this.blXml = blXml;
+        this.blXml = blXml;
     }
 
     @Column(name = "CD_VERSIONE_XML")
     public String getCdVersioneXml() {
-	return this.cdVersioneXml;
+        return this.cdVersioneXml;
     }
 
     public void setCdVersioneXml(String cdVersioneXml) {
-	this.cdVersioneXml = cdVersioneXml;
+        this.cdVersioneXml = cdVersioneXml;
     }
 
     @Column(name = "TI_XML")
     public String getTiXml() {
-	return this.tiXml;
+        return this.tiXml;
     }
 
     public void setTiXml(String tiXml) {
-	this.tiXml = tiXml;
+        this.tiXml = tiXml;
     }
 
     // bi-directional many-to-one association to VrsSesFascicoloErr
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_SES_FASCICOLO_ERR")
     public VrsSesFascicoloErr getVrsSesFascicoloErr() {
-	return this.vrsSesFascicoloErr;
+        return this.vrsSesFascicoloErr;
     }
 
     public void setVrsSesFascicoloErr(VrsSesFascicoloErr vrsSesFascicoloErr) {
-	this.vrsSesFascicoloErr = vrsSesFascicoloErr;
+        this.vrsSesFascicoloErr = vrsSesFascicoloErr;
     }
 
 }

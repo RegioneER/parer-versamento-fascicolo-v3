@@ -57,8 +57,8 @@ public interface IRecupSessDubbieFascService {
      */
     //
     void recuperaSessioneErrata(
-	    @NotNull(message = "IRecupSessDubbieFascService.recuperaSessioneErrata: rispostaWs non inizializzato") RispostaWSFascicolo rispostaWs,
-	    @NotNull(message = "IRecupSessDubbieFascService.recuperaSessioneErrata: versamento non inizializzato") VersFascicoloExt versamento,
-	    @NotNull(message = "IRecupSessDubbieFascService.recuperaSessioneErrata: sessione non inizializzato") BlockingFakeSession sessione);
+            @NotNull(message = "IRecupSessDubbieFascService.recuperaSessioneErrata: rispostaWs non inizializzato") RispostaWSFascicolo rispostaWs,
+            @NotNull(message = "IRecupSessDubbieFascService.recuperaSessioneErrata: versamento non inizializzato") VersFascicoloExt versamento,
+            @NotNull(message = "IRecupSessDubbieFascService.recuperaSessioneErrata: sessione non inizializzato") BlockingFakeSession sessione);
 
 }

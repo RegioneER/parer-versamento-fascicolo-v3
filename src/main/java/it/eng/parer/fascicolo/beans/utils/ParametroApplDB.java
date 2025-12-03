@@ -49,20 +49,20 @@ public class ParametroApplDB {
      */
     public class ParametroApplFl {
 
-	private ParametroApplFl() {
-	    throw new IllegalStateException("Utility class");
-	}
+        private ParametroApplFl() {
+            throw new IllegalStateException("Utility class");
+        }
 
-	public static final String FL_ABILITA_CONTR_CLASSIF = "FL_ABILITA_CONTR_CLASSIF";
-	public static final String FL_FORZA_CONTR_CLASSIF = "FL_FORZA_CONTR_CLASSIF";
-	public static final String FL_ACCETTA_CONTR_CLASSIF_NEG = "FL_ACCETTA_CONTR_CLASSIF_NEG";
-	public static final String FL_FORZA_CONTR_COLLEG = "FL_FORZA_CONTR_COLLEG";
-	public static final String FL_ABILITA_CONTR_COLLEG = "FL_ABILITA_CONTR_COLLEG";
-	public static final String FL_ABILITA_CONTR_NUMERO = "FL_ABILITA_CONTR_NUMERO";
-	public static final String FL_ACCETTA_CONTR_NUMERO_NEG = "FL_ACCETTA_CONTR_NUMERO_NEG";
-	public static final String FL_FORZA_CONTR_NUMERO = "FL_FORZA_CONTR_NUMERO";
-	//
-	public static final String FL_ACCETTA_CONTR_COLLEG_NEG_FAS = "FL_ACCETTA_CONTR_COLLEG_NEG_FAS";
+        public static final String FL_ABILITA_CONTR_CLASSIF = "FL_ABILITA_CONTR_CLASSIF";
+        public static final String FL_FORZA_CONTR_CLASSIF = "FL_FORZA_CONTR_CLASSIF";
+        public static final String FL_ACCETTA_CONTR_CLASSIF_NEG = "FL_ACCETTA_CONTR_CLASSIF_NEG";
+        public static final String FL_FORZA_CONTR_COLLEG = "FL_FORZA_CONTR_COLLEG";
+        public static final String FL_ABILITA_CONTR_COLLEG = "FL_ABILITA_CONTR_COLLEG";
+        public static final String FL_ABILITA_CONTR_NUMERO = "FL_ABILITA_CONTR_NUMERO";
+        public static final String FL_ACCETTA_CONTR_NUMERO_NEG = "FL_ACCETTA_CONTR_NUMERO_NEG";
+        public static final String FL_FORZA_CONTR_NUMERO = "FL_FORZA_CONTR_NUMERO";
+        //
+        public static final String FL_ACCETTA_CONTR_COLLEG_NEG_FAS = "FL_ACCETTA_CONTR_COLLEG_NEG_FAS";
 
     }
 
@@ -72,40 +72,40 @@ public class ParametroApplDB {
      */
     public class TipoParametroAppl {
 
-	private TipoParametroAppl() {
-	    throw new IllegalStateException("Utility class");
-	}
+        private TipoParametroAppl() {
+            throw new IllegalStateException("Utility class");
+        }
 
-	public static final String VERSAMENTO_DEFAULT = "Default di versamento";
-	public static final String MAX_RESULT = "Paginazione risultati";
-	public static final String PATH = "Gestione servizi asincroni";
-	public static final String TPI = "Salvataggio su nastro";
-	public static final String IMAGE = "Trasformazione componenti";
-	public static final String LOG_APPLIC = "Log accessi";
-	public static final String IAM = "Gestione utenti";
-	public static final String TSA = "Firma e Marca";
-	public static final String VERSIONI_WS = "Versioni servizi";
+        public static final String VERSAMENTO_DEFAULT = "Default di versamento";
+        public static final String MAX_RESULT = "Paginazione risultati";
+        public static final String PATH = "Gestione servizi asincroni";
+        public static final String TPI = "Salvataggio su nastro";
+        public static final String IMAGE = "Trasformazione componenti";
+        public static final String LOG_APPLIC = "Log accessi";
+        public static final String IAM = "Gestione utenti";
+        public static final String TSA = "Firma e Marca";
+        public static final String VERSIONI_WS = "Versioni servizi";
 
     }
 
     // vista da cui recuperare i valori
     public enum TipoAplVGetValAppart {
-	AATIPOFASCICOLO, TIPOUNITADOC, STRUT, AMBIENTE, APPLIC;
+        AATIPOFASCICOLO, TIPOUNITADOC, STRUT, AMBIENTE, APPLIC;
 
-	public static TipoAplVGetValAppart next(TipoAplVGetValAppart last) {
-	    switch (last) {
-	    case AATIPOFASCICOLO:
-		return STRUT;
-	    case TIPOUNITADOC:
-		return STRUT;
-	    case STRUT:
-		return AMBIENTE;
-	    case AMBIENTE:
-		return APPLIC;
-	    default:
-		return null;
-	    }
-	}
+        public static TipoAplVGetValAppart next(TipoAplVGetValAppart last) {
+            switch (last) {
+            case AATIPOFASCICOLO:
+                return STRUT;
+            case TIPOUNITADOC:
+                return STRUT;
+            case STRUT:
+                return AMBIENTE;
+            case AMBIENTE:
+                return APPLIC;
+            default:
+                return null;
+            }
+        }
     }
 
 }

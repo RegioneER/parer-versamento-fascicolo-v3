@@ -30,50 +30,50 @@ public class DXPGIdentSoggetto implements IIdentSoggetto, Serializable {
     boolean isPredefined;
 
     public DXPGIdentSoggetto() {
-	super();
-	this.isPredefined = false;
+        super();
+        this.isPredefined = false;
     }
 
     public DXPGIdentSoggetto(boolean isPredefined) {
-	super();
-	this.isPredefined = isPredefined;
+        super();
+        this.isPredefined = isPredefined;
     }
 
     @Override
     public String getCodice() {
-	return codice;
+        return codice;
     }
 
     @Override
     public void setCodice(String codice) {
-	Assert.assertNotNull(codice);
-	this.codice = codice;
+        Assert.assertNotNull(codice);
+        this.codice = codice;
     }
 
     @Override
     public String getTipo() {
-	return tipo;
+        return tipo;
     }
 
     @Override
     public void setTipo(String tipo) {
-	Assert.assertNotNull(tipo);
-	this.tipo = tipo;
+        Assert.assertNotNull(tipo);
+        this.tipo = tipo;
     }
 
     @Override
     public boolean isPredefined() {
-	return isPredefined;
+        return isPredefined;
     }
 
     public void setPredefined(boolean isPredefined) {
-	this.isPredefined = isPredefined;
+        this.isPredefined = isPredefined;
     }
 
     @Override
     public String toString() {
-	return "DXPGIdentSoggetto [" + (codice != null ? "codice - " + codice + ", " : "")
-		+ (tipo != null ? "tipo - " + tipo : "") + "]";
+        return "DXPGIdentSoggetto [" + (codice != null ? "codice - " + codice + ", " : "")
+                + (tipo != null ? "tipo - " + tipo : "") + "]";
     }
 
 }

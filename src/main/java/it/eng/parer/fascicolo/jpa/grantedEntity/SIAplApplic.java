@@ -21,13 +21,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 /**
@@ -51,73 +49,72 @@ public class SIAplApplic implements Serializable {
     private List<SIAplTipoOrganiz> aplTipoOrganizs = new ArrayList<>();
 
     public SIAplApplic() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @SequenceGenerator(name = "APL_APPLIC_IDAPPLIC_GENERATOR", sequenceName = "SACER_IAM.SAPL_APPLIC", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APL_APPLIC_IDAPPLIC_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SACER_IAM.SAPL_APPLIC", incrementBy = 1)
     @Column(name = "ID_APPLIC")
     public Long getIdApplic() {
-	return this.idApplic;
+        return this.idApplic;
     }
 
     public void setIdApplic(Long idApplic) {
-	this.idApplic = idApplic;
+        this.idApplic = idApplic;
     }
 
     @Column(name = "CD_PSW_REPLICA_USER")
     public String getCdPswReplicaUser() {
-	return this.cdPswReplicaUser;
+        return this.cdPswReplicaUser;
     }
 
     public void setCdPswReplicaUser(String cdPswReplicaUser) {
-	this.cdPswReplicaUser = cdPswReplicaUser;
+        this.cdPswReplicaUser = cdPswReplicaUser;
     }
 
     @Column(name = "DS_APPLIC")
     public String getDsApplic() {
-	return this.dsApplic;
+        return this.dsApplic;
     }
 
     public void setDsApplic(String dsApplic) {
-	this.dsApplic = dsApplic;
+        this.dsApplic = dsApplic;
     }
 
     @Column(name = "DS_URL_REPLICA_USER")
     public String getDsUrlReplicaUser() {
-	return this.dsUrlReplicaUser;
+        return this.dsUrlReplicaUser;
     }
 
     public void setDsUrlReplicaUser(String dsUrlReplicaUser) {
-	this.dsUrlReplicaUser = dsUrlReplicaUser;
+        this.dsUrlReplicaUser = dsUrlReplicaUser;
     }
 
     @Column(name = "NM_APPLIC")
     public String getNmApplic() {
-	return this.nmApplic;
+        return this.nmApplic;
     }
 
     public void setNmApplic(String nmApplic) {
-	this.nmApplic = nmApplic;
+        this.nmApplic = nmApplic;
     }
 
     @Column(name = "NM_USER_REPLICA_USER")
     public String getNmUserReplicaUser() {
-	return this.nmUserReplicaUser;
+        return this.nmUserReplicaUser;
     }
 
     public void setNmUserReplicaUser(String nmUserReplicaUser) {
-	this.nmUserReplicaUser = nmUserReplicaUser;
+        this.nmUserReplicaUser = nmUserReplicaUser;
     }
 
     @OneToMany(mappedBy = "sIAplApplic")
     public List<SIAplTipoOrganiz> getAplTipoOrganizs() {
-	return aplTipoOrganizs;
+        return aplTipoOrganizs;
     }
 
     public void setAplTipoOrganizs(List<SIAplTipoOrganiz> aplTipoOrganizs) {
-	this.aplTipoOrganizs = aplTipoOrganizs;
+        this.aplTipoOrganizs = aplTipoOrganizs;
     }
 
 }

@@ -67,55 +67,55 @@ public class CustomJaxbMessageBodyReader extends ServerJaxbMessageBodyReader {
     XmlFascCache xmlFascCache;
 
     private static final FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions
-	    .asFileAttribute(PosixFilePermissions.fromString("rw-------"));
+            .asFileAttribute(PosixFilePermissions.fromString("rw-------"));
 
     @Override
     public IndiceSIPFascicolo readFrom(Class<Object> type, Type genericType, MediaType mediaType,
-	    ServerRequestContext context) throws WebApplicationException, IOException {
-	final Path tmpFile = Files.createTempFile(UUIDMdcLogUtil.getUuid(), TMP_FILE_SUFFIX, attr);
-	try (InputStream is = new FileInputStream(tmpFile.toFile())) {
-	    // manage encoding
-	    byte[] istobyte = IOUtils.toByteArray(context.getInputStream());
-	    String xml = new String(istobyte);
-	    String encoding = XmlUtils.getXmlEcondingDeclaration(xml).name();
-	    //
-	    FileUtils.writeByteArrayToFile(tmpFile.toFile(), xml.getBytes(encoding));
+            ServerRequestContext context) throws WebApplicationException, IOException {
+        final Path tmpFile = Files.createTempFile(UUIDMdcLogUtil.getUuid(), TMP_FILE_SUFFIX, attr);
+        try (InputStream is = new FileInputStream(tmpFile.toFile())) {
+            // manage encoding
+            byte[] istobyte = IOUtils.toByteArray(context.getInputStream());
+            String xml = new String(istobyte);
+            String encoding = XmlUtils.getXmlEcondingDeclaration(xml).name();
+            //
+            FileUtils.writeByteArrayToFile(tmpFile.toFile(), xml.getBytes(encoding));
 
-	    // well formed -> XmlSipNotWellFormedException
-	    XmlUtils.validateXml(xml, encoding);
-	    // unmarshal
-	    return doReadFromWithValidation(is, xml);
-	} catch (XMLStreamException | FactoryConfigurationError | XmlSipNotWellFormedException
-		| XmlSipUnmarshalException e) {
-	    throw new AppGenericRuntimeException(e, ErrorCategory.VALIDATION_ERROR);
-	} finally {
-	    Files.delete(tmpFile);
-	}
+            // well formed -> XmlSipNotWellFormedException
+            XmlUtils.validateXml(xml, encoding);
+            // unmarshal
+            return doReadFromWithValidation(is, xml);
+        } catch (XMLStreamException | FactoryConfigurationError | XmlSipNotWellFormedException
+                | XmlSipUnmarshalException e) {
+            throw new AppGenericRuntimeException(e, ErrorCategory.VALIDATION_ERROR);
+        } finally {
+            Files.delete(tmpFile);
+        }
     }
 
     private IndiceSIPFascicolo doReadFromWithValidation(InputStream entityStream, String xml)
-	    throws IOException, XmlSipUnmarshalException {
-	IndiceSIPFascicolo entity = null;
-	WsXmlValidationEventHandler ve = new WsXmlValidationEventHandler();
-	if (checkInputStreamEmpty(entityStream)) {
-	    return null;
-	}
-	try {
-	    // validate and unmarshal
-	    JAXBContext jaxbContext = xmlFascCache.getVersReqFascicoloCtx();
-	    Schema schema = xmlFascCache.getVersReqFascicoloSchema();
-	    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-	    unmarshaller.setSchema(schema);
-	    unmarshaller.setEventHandler(ve);
-	    entity = (IndiceSIPFascicolo) unmarshaller.unmarshal(entityStream);
-	} catch (JAXBException e) {
-	    throw new XmlSipUnmarshalException(ve.getMessaggio(), e, xml);
-	}
-	// unmarshal
-	return entity;
+            throws IOException, XmlSipUnmarshalException {
+        IndiceSIPFascicolo entity = null;
+        WsXmlValidationEventHandler ve = new WsXmlValidationEventHandler();
+        if (checkInputStreamEmpty(entityStream)) {
+            return null;
+        }
+        try {
+            // validate and unmarshal
+            JAXBContext jaxbContext = xmlFascCache.getVersReqFascicoloCtx();
+            Schema schema = xmlFascCache.getVersReqFascicoloSchema();
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            unmarshaller.setSchema(schema);
+            unmarshaller.setEventHandler(ve);
+            entity = (IndiceSIPFascicolo) unmarshaller.unmarshal(entityStream);
+        } catch (JAXBException e) {
+            throw new XmlSipUnmarshalException(ve.getMessaggio(), e, xml);
+        }
+        // unmarshal
+        return entity;
     }
 
     private boolean checkInputStreamEmpty(InputStream entityStream) throws IOException {
-	return StreamUtil.isEmpty(entityStream) || entityStream.available() == 0;
+        return StreamUtil.isEmpty(entityStream) || entityStream.available() == 0;
     }
 }

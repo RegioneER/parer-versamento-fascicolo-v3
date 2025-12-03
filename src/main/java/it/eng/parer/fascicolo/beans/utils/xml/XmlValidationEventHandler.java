@@ -39,25 +39,25 @@ public class XmlValidationEventHandler implements ValidationEventHandler {
      */
     @Override
     public boolean handleEvent(ValidationEvent event) {
-	if (firstErrorValidationEvent == null && event.getSeverity() > ValidationEvent.WARNING) {
-	    firstErrorValidationEvent = event;
-	}
+        if (firstErrorValidationEvent == null && event.getSeverity() > ValidationEvent.WARNING) {
+            firstErrorValidationEvent = event;
+        }
 
-	switch (event.getSeverity()) {
-	case ValidationEvent.WARNING:
-	    log.atWarn().log("Validation warning: {}", event);
-	    break;
-	case ValidationEvent.ERROR, ValidationEvent.FATAL_ERROR:
-	    log.atError().log("Validation error: {}", event);
-	    break;
-	default:
-	    log.atInfo().log("Validation event: {}", event);
-	}
+        switch (event.getSeverity()) {
+        case ValidationEvent.WARNING:
+            log.atWarn().log("Validation warning: {}", event);
+            break;
+        case ValidationEvent.ERROR, ValidationEvent.FATAL_ERROR:
+            log.atError().log("Validation error: {}", event);
+            break;
+        default:
+            log.atInfo().log("Validation event: {}", event);
+        }
 
-	return false;
+        return false;
     }
 
     public ValidationEvent getFirstErrorValidationEvent() {
-	return firstErrorValidationEvent;
+        return firstErrorValidationEvent;
     }
 }

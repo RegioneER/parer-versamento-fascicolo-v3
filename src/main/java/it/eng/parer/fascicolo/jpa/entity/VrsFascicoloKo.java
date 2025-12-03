@@ -19,17 +19,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.id.OptimizableGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
-
-import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequenceGenerator;
+import it.eng.parer.fascicolo.jpa.sequence.NonMonotonicSequence;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -64,150 +57,147 @@ public class VrsFascicoloKo implements Serializable {
     private List<VrsSesFascicoloKo> vrsSesFascicoloKos = new ArrayList<>();
 
     public VrsFascicoloKo() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
-    @GenericGenerator(name = "VRS_FASCICOLO_KO_IDFASCICOLOKO_GENERATOR", type = NonMonotonicSequenceGenerator.class, parameters = {
-	    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "SVRS_FASCICOLO_KO"),
-	    @Parameter(name = OptimizableGenerator.INCREMENT_PARAM, value = "1") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VRS_FASCICOLO_KO_IDFASCICOLOKO_GENERATOR")
+    @NonMonotonicSequence(sequenceName = "SVRS_FASCICOLO_KO", incrementBy = 1)
     @Column(name = "ID_FASCICOLO_KO")
     public Long getIdFascicoloKo() {
-	return this.idFascicoloKo;
+        return this.idFascicoloKo;
     }
 
     public void setIdFascicoloKo(Long idFascicoloKo) {
-	this.idFascicoloKo = idFascicoloKo;
+        this.idFascicoloKo = idFascicoloKo;
     }
 
     @Column(name = "AA_FASCICOLO")
     public BigDecimal getAaFascicolo() {
-	return this.aaFascicolo;
+        return this.aaFascicolo;
     }
 
     public void setAaFascicolo(BigDecimal aaFascicolo) {
-	this.aaFascicolo = aaFascicolo;
+        this.aaFascicolo = aaFascicolo;
     }
 
     @Column(name = "CD_KEY_FASCICOLO")
     public String getCdKeyFascicolo() {
-	return this.cdKeyFascicolo;
+        return this.cdKeyFascicolo;
     }
 
     public void setCdKeyFascicolo(String cdKeyFascicolo) {
-	this.cdKeyFascicolo = cdKeyFascicolo;
+        this.cdKeyFascicolo = cdKeyFascicolo;
     }
 
     @Column(name = "DS_ERR_PRINC")
     public String getDsErrPrinc() {
-	return this.dsErrPrinc;
+        return this.dsErrPrinc;
     }
 
     public void setDsErrPrinc(String dsErrPrinc) {
-	this.dsErrPrinc = dsErrPrinc;
+        this.dsErrPrinc = dsErrPrinc;
     }
 
     @Column(name = "ID_SES_FASCICOLO_KO_FIRST")
     public BigDecimal getIdSesFascicoloKoFirst() {
-	return this.idSesFascicoloKoFirst;
+        return this.idSesFascicoloKoFirst;
     }
 
     public void setIdSesFascicoloKoFirst(BigDecimal idSesFascicoloKoFirst) {
-	this.idSesFascicoloKoFirst = idSesFascicoloKoFirst;
+        this.idSesFascicoloKoFirst = idSesFascicoloKoFirst;
     }
 
     @Column(name = "ID_SES_FASCICOLO_KO_LAST")
     public BigDecimal getIdSesFascicoloKoLast() {
-	return this.idSesFascicoloKoLast;
+        return this.idSesFascicoloKoLast;
     }
 
     public void setIdSesFascicoloKoLast(BigDecimal idSesFascicoloKoLast) {
-	this.idSesFascicoloKoLast = idSesFascicoloKoLast;
+        this.idSesFascicoloKoLast = idSesFascicoloKoLast;
     }
 
     @Column(name = "TI_STATO_FASCICOLO_KO")
     public String getTiStatoFascicoloKo() {
-	return this.tiStatoFascicoloKo;
+        return this.tiStatoFascicoloKo;
     }
 
     public void setTiStatoFascicoloKo(String tiStatoFascicoloKo) {
-	this.tiStatoFascicoloKo = tiStatoFascicoloKo;
+        this.tiStatoFascicoloKo = tiStatoFascicoloKo;
     }
 
     @Column(name = "TS_INI_FIRST_SES")
     public LocalDateTime getTsIniFirstSes() {
-	return this.tsIniFirstSes;
+        return this.tsIniFirstSes;
     }
 
     public void setTsIniFirstSes(LocalDateTime tsIniFirstSes) {
-	this.tsIniFirstSes = tsIniFirstSes;
+        this.tsIniFirstSes = tsIniFirstSes;
     }
 
     @Column(name = "TS_INI_LAST_SES")
     public LocalDateTime getTsIniLastSes() {
-	return this.tsIniLastSes;
+        return this.tsIniLastSes;
     }
 
     public void setTsIniLastSes(LocalDateTime tsIniLastSes) {
-	this.tsIniLastSes = tsIniLastSes;
+        this.tsIniLastSes = tsIniLastSes;
     }
 
     // bi-directional many-to-one association to DecErrSacer
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ERR_SACER_PRINC")
     public DecErrSacer getDecErrSacer() {
-	return this.decErrSacer;
+        return this.decErrSacer;
     }
 
     public void setDecErrSacer(DecErrSacer decErrSacer) {
-	this.decErrSacer = decErrSacer;
+        this.decErrSacer = decErrSacer;
     }
 
     // bi-directional many-to-one association to DecTipoFascicolo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_FASCICOLO_LAST")
     public DecTipoFascicolo getDecTipoFascicolo() {
-	return this.decTipoFascicolo;
+        return this.decTipoFascicolo;
     }
 
     public void setDecTipoFascicolo(DecTipoFascicolo decTipoFascicolo) {
-	this.decTipoFascicolo = decTipoFascicolo;
+        this.decTipoFascicolo = decTipoFascicolo;
     }
 
     // bi-directional many-to-one association to OrgStrut
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_STRUT")
     public OrgStrut getOrgStrut() {
-	return this.orgStrut;
+        return this.orgStrut;
     }
 
     public void setOrgStrut(OrgStrut orgStrut) {
-	this.orgStrut = orgStrut;
+        this.orgStrut = orgStrut;
     }
 
     // bi-directional many-to-one association to VrsSesFascicoloKo
     @OneToMany(mappedBy = "vrsFascicoloKo")
     public List<VrsSesFascicoloKo> getVrsSesFascicoloKos() {
-	return this.vrsSesFascicoloKos;
+        return this.vrsSesFascicoloKos;
     }
 
     public void setVrsSesFascicoloKos(List<VrsSesFascicoloKo> vrsSesFascicoloKos) {
-	this.vrsSesFascicoloKos = vrsSesFascicoloKos;
+        this.vrsSesFascicoloKos = vrsSesFascicoloKos;
     }
 
     public VrsSesFascicoloKo addVrsSesFascicoloKo(VrsSesFascicoloKo vrsSesFascicoloKo) {
-	getVrsSesFascicoloKos().add(vrsSesFascicoloKo);
-	vrsSesFascicoloKo.setVrsFascicoloKo(this);
+        getVrsSesFascicoloKos().add(vrsSesFascicoloKo);
+        vrsSesFascicoloKo.setVrsFascicoloKo(this);
 
-	return vrsSesFascicoloKo;
+        return vrsSesFascicoloKo;
     }
 
     public VrsSesFascicoloKo removeVrsSesFascicoloKo(VrsSesFascicoloKo vrsSesFascicoloKo) {
-	getVrsSesFascicoloKos().remove(vrsSesFascicoloKo);
-	vrsSesFascicoloKo.setVrsFascicoloKo(null);
+        getVrsSesFascicoloKos().remove(vrsSesFascicoloKo);
+        vrsSesFascicoloKo.setVrsFascicoloKo(null);
 
-	return vrsSesFascicoloKo;
+        return vrsSesFascicoloKo;
     }
 
 }

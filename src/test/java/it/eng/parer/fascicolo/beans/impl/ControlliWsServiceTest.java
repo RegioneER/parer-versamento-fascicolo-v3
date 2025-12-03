@@ -31,25 +31,25 @@ class ControlliWsServiceTest {
 
     @Test
     void checkCredenziali_ok() {
-	final RispostaControlli rispostaControlli = service.checkCredenziali("admin_generale",
-		"password", "127.0.0.1");
-	Assertions.assertTrue(rispostaControlli.isrBoolean());
-	Assertions.assertNull(rispostaControlli.getCodErr());
+        final RispostaControlli rispostaControlli = service.checkCredenziali("admin_generale",
+                "password", "127.0.0.1");
+        Assertions.assertTrue(rispostaControlli.isrBoolean());
+        Assertions.assertNull(rispostaControlli.getCodErr());
     }
 
     @Test
     void checkCredenziali_wrongUsername() {
-	final RispostaControlli rispostaControlli = service.checkCredenziali("non_esiste_username",
-		"password", "127.0.0.1");
-	Assertions.assertFalse(rispostaControlli.isrBoolean());
-	Assertions.assertEquals(FAS_CONFIG_002_003, rispostaControlli.getCodErr());
+        final RispostaControlli rispostaControlli = service.checkCredenziali("non_esiste_username",
+                "password", "127.0.0.1");
+        Assertions.assertFalse(rispostaControlli.isrBoolean());
+        Assertions.assertEquals(FAS_CONFIG_002_003, rispostaControlli.getCodErr());
     }
 
     @Test
     void checkCredenziali_wrongPassword() {
-	final RispostaControlli rispostaControlli = service.checkCredenziali("admin_generale",
-		"wrong_password", "127.0.0.1");
-	Assertions.assertFalse(rispostaControlli.isrBoolean());
-	Assertions.assertEquals(FAS_CONFIG_002_003, rispostaControlli.getCodErr());
+        final RispostaControlli rispostaControlli = service.checkCredenziali("admin_generale",
+                "wrong_password", "127.0.0.1");
+        Assertions.assertFalse(rispostaControlli.isrBoolean());
+        Assertions.assertEquals(FAS_CONFIG_002_003, rispostaControlli.getCodErr());
     }
 }

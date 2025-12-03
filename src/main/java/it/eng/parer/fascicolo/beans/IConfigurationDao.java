@@ -24,25 +24,25 @@ import jakarta.validation.constraints.NotNull;
 public interface IConfigurationDao {
 
     String getParamApplicValue(
-	    @NotNull(message = "IConfigurationDao.getParamApplicValue: nmParamApplic non inizializzato") String nmParamApplic);
+            @NotNull(message = "IConfigurationDao.getParamApplicValue: nmParamApplic non inizializzato") String nmParamApplic);
 
     String getParamApplicValue(
-	    @NotNull(message = "IConfigurationDao.getParamApplicValue: nmParamApplic non inizializzato") String nmParamApplic,
-	    long idStrut, long idAmbiente, long idTipoUnitaDoc);
+            @NotNull(message = "IConfigurationDao.getParamApplicValue: nmParamApplic non inizializzato") String nmParamApplic,
+            long idStrut, long idAmbiente, long idTipoUnitaDoc);
 
     String getParamApplicValue(
-	    @NotNull(message = "IConfigurationDao.getParamApplicValue: nmParamApplic non inizializzato") String nmParamApplic,
-	    long idStrut, long idAmbiente, long idTipoUnitaDoc, long idAaTipoFascicolo);
+            @NotNull(message = "IConfigurationDao.getParamApplicValue: nmParamApplic non inizializzato") String nmParamApplic,
+            long idStrut, long idAmbiente, long idTipoUnitaDoc, long idAaTipoFascicolo);
 
     Map<String, String> getValoreParamApplicByTiParamApplicAsMap(
-	    @NotNull(message = "IConfigurationDao.getValoreParamApplicByTiParamApplicAsMap: nmParamApplic non inizializzato") List<String> tiParamApplics);
+            @NotNull(message = "IConfigurationDao.getValoreParamApplicByTiParamApplicAsMap: nmParamApplic non inizializzato") List<String> tiParamApplics);
 
     String getValoreParamApplicByApplic(
-	    @NotNull(message = "IConfigurationDao.getValoreParamApplicByApplic: nmParamApplic non inizializzato") String nmParamApplic);
+            @NotNull(message = "IConfigurationDao.getValoreParamApplicByApplic: nmParamApplic non inizializzato") String nmParamApplic);
 
     String getValoreParamApplicByAaTipoFasc(
-	    @NotNull(message = "IConfigurationDao.getValoreParamApplicByAaTipoFasc: nmParamApplic non inizializzato") String nmParamApplic,
-	    long idStrut, long idAmbiente, long idAaTipoFascicolo);
+            @NotNull(message = "IConfigurationDao.getValoreParamApplicByAaTipoFasc: nmParamApplic non inizializzato") String nmParamApplic,
+            long idStrut, long idAmbiente, long idAaTipoFascicolo);
 
     /**
      *
@@ -57,7 +57,7 @@ public interface IConfigurationDao {
      * @return Valore del flag indicato secondo nome
      */
     String getParamApplicValueAsFl(
-	    @NotNull(message = "IConfigurationDao.nmParamApplic: nmParamApplic non inizializzato") String nmParamApplic,
-	    long idStrut, long idAmbiente, long idTipoUnitaDoc, long idAaTipoFascicolo);
+            @NotNull(message = "IConfigurationDao.nmParamApplic: nmParamApplic non inizializzato") String nmParamApplic,
+            long idStrut, long idAmbiente, long idTipoUnitaDoc, long idAaTipoFascicolo);
 
 }

@@ -29,35 +29,35 @@ public class DXPNIdentSoggetto implements IIdentSoggetto, Serializable {
 
     @Override
     public String getCodice() {
-	return codice;
+        return codice;
     }
 
     @Override
     public void setCodice(String codice) {
-	Assert.assertNotNull(codice);
-	this.codice = codice;
+        Assert.assertNotNull(codice);
+        this.codice = codice;
     }
 
     @Override
     public String getTipo() {
-	return tipo;
+        return tipo;
     }
 
     @Override
     public void setTipo(String tipo) {
-	Assert.assertNotNull(tipo);
-	this.tipo = tipo;
+        Assert.assertNotNull(tipo);
+        this.tipo = tipo;
     }
 
     @Override
     public boolean isPredefined() {
-	return true;
+        return true;
     }
 
     @Override
     public String toString() {
-	return "DXPNIdentSoggetto [" + (codice != null ? "codice - " + codice + ", " : "")
-		+ (tipo != null ? "tipo - " + tipo : "") + "]";
+        return "DXPNIdentSoggetto [" + (codice != null ? "codice - " + codice + ", " : "")
+                + (tipo != null ? "tipo - " + tipo : "") + "]";
     }
 
 }

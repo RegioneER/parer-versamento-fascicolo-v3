@@ -31,7 +31,7 @@ import it.eng.parer.fascicolo.beans.utils.Costanti.ErrorCategory;
 public class PwdUtil {
 
     private PwdUtil() {
-	throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("Utility class");
     }
 
     private static final int ITERATIONS = 2048;
@@ -49,59 +49,59 @@ public class PwdUtil {
      */
     @Deprecated(forRemoval = true)
     public static String encodePassword(String password) {
-	MessageDigest md = null;
-	try {
-	    md = MessageDigest.getInstance("SHA-1");
-	    md.update(password.getBytes(StandardCharsets.UTF_8.name()), 0, password.length());
-	    byte[] pwdHash = md.digest();
-	    return new String(Base64.encodeBase64(pwdHash), StandardCharsets.UTF_8.name());
-	} catch (NoSuchAlgorithmException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	} catch (UnsupportedEncodingException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-1");
+            md.update(password.getBytes(StandardCharsets.UTF_8.name()), 0, password.length());
+            byte[] pwdHash = md.digest();
+            return new String(Base64.encodeBase64(pwdHash), StandardCharsets.UTF_8.name());
+        } catch (NoSuchAlgorithmException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        } catch (UnsupportedEncodingException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
 
     }
 
     public static String encodePBKDF2Password(byte[] binarySalt, String password) {
-	PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), binarySalt, ITERATIONS,
-		KEY_LENGTH);
-	SecretKeyFactory skf;
-	try {
-	    skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-	    byte[] pwdHash = skf.generateSecret(spec).getEncoded();
-	    return new String(Base64.encodeBase64(pwdHash), StandardCharsets.UTF_8.name());
-	} catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	} catch (UnsupportedEncodingException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+        PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), binarySalt, ITERATIONS,
+                KEY_LENGTH);
+        SecretKeyFactory skf;
+        try {
+            skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            byte[] pwdHash = skf.generateSecret(spec).getEncoded();
+            return new String(Base64.encodeBase64(pwdHash), StandardCharsets.UTF_8.name());
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        } catch (UnsupportedEncodingException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
     }
 
     public static String encodeUFT8Base64String(byte[] barray) {
-	try {
-	    return new String(Base64.encodeBase64(barray), StandardCharsets.UTF_8.name());
-	} catch (UnsupportedEncodingException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+        try {
+            return new String(Base64.encodeBase64(barray), StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
     }
 
     public static byte[] decodeUFT8Base64String(String utf8str) {
-	try {
-	    return Base64.decodeBase64(utf8str.getBytes(StandardCharsets.UTF_8.name()));
-	} catch (UnsupportedEncodingException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+        try {
+            return Base64.decodeBase64(utf8str.getBytes(StandardCharsets.UTF_8.name()));
+        } catch (UnsupportedEncodingException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
     }
 
     public static byte[] generateSalt() {
-	try {
-	    SecureRandom sr = SecureRandom.getInstanceStrong();
-	    byte[] salt = new byte[16];
-	    sr.nextBytes(salt);
-	    return salt;
-	} catch (NoSuchAlgorithmException ex) {
-	    throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
-	}
+        try {
+            SecureRandom sr = SecureRandom.getInstanceStrong();
+            byte[] salt = new byte[16];
+            sr.nextBytes(salt);
+            return salt;
+        } catch (NoSuchAlgorithmException ex) {
+            throw new AppGenericRuntimeException(ex, ErrorCategory.INTERNAL_ERROR);
+        }
     }
 }

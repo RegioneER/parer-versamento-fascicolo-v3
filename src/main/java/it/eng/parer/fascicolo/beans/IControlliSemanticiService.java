@@ -27,15 +27,15 @@ import jakarta.validation.constraints.NotNull;
 public interface IControlliSemanticiService {
 
     RispostaControlli caricaDefaultDaDB(
-	    @NotNull(message = "IControlliSemanticiService.caricaDefaultDaDB: tipoPar non inizializzato") String tipoPar);
+            @NotNull(message = "IControlliSemanticiService.caricaDefaultDaDB: tipoPar non inizializzato") String tipoPar);
 
     RispostaControlli checkIdStrut(
-	    @NotNull(message = "IControlliSemanticiService.checkIdStrut: vers non inizializzato") CSVersatore vers,
-	    @NotNull(message = "IControlliSemanticiService.checkIdStrut: dataVersamento non inizializzato") Date dataVersamento);
+            @NotNull(message = "IControlliSemanticiService.checkIdStrut: vers non inizializzato") CSVersatore vers,
+            @NotNull(message = "IControlliSemanticiService.checkIdStrut: dataVersamento non inizializzato") Date dataVersamento);
 
     RispostaControlli checkChiave(
-	    @NotNull(message = "IControlliSemanticiService.checkChiave: key non inizializzato") CSChiave key,
-	    long idStruttura,
-	    @NotNull(message = "IControlliSemanticiService.checkChiave: tguda non inizializzato") TipiGestioneUDAnnullate tguda);
+            @NotNull(message = "IControlliSemanticiService.checkChiave: key non inizializzato") CSChiave key,
+            long idStruttura,
+            @NotNull(message = "IControlliSemanticiService.checkChiave: tguda non inizializzato") TipiGestioneUDAnnullate tguda);
 
 }

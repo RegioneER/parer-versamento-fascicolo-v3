@@ -42,102 +42,102 @@ public class DecBackend implements Serializable {
     private List<VrsXmlSesFascErrObjectStorage> xmlSesFascErrObjectStorages;
 
     public DecBackend() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_DEC_BACKEND")
     public Long getIdDecBackend() {
-	return idDecBackend;
+        return idDecBackend;
     }
 
     public void setIdDecBackend(Long idDecBackend) {
-	this.idDecBackend = idDecBackend;
+        this.idDecBackend = idDecBackend;
     }
 
     @Column(name = "NM_BACKEND")
     public String getNmBackend() {
-	return nmBackend;
+        return nmBackend;
     }
 
     public void setNmBackend(String nmBackend) {
-	this.nmBackend = nmBackend;
+        this.nmBackend = nmBackend;
     }
 
     @Column(name = "NM_TIPO_BACKEND")
     public String getNmTipoBackend() {
-	return nmTipoBackend;
+        return nmTipoBackend;
     }
 
     public void setNmTipoBackend(String nmTipoBackend) {
-	this.nmTipoBackend = nmTipoBackend;
+        this.nmTipoBackend = nmTipoBackend;
     }
 
     @Column(name = "DL_BACKEND_URI")
     public String getDlBackendUri() {
-	return dlBackendUri;
+        return dlBackendUri;
     }
 
     public void setDlBackendUri(String dlBackendUri) {
-	this.dlBackendUri = dlBackendUri;
+        this.dlBackendUri = dlBackendUri;
     }
 
     @Column(name = "DS_DESCRIZIONE_BACKEND")
     public String getDsDescrizioneBackend() {
-	return dsDescrizioneBackend;
+        return dsDescrizioneBackend;
     }
 
     public void setDsDescrizioneBackend(String dsDescrizioneBackend) {
-	this.dsDescrizioneBackend = dsDescrizioneBackend;
+        this.dsDescrizioneBackend = dsDescrizioneBackend;
     }
 
     @OneToMany(mappedBy = "decBackend")
     public List<DecConfigObjectStorage> getDecConfigObjectStorages() {
-	return decConfigObjectStorages;
+        return decConfigObjectStorages;
     }
 
     public void setDecConfigObjectStorages(List<DecConfigObjectStorage> decConfigObjectStorages) {
-	this.decConfigObjectStorages = decConfigObjectStorages;
+        this.decConfigObjectStorages = decConfigObjectStorages;
     }
 
     @OneToMany(mappedBy = "decBackend")
     public List<FasXmlVersFascObjectStorage> getXmlVersFascObjectStorages() {
-	return xmlVersFascObjectStorages;
+        return xmlVersFascObjectStorages;
     }
 
     public void setXmlVersFascObjectStorages(
-	    List<FasXmlVersFascObjectStorage> xmlVersFascObjectStorages) {
-	this.xmlVersFascObjectStorages = xmlVersFascObjectStorages;
+            List<FasXmlVersFascObjectStorage> xmlVersFascObjectStorages) {
+        this.xmlVersFascObjectStorages = xmlVersFascObjectStorages;
     }
 
     @OneToMany(mappedBy = "decBackend")
     public List<FasXmlFascObjectStorage> getXmlFascObjectStorages() {
-	return xmlFascObjectStorages;
+        return xmlFascObjectStorages;
     }
 
     public void setXmlFascObjectStorages(List<FasXmlFascObjectStorage> xmlFascObjectStorages) {
-	this.xmlFascObjectStorages = xmlFascObjectStorages;
+        this.xmlFascObjectStorages = xmlFascObjectStorages;
     }
 
     @OneToMany(mappedBy = "decBackend")
     public List<VrsXmlSesFascKoObjectStorage> getXmlSesFascKoObjectStorages() {
-	return xmlSesFascKoObjectStorages;
+        return xmlSesFascKoObjectStorages;
     }
 
     public void setXmlSesFascKoObjectStorages(
-	    List<VrsXmlSesFascKoObjectStorage> xmlSesFascKoObjectStorages) {
-	this.xmlSesFascKoObjectStorages = xmlSesFascKoObjectStorages;
+            List<VrsXmlSesFascKoObjectStorage> xmlSesFascKoObjectStorages) {
+        this.xmlSesFascKoObjectStorages = xmlSesFascKoObjectStorages;
     }
 
     @OneToMany(mappedBy = "decBackend")
     public List<VrsXmlSesFascErrObjectStorage> getXmlSesFascErrObjectStorages() {
-	return xmlSesFascErrObjectStorages;
+        return xmlSesFascErrObjectStorages;
     }
 
     public void setXmlSesFascErrObjectStorages(
-	    List<VrsXmlSesFascErrObjectStorage> xmlSesFascErrObjectStorages) {
-	this.xmlSesFascErrObjectStorages = xmlSesFascErrObjectStorages;
+            List<VrsXmlSesFascErrObjectStorage> xmlSesFascErrObjectStorages) {
+        this.xmlSesFascErrObjectStorages = xmlSesFascErrObjectStorages;
     }
 
 }

@@ -36,26 +36,26 @@ public class AplSistemaVersante implements Serializable {
     private String nmSistemaVersante;
 
     public AplSistemaVersante() {
-	// hibernate constructor
+        // hibernate constructor
     }
 
     @Id
     @Column(name = "ID_SISTEMA_VERSANTE")
     public Long getIdSistemaVersante() {
-	return this.idSistemaVersante;
+        return this.idSistemaVersante;
     }
 
     public void setIdSistemaVersante(Long idSistemaVersante) {
-	this.idSistemaVersante = idSistemaVersante;
+        this.idSistemaVersante = idSistemaVersante;
     }
 
     @Column(name = "NM_SISTEMA_VERSANTE")
     public String getNmSistemaVersante() {
-	return this.nmSistemaVersante;
+        return this.nmSistemaVersante;
     }
 
     public void setNmSistemaVersante(String nmSistemaVersante) {
-	this.nmSistemaVersante = nmSistemaVersante;
+        this.nmSistemaVersante = nmSistemaVersante;
     }
 
 }

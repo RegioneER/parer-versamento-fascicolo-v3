@@ -31,6 +31,6 @@ public interface IRapportoVersBuilderService {
      * @return RispostaControlli con indice sip canonicalizzato
      */
     RispostaControlli canonicalizzaDaSalvareIndiceSip(
-	    @NotNull(message = "IRapportoVersBuilderService.canonicalizzaDaSalvareIndiceSip: sessione non inizializzato") BlockingFakeSession sessione);
+            @NotNull(message = "IRapportoVersBuilderService.canonicalizzaDaSalvareIndiceSip: sessione non inizializzato") BlockingFakeSession sessione);
 
 }
