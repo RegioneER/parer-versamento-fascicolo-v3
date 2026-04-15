@@ -1,4 +1,4 @@
-## 1.7.0 (03-03-2026)
+## 1.8.0 (15-04-2026)
 
 ### Novità: 1
-- [#39947](https://parermine.regione.emilia-romagna.it/issues/39947) Patch di sicurezza per interventi legati a CVE
+- [#40114](https://parermine.regione.emilia-romagna.it/issues/40114) Gestione validazione XML multi-namespace con XSD modulari (xs:import/xs:include)

@@ -356,7 +356,7 @@ public class ControlliFascicoliService implements IControlliFascicoliService {
 
                         // estraggo/verifico il dato (solo con il compisito) su DB
                         final String queryStr = "select vt from DecVoceTitol vt "
-                                + "join vt.decTitol ti" + "where ti.idTitol = :idTitol "
+                                + "join vt.decTitol ti " + "where ti.idTitol = :idTitol "
                                 + " AND upper(vt.cdCompositoVoceTitol) = upper(:cdCompositoVoceTitol)  "
                                 + " AND vt.dtIstituz <= :dtApertura "
                                 + " AND vt.dtSoppres >= :dtApertura  ";
@@ -370,7 +370,8 @@ public class ControlliFascicoliService implements IControlliFascicoliService {
                         // dagli
                         // spazi
                         query.setParameter("dtApertura",
-                                svf.getDatiXmlProfiloGenerale().getDataApertura());
+                                convert(svf.getDatiXmlProfiloGenerale().getDataApertura())
+                                        .toLocalDateTime());
 
                         decVoceTitols = query.getResultList();
 
@@ -428,12 +429,12 @@ public class ControlliFascicoliService implements IControlliFascicoliService {
         for (DXPAVoceClassificazione voce : vociClassificazione) {
             RispostaControlli tmpControlli = me.checkCdVoceDescDecValVoceTitol(voce.getCodiceVoce(),
                     voce.getDescrizioneVoce(), dtApertura, idTitol);
-            if (!tmpControlli.isrBoolean()) {
-                tmpControlli.setCodErr(MessaggiWSBundle.FASC_004_004);
-                tmpControlli.setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.FASC_004_004,
-                        voce.getCodiceVoce(), voce.getDescrizioneVoce()));
-                return tmpControlli;
-            }
+            /*
+             * if (!tmpControlli.isrBoolean()) {
+             * tmpControlli.setCodErr(MessaggiWSBundle.FASC_004_004);
+             * tmpControlli.setDsErr(MessaggiWSBundle.getString(MessaggiWSBundle.FASC_004_004,
+             * voce.getCodiceVoce(), voce.getDescrizioneVoce())); return tmpControlli; }
+             */
             // serve per la gestione del composito da confrontare con l'indice di
             // classificazione
             DecValVoceTitol decValVoceTitol = (DecValVoceTitol) tmpControlli.getrObject();
@@ -749,7 +750,7 @@ public class ControlliFascicoliService implements IControlliFascicoliService {
                 query.setParameter("cdCompositoVoceTitol", StringEscapeUtils
                         .escapeEcmaScript(cdCompositoVoceTitol.toUpperCase().trim()));// ripulisco
                 // dagli spazi
-                query.setParameter("dtApertura", dtApertura);
+                query.setParameter("dtApertura", convert(dtApertura).toLocalDateTime());
 
                 decVoceTitols = query.getResultList();
 
@@ -830,7 +831,7 @@ public class ControlliFascicoliService implements IControlliFascicoliService {
                     StringEscapeUtils.escapeEcmaScript(dsVoceTitol.toUpperCase().trim()));// ripulisco
             // dagli
             // spazi
-            query.setParameter("dtApertura", dtApertura);
+            query.setParameter("dtApertura", convert(dtApertura).toLocalDateTime());
 
             decValVoceTitols = query.getResultList();
 

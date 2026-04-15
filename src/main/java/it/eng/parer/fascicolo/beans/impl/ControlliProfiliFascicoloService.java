@@ -65,6 +65,8 @@ import it.eng.parer.fascicolo.beans.utils.profile.ProfileGenDataPrsr;
 import it.eng.parer.fascicolo.beans.utils.profile.ProfileNormDataPrsr;
 import it.eng.parer.fascicolo.beans.utils.xml.XmlDateUtility;
 import it.eng.parer.fascicolo.beans.utils.xml.XmlValidationEventHandler;
+import it.eng.parer.fascicolo.beans.xsd.DbXsdResourceResolver;
+import it.eng.parer.fascicolo.beans.xsd.helper.XsdRepositoryHelper;
 import it.eng.parer.fascicolo.jpa.entity.DecAttribFascicolo;
 import it.eng.parer.fascicolo.jpa.entity.DecModelloXsdFascicolo;
 import it.eng.parer.ws.xml.versfascicoloV3.IndiceSIPFascicolo;
@@ -94,6 +96,9 @@ public class ControlliProfiliFascicoloService implements IControlliProfiliFascic
 
     @Inject
     XmlFascCache xmlFascCache;
+
+    @Inject
+    XsdRepositoryHelper xsdRepositoryHelper;
 
     @Override
     @Transactional(value = TxType.REQUIRES_NEW)
@@ -714,6 +719,11 @@ public class ControlliProfiliFascicoloService implements IControlliProfiliFascic
             SchemaFactory factory = SchemaFactory.newInstance(language);
             // to be compliant, completely disable DOCTYPE declaration:
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+
+            // Configura il resource resolver per gestire XSD multi-namespace
+            DbXsdResourceResolver resolver = new DbXsdResourceResolver(xsdRepositoryHelper);
+            factory.setResourceResolver(resolver);
+
             // or prohibit the use of all protocols by external entities:
             factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
             factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
@@ -744,6 +754,18 @@ public class ControlliProfiliFascicoloService implements IControlliProfiliFascic
         // caricato
         // nel database un xsd danneggiato...
         try {
+            // Configure security features
+            tmpSchemaFactoryValidazSpec
+                    .setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+
+            // Configura il resource resolver per gestire XSD multi-namespace
+            DbXsdResourceResolver resolver = new DbXsdResourceResolver(xsdRepositoryHelper);
+            tmpSchemaFactoryValidazSpec.setResourceResolver(resolver);
+
+            // Prohibit the use of all protocols by external entities
+            tmpSchemaFactoryValidazSpec.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            tmpSchemaFactoryValidazSpec.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
             // 2. Compile the schema.
             tmpSchemaValidazSpec = tmpSchemaFactoryValidazSpec
                     .newSchema(new StreamSource(new StringReader(xsd)));
@@ -784,9 +806,10 @@ public class ControlliProfiliFascicoloService implements IControlliProfiliFascic
 
                     if (element.getFirstChild() != null) {
                         String tmpValore = element.getFirstChild().getNodeValue();
-                        if (tmpValore.length() <= Costanti.MAXLEN_DATOSPEC) {
+                        if (tmpValore != null && tmpValore.length() <= Costanti.MAXLEN_DATOSPEC) {
                             tmpAttSpecAtteso.setValore(tmpValore);
-                        } else {
+                        } else if (tmpValore != null
+                                && tmpValore.length() > Costanti.MAXLEN_DATOSPEC) {
                             // "Errore nei dati specifici: uno o più valori superano
                             // la lunghezza di " + MAXLEN_DATOSPEC + " caratteri"
                             rispostaControlliAttSpec
@@ -798,6 +821,9 @@ public class ControlliProfiliFascicoloService implements IControlliProfiliFascic
                                             + " ha un valore che supera il limite consentito di "
                                             + Costanti.MAXLEN_DATOSPEC + " caratteri"));
                             return rispostaControlliAttSpec;
+                        } else {
+                            // tmpValore is null - treat as empty/null value
+                            tmpAttSpecAtteso.setValore(null);
                         }
                     } else {
                         tmpAttSpecAtteso.setValore(null);

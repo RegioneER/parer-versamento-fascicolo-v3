@@ -11,27 +11,42 @@
  * see <https://www.gnu.org/licenses/>.
  */
 
-package it.eng.parer.fascicolo.jpa.entity.constraint;
+package it.eng.parer.fascicolo.beans.xsd;
+
+import java.io.Serializable;
 
 /**
- * VRS_UPD_UNITA_DOC_KO's constraint
- *
- * @author sinatti_s
+ * DTO per trasportare il contenuto di un XSD recuperato dal database.
  */
-public final class FasXmlFascicolo {
+public class XsdBlob implements Serializable {
 
-    private FasXmlFascicolo() {
+    private static final long serialVersionUID = 1L;
+
+    private final String cdXsd;
+    private final String blXsd;
+
+    /**
+     * Costruttore.
+     *
+     * @param cdXsd Codice identificativo dell'XSD
+     * @param blXsd Contenuto dell'XSD come stringa
+     */
+    public XsdBlob(String cdXsd, String blXsd) {
+        this.cdXsd = cdXsd;
+        this.blXsd = blXsd;
     }
 
     /**
-     * Tipi modelli
-     *
-     * ti_modello_xsd IN ('PROFILO_GENERALE_FASCICOLO', 'PROFILO_ARCHIVISTICO_FASCICOLO',
-     * 'PROFILO_SPECIFICO_FASCICOLO','PROFILO_NORMATIVO_FASCICOLO','MODULARE')
+     * @return Codice identificativo dell'XSD
      */
-    public enum TiModXsdFasXmlFascicolo {
-        PROFILO_GENERALE_FASCICOLO, PROFILO_ARCHIVISTICO_FASCICOLO, PROFILO_SPECIFICO_FASCICOLO,
-        PROFILO_NORMATIVO_FASCICOLO, MODULARE
+    public String getCdXsd() {
+        return cdXsd;
     }
 
+    /**
+     * @return Contenuto dell'XSD come stringa
+     */
+    public String getBlXsd() {
+        return blXsd;
+    }
 }

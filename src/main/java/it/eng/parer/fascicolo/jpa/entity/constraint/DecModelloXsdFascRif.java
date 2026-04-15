@@ -14,24 +14,19 @@
 package it.eng.parer.fascicolo.jpa.entity.constraint;
 
 /**
- * VRS_UPD_UNITA_DOC_KO's constraint
+ * DecModelloXsdFascRif's constraint
  *
- * @author sinatti_s
+ * @author Mechanical
  */
-public final class FasXmlFascicolo {
+public final class DecModelloXsdFascRif {
 
-    private FasXmlFascicolo() {
+    private DecModelloXsdFascRif() {
     }
 
     /**
-     * Tipi modelli
-     *
-     * ti_modello_xsd IN ('PROFILO_GENERALE_FASCICOLO', 'PROFILO_ARCHIVISTICO_FASCICOLO',
-     * 'PROFILO_SPECIFICO_FASCICOLO','PROFILO_NORMATIVO_FASCICOLO','MODULARE')
+     * Tipo di riferimento tra XSD (import/include)
      */
-    public enum TiModXsdFasXmlFascicolo {
-        PROFILO_GENERALE_FASCICOLO, PROFILO_ARCHIVISTICO_FASCICOLO, PROFILO_SPECIFICO_FASCICOLO,
-        PROFILO_NORMATIVO_FASCICOLO, MODULARE
+    public enum TiRiferimento {
+        IMPORT, INCLUDE
     }
-
 }
