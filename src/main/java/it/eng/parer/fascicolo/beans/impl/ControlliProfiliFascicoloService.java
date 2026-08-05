@@ -18,7 +18,6 @@
 package it.eng.parer.fascicolo.beans.impl;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -28,11 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.xml.XMLConstants;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -715,19 +711,8 @@ public class ControlliProfiliFascicoloService implements IControlliProfiliFascic
         rispostaControlli.setrBoolean(false);
 
         try {
-            String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-            SchemaFactory factory = SchemaFactory.newInstance(language);
-            // to be compliant, completely disable DOCTYPE declaration:
-            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-
-            // Configura il resource resolver per gestire XSD multi-namespace
             DbXsdResourceResolver resolver = new DbXsdResourceResolver(xsdRepositoryHelper);
-            factory.setResourceResolver(resolver);
-
-            // or prohibit the use of all protocols by external entities:
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-            Schema schema = factory.newSchema(new StreamSource(new StringReader(xsd)));
+            Schema schema = xmlFascCache.getOrCompileSchema(xsd, resolver);
             Validator validator = schema.newValidator();
             validator.validate(new DOMSource(xml));
             rispostaControlli.setrBoolean(true);
@@ -743,35 +728,12 @@ public class ControlliProfiliFascicoloService implements IControlliProfiliFascic
         RispostaControlli rispostaControlli;
         rispostaControlli = new RispostaControlli();
         rispostaControlli.setrBoolean(false);
-        // xml handler
         XmlValidationEventHandler handler = new XmlValidationEventHandler();
-        // compilazione schema
-        // 1. Lookup a factory for the W3C XML Schema language
-        SchemaFactory tmpSchemaFactoryValidazSpec = SchemaFactory
-                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema tmpSchemaValidazSpec = null;
-        // anche in questo caso l'eccezione non deve mai verificarsi, a meno di non aver
-        // caricato
-        // nel database un xsd danneggiato...
         try {
-            // Configure security features
-            tmpSchemaFactoryValidazSpec
-                    .setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-
-            // Configura il resource resolver per gestire XSD multi-namespace
             DbXsdResourceResolver resolver = new DbXsdResourceResolver(xsdRepositoryHelper);
-            tmpSchemaFactoryValidazSpec.setResourceResolver(resolver);
-
-            // Prohibit the use of all protocols by external entities
-            tmpSchemaFactoryValidazSpec.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            tmpSchemaFactoryValidazSpec.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-
-            // 2. Compile the schema.
-            tmpSchemaValidazSpec = tmpSchemaFactoryValidazSpec
-                    .newSchema(new StreamSource(new StringReader(xsd)));
-            // 3. Marshall and validate
+            Schema schema = xmlFascCache.getOrCompileSchema(xsd, resolver);
             Marshaller m = xmlFascCache.getVersReqFascicoloCtxProfiloSpec().createMarshaller();
-            m.setSchema(tmpSchemaValidazSpec);
+            m.setSchema(schema);
             m.setEventHandler(handler);
             m.marshal(profile, new StringWriter());
             rispostaControlli.setrBoolean(true);

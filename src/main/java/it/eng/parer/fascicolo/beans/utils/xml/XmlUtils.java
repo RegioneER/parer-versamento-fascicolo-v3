@@ -13,13 +13,13 @@
 
 package it.eng.parer.fascicolo.beans.utils.xml;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -41,11 +41,13 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import it.eng.parer.fascicolo.beans.exceptions.AppGenericRuntimeException;
 import it.eng.parer.fascicolo.beans.exceptions.xml.XmlSipNotWellFormedException;
 import it.eng.parer.fascicolo.beans.utils.Costanti.ErrorCategory;
-import it.eng.parer.fascicolo.beans.exceptions.AppGenericRuntimeException;
 
 public class XmlUtils {
+
+    private static final AtomicBoolean XML_SECURITY_INITIALIZED = new AtomicBoolean(false);
 
     private XmlUtils() {
         throw new IllegalStateException("Utility class");
@@ -82,8 +84,10 @@ public class XmlUtils {
             throws AppGenericRuntimeException {
         String xmlOut = null;
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            // needed
-            org.apache.xml.security.Init.init();
+            // init Apache XML Security only once
+            if (XML_SECURITY_INITIALIZED.compareAndSet(false, true)) {
+                org.apache.xml.security.Init.init();
+            }
             //
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newDefaultInstance(); // default
             // instance
@@ -97,12 +101,8 @@ public class XmlUtils {
             dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
             dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // Compliant
 
-            // MAC#14681 fix per gestione encoding XML
-            String encodingFromXMLDeclaration = XmlUtils.getXmlEcondingDeclaration(xml).name();
-            InputSource in = new InputSource(
-                    new ByteArrayInputStream(xml.getBytes(encodingFromXMLDeclaration)));
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(in);
+            Document doc = db.parse(new InputSource(new StringReader(xml)));
 
             org.apache.xml.security.c14n.Canonicalizer canonicalizer = Canonicalizer
                     .getInstance(Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);

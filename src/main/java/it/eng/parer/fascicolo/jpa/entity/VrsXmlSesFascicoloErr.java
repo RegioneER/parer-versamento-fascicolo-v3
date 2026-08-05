@@ -25,6 +25,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.persistence.Basic;
 
 /**
  * The persistent class for the VRS_XML_SES_FASCICOLO_ERR database table.
@@ -58,6 +59,7 @@ public class VrsXmlSesFascicoloErr implements Serializable {
     }
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "BL_XML")
     public String getBlXml() {
         return this.blXml;

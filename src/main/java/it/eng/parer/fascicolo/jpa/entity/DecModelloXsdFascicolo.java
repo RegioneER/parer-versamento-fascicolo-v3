@@ -29,6 +29,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Basic;
 
 /**
  * The persistent class for the DEC_MODELLO_XSD_FASCICOLO database table.
@@ -72,6 +73,7 @@ public class DecModelloXsdFascicolo implements Serializable {
     }
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "BL_XSD")
     public String getBlXsd() {
         return this.blXsd;

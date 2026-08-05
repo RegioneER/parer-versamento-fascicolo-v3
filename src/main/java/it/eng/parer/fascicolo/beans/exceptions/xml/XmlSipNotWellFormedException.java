@@ -27,6 +27,8 @@ public class XmlSipNotWellFormedException extends Exception implements IXmlSipVa
 
     private final String xmlSip;
 
+    private static final int MAX_XML_LENGTH = 2048;
+
     public XmlSipNotWellFormedException() {
         super();
         this.xmlSip = StringUtils.EMPTY;
@@ -34,12 +36,20 @@ public class XmlSipNotWellFormedException extends Exception implements IXmlSipVa
 
     public XmlSipNotWellFormedException(Throwable cause, String xmlSip) {
         super(cause);
-        this.xmlSip = xmlSip;
+        this.xmlSip = truncate(xmlSip);
     }
 
     public XmlSipNotWellFormedException(String message, Throwable cause, String xmlSip) {
         super(message, cause);
-        this.xmlSip = xmlSip;
+        this.xmlSip = truncate(xmlSip);
+    }
+
+    private static String truncate(String xml) {
+        if (xml == null) {
+            return StringUtils.EMPTY;
+        }
+        return xml.length() > MAX_XML_LENGTH ? xml.substring(0, MAX_XML_LENGTH) + "...[truncated]"
+                : xml;
     }
 
     public String getXmlSip() {

@@ -42,6 +42,7 @@ import it.eng.parer.ws.xml.versfascicoloV3.ProfiloGeneraleType;
 public class ProfileGenDataPrsr {
 
     private static final Logger log = LoggerFactory.getLogger(ProfileGenDataPrsr.class);
+    private static final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
 
     private ProfileGenDataPrsr() {
         throw new IllegalStateException("Utility class");
@@ -54,7 +55,7 @@ public class ProfileGenDataPrsr {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             //
             Node tmpDati = pgt.getAny();
-            XPath xpath = XPathFactory.newInstance().newXPath();
+            XPath xpath = XPATH_FACTORY.newXPath();
 
             XPathExpression expr = xpath.compile("//" + selector + "/Oggetto/text()");
             NodeList nodes = (NodeList) expr.evaluate(tmpDati, XPathConstants.NODESET);

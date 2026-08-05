@@ -27,6 +27,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.persistence.Basic;
 
 /**
  * The persistent class for the ELV_FILE_ELENCO_VERS_FASC database table.
@@ -74,6 +75,7 @@ public class ElvFileElencoVersFasc implements Serializable {
     }
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "BL_FILE_ELENCO_VERS")
     public byte[] getBlFileElencoVers() {
         return this.blFileElencoVers;

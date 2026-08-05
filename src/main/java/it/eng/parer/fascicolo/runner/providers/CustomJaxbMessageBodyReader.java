@@ -16,35 +16,25 @@
  */
 package it.eng.parer.fascicolo.runner.providers;
 
-import static it.eng.parer.fascicolo.beans.utils.Costanti.TMP_FILE_SUFFIX;
-
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.SequenceInputStream;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
-import java.util.Set;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.validation.Schema;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.jboss.resteasy.reactive.common.util.StreamUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.resteasy.reactive.server.spi.ServerRequestContext;
 
 import io.quarkus.resteasy.reactive.jaxb.runtime.serialisers.ServerJaxbMessageBodyReader;
 import it.eng.parer.fascicolo.beans.XmlFascCache;
 import it.eng.parer.fascicolo.beans.exceptions.AppGenericRuntimeException;
-import it.eng.parer.fascicolo.beans.exceptions.xml.XmlSipNotWellFormedException;
 import it.eng.parer.fascicolo.beans.exceptions.xml.XmlSipUnmarshalException;
 import it.eng.parer.fascicolo.beans.utils.Costanti.ErrorCategory;
-import it.eng.parer.fascicolo.beans.utils.UUIDMdcLogUtil;
 import it.eng.parer.fascicolo.beans.utils.xml.WsXmlValidationEventHandler;
 import it.eng.parer.fascicolo.beans.utils.xml.XmlUtils;
 import it.eng.parer.ws.xml.versfascicoloV3.IndiceSIPFascicolo;
@@ -57,8 +47,14 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
 /*
- * Provider che estende JaxbMessageBodyReader per ampliarne la logica, aggiungendo : validazione con
- * xsd, gestione avanzata dell'encoding del body del messaggio (nell'XML in caso specificio).
+ * Provider che estende JaxbMessageBodyReader per ampliarne la logica, aggiungendo: validazione con
+ * xsd e gestione dell'encoding dichiarato nell'XML.
+ *
+ * Strategia di lettura: 1. Si leggono solo i primi 300 bytes per rilevare l'encoding dalla
+ * dichiarazione XML (la dichiarazione è sempre ASCII-compatibile, 300 bytes sono sempre
+ * sufficienti). 2. Lo stream originale viene ricostruito con SequenceInputStream (header + resto).
+ * 3. JAXB consuma lo stream a chunk interni: il payload completo non viene mai materializzato in
+ * heap come byte[] o String.
  */
 @Provider
 public class CustomJaxbMessageBodyReader extends ServerJaxbMessageBodyReader {
@@ -66,56 +62,48 @@ public class CustomJaxbMessageBodyReader extends ServerJaxbMessageBodyReader {
     @Inject
     XmlFascCache xmlFascCache;
 
-    private static final FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions
-            .asFileAttribute(PosixFilePermissions.fromString("rw-------"));
+    private static final int XML_HEADER_READ_BYTES = 300;
 
     @Override
     public IndiceSIPFascicolo readFrom(Class<Object> type, Type genericType, MediaType mediaType,
             ServerRequestContext context) throws WebApplicationException, IOException {
-        final Path tmpFile = Files.createTempFile(UUIDMdcLogUtil.getUuid(), TMP_FILE_SUFFIX, attr);
-        try (InputStream is = new FileInputStream(tmpFile.toFile())) {
-            // manage encoding
-            byte[] istobyte = IOUtils.toByteArray(context.getInputStream());
-            String xml = new String(istobyte);
-            String encoding = XmlUtils.getXmlEcondingDeclaration(xml).name();
-            //
-            FileUtils.writeByteArrayToFile(tmpFile.toFile(), xml.getBytes(encoding));
+        try {
+            InputStream requestStream = context.getInputStream();
+            // Leggo solo l'header per rilevare l'encoding dichiarato
+            byte[] header = requestStream.readNBytes(XML_HEADER_READ_BYTES);
+            if (header.length == 0) {
+                return null;
+            }
+            // La dichiarazione XML è ASCII-compatibile: lettura US_ASCII è sempre sicura
+            String xmlDeclaration = new String(header, StandardCharsets.US_ASCII);
+            XmlUtils.getXmlEcondingDeclaration(xmlDeclaration); // valida la dichiarazione
 
-            // well formed -> XmlSipNotWellFormedException
-            XmlUtils.validateXml(xml, encoding);
-            // unmarshal
-            return doReadFromWithValidation(is, xml);
-        } catch (XMLStreamException | FactoryConfigurationError | XmlSipNotWellFormedException
-                | XmlSipUnmarshalException e) {
+            // Ricostruisco lo stream completo: header già letto + resto non ancora letto.
+            // JAXB leggerà a chunk — l'XML non viene mai caricato interamente in heap.
+            InputStream fullStream = new SequenceInputStream(new ByteArrayInputStream(header),
+                    requestStream);
+
+            return doReadFromWithValidation(fullStream, header);
+        } catch (XMLStreamException | FactoryConfigurationError | XmlSipUnmarshalException e) {
             throw new AppGenericRuntimeException(e, ErrorCategory.VALIDATION_ERROR);
-        } finally {
-            Files.delete(tmpFile);
         }
     }
 
-    private IndiceSIPFascicolo doReadFromWithValidation(InputStream entityStream, String xml)
-            throws IOException, XmlSipUnmarshalException {
-        IndiceSIPFascicolo entity = null;
+    private IndiceSIPFascicolo doReadFromWithValidation(InputStream entityStream, byte[] xmlHeader)
+            throws XmlSipUnmarshalException {
         WsXmlValidationEventHandler ve = new WsXmlValidationEventHandler();
-        if (checkInputStreamEmpty(entityStream)) {
-            return null;
-        }
         try {
-            // validate and unmarshal
             JAXBContext jaxbContext = xmlFascCache.getVersReqFascicoloCtx();
             Schema schema = xmlFascCache.getVersReqFascicoloSchema();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             unmarshaller.setSchema(schema);
             unmarshaller.setEventHandler(ve);
-            entity = (IndiceSIPFascicolo) unmarshaller.unmarshal(entityStream);
+            return (IndiceSIPFascicolo) unmarshaller.unmarshal(entityStream);
         } catch (JAXBException e) {
-            throw new XmlSipUnmarshalException(ve.getMessaggio(), e, xml);
+            // In caso di errore forniamo i primi byte dell'XML per diagnostica
+            String partialXml = xmlHeader != null ? new String(xmlHeader, StandardCharsets.UTF_8)
+                    : StringUtils.EMPTY;
+            throw new XmlSipUnmarshalException(ve.getMessaggio(), e, partialXml);
         }
-        // unmarshal
-        return entity;
-    }
-
-    private boolean checkInputStreamEmpty(InputStream entityStream) throws IOException {
-        return StreamUtil.isEmpty(entityStream) || entityStream.available() == 0;
     }
 }

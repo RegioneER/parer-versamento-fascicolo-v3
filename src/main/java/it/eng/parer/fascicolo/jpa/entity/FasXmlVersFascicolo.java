@@ -31,6 +31,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Basic;
 
 /**
  * The persistent class for the FAS_XML_VERS_FASCICOLO database table.
@@ -73,6 +74,7 @@ public class FasXmlVersFascicolo implements Serializable {
     }
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "BL_XML_VERS")
     public String getBlXmlVers() {
         return this.blXmlVers;

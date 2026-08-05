@@ -178,11 +178,15 @@ objects:
                 key: QUARKUS_DATASOURCE_PASSWORD
                 name: versamento-fascicolo-v3-secrets
           - name: JAVA_OPTS_APPEND
-            value: -Dfile.encoding=UTF-8 -Dquarkus.profile=${PROFILE}  -XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -Dsun.zip.disableMemoryMapping=true -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=3000 -Dcom.sun.management.jmxremote.rmi.port=3001 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
+            value: -Dfile.encoding=UTF-8 -Dquarkus.profile=${PROFILE} -XX:ReservedCodeCacheSize=80m -Xss256k -Dsun.zip.disableMemoryMapping=true -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=3000 -Dcom.sun.management.jmxremote.rmi.port=3001 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
           - name: JAVA_MAX_MEM_RATIO
-            value: "90"
+            value: "75"
           - name: JAVA_INITIAL_MEM_RATIO
-            value: "40"
+            value: "35"
+          - name: GC_CONTAINER_OPTIONS
+            value: "-XX:+UseG1GC"
+          - name: GC_MAX_METASPACE_SIZE
+            value: "192"
           - name: TZ
             value: Europe/Rome
           - name: QUARKUS_OIDC_CREDENTIALS_CLIENT_SECRET_VALUE

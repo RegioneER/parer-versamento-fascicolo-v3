@@ -69,7 +69,7 @@ public class ObjectStorageService implements IObjectStorageService {
     private static final String SESSIONI_FASC_ERR_KO = "WRITE_SESSIONI_FASC_ERR_KO";
     private static final String PATTERN_FORMAT = "yyyyMMdd/HH/mm";
     //
-    private static final int BUFFER_SIZE = 10 * 1024 * 1024;
+    private static final int BUFFER_SIZE = 256 * 1024; // 256KB
     //
     private static final FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions
             .asFileAttribute(PosixFilePermissions.fromString("rw-------"));

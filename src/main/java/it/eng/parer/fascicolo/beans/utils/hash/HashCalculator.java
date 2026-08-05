@@ -121,11 +121,12 @@ public class HashCalculator {
      * @throws NoSuchAlgorithmException errore generico
      * @throws IOException              errore generico di tipo IO
      */
+    private static final int BUFFER_SIZE = 256 * 1024; // 256KB
+
     public HashCalculator calculateSHAX(InputStream is, TipiHash tipiHash)
             throws NoSuchAlgorithmException, IOException {
         MessageDigest md = MessageDigest.getInstance(tipiHash.descrivi());
         int ch;
-        int BUFFER_SIZE = 10 * 1024 * 1024;
 
         try (DigestInputStream dis = new DigestInputStream(is, md)) {
             log.atDebug().log("Provider {}, {}", md.getProvider(), md.getAlgorithm());

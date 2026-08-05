@@ -25,6 +25,8 @@ public class XmlSipUnmarshalException extends JAXBException implements IXmlSipVa
     private static final long serialVersionUID = 4261618786078845479L;
     private final String xmlSip;
 
+    private static final int MAX_XML_LENGTH = 2048;
+
     public XmlSipUnmarshalException(String message) {
         super(message);
         this.xmlSip = StringUtils.EMPTY;
@@ -33,22 +35,30 @@ public class XmlSipUnmarshalException extends JAXBException implements IXmlSipVa
     public XmlSipUnmarshalException(String message, String errorCode, Throwable exception,
             String xmlSip) {
         super(message, errorCode, exception);
-        this.xmlSip = xmlSip;
+        this.xmlSip = truncate(xmlSip);
     }
 
     public XmlSipUnmarshalException(String message, String errorCode, String xmlSip) {
         super(message, errorCode);
-        this.xmlSip = xmlSip;
+        this.xmlSip = truncate(xmlSip);
     }
 
     public XmlSipUnmarshalException(String message, Throwable exception, String xmlSip) {
         super(message, exception);
-        this.xmlSip = xmlSip;
+        this.xmlSip = truncate(xmlSip);
     }
 
     public XmlSipUnmarshalException(Throwable exception, String xmlSip) {
         super(exception);
-        this.xmlSip = xmlSip;
+        this.xmlSip = truncate(xmlSip);
+    }
+
+    private static String truncate(String xml) {
+        if (xml == null) {
+            return StringUtils.EMPTY;
+        }
+        return xml.length() > MAX_XML_LENGTH ? xml.substring(0, MAX_XML_LENGTH) + "...[truncated]"
+                : xml;
     }
 
     public String getXmlSip() {

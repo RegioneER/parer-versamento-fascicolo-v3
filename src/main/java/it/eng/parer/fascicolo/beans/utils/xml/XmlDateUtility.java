@@ -31,6 +31,15 @@ public class XmlDateUtility {
 
     private static final String LOG_ERR_CONVERSION = "Exception in conversion of Date to XMLGregorianCalendar";
 
+    private static final DatatypeFactory DATATYPE_FACTORY;
+    static {
+        try {
+            DATATYPE_FACTORY = DatatypeFactory.newInstance();
+        } catch (javax.xml.datatype.DatatypeConfigurationException e) {
+            throw new ExceptionInInitializerError(e);
+        }
+    }
+
     private XmlDateUtility() {
         throw new IllegalStateException("Utility class");
     }
@@ -48,8 +57,7 @@ public class XmlDateUtility {
         gregorianCalendar.setTime(date);
         gregorianCalendar.setTimeZone(zone);
         try {
-            DatatypeFactory dataTypeFactory = DatatypeFactory.newInstance();
-            xmlGregorianCalendar = dataTypeFactory.newXMLGregorianCalendar(gregorianCalendar);
+            xmlGregorianCalendar = DATATYPE_FACTORY.newXMLGregorianCalendar(gregorianCalendar);
         } catch (Exception e) {
             throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
                     ErrorCategory.VALIDATION_ERROR);
@@ -71,8 +79,7 @@ public class XmlDateUtility {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
             gregorianCalendar.setTime(date);
             try {
-                DatatypeFactory dataTypeFactory = DatatypeFactory.newInstance();
-                xmlGregorianCalendar = dataTypeFactory.newXMLGregorianCalendar(gregorianCalendar);
+                xmlGregorianCalendar = DATATYPE_FACTORY.newXMLGregorianCalendar(gregorianCalendar);
             } catch (Exception e) {
                 throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
                         ErrorCategory.VALIDATION_ERROR);
@@ -89,8 +96,7 @@ public class XmlDateUtility {
             XMLGregorianCalendar xmlGregorianCalendar = null;
             try {
                 GregorianCalendar gregorianCalendar = GregorianCalendar.from(zonedDateTime);
-                xmlGregorianCalendar = DatatypeFactory.newInstance()
-                        .newXMLGregorianCalendar(gregorianCalendar);
+                xmlGregorianCalendar = DATATYPE_FACTORY.newXMLGregorianCalendar(gregorianCalendar);
             } catch (Exception e) {
                 throw new AppGenericRuntimeException(LOG_ERR_CONVERSION, e,
                         ErrorCategory.VALIDATION_ERROR);

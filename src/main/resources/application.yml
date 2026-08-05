@@ -9,7 +9,7 @@ quarkus:
     root-path: "/versamento-fascicolo-v3"
     body:
       handle-file-uploads: true
-      preallocate-body-buffer: true
+      preallocate-body-buffer: false
       uploads-directory: "/tmp"
       delete-uploaded-files-on-end: true
     limits:

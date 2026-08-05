@@ -18,6 +18,8 @@
 package it.eng.parer.fascicolo.beans;
 
 import java.io.InputStream;
+import java.io.StringReader;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
@@ -26,6 +28,8 @@ import javax.xml.validation.SchemaFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.ls.LSResourceResolver;
+import org.xml.sax.SAXException;
 
 import io.quarkus.arc.Lock;
 import io.quarkus.runtime.Startup;
@@ -58,6 +62,9 @@ public class XmlFascCache {
     JAXBContext versReqFascicoloCtxProfiloSpec;
 
     Schema versReqFascicoloSchema;
+
+    // cache degli Schema compilati da XSD del DB, indicizzati per hash del contenuto XSD
+    private final ConcurrentHashMap<Integer, Schema> xsdSchemaCache = new ConcurrentHashMap<>();
 
     @PostConstruct
     protected void initSingleton() {
@@ -97,6 +104,40 @@ public class XmlFascCache {
     @Lock(value = Lock.Type.READ)
     public Schema getVersReqFascicoloSchema() {
         return versReqFascicoloSchema;
+    }
+
+    /**
+     * Restituisce uno Schema compilato dall'XSD fornito, con caching basato sul contenuto. Il
+     * compilazione avviene solo la prima volta per ogni XSD distinto.
+     *
+     * @param xsd      contenuto dell'XSD come stringa
+     * @param resolver resource resolver per XSD multi-namespace (può essere null)
+     * @return Schema compilato
+     * @throws SAXException se l'XSD non è valido
+     */
+    @Lock(value = Lock.Type.READ)
+    public Schema getOrCompileSchema(String xsd, LSResourceResolver resolver) throws SAXException {
+        int key = xsd.hashCode();
+        Schema cached = xsdSchemaCache.get(key);
+        if (cached != null) {
+            return cached;
+        }
+        // compilazione (può avvenire in concorrenza per lo stesso xsd la prima volta — accettabile)
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        try {
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        } catch (org.xml.sax.SAXNotRecognizedException
+                | org.xml.sax.SAXNotSupportedException ignored) {
+            // non tutti gli schemaFactory supportano questa feature
+        }
+        if (resolver != null) {
+            factory.setResourceResolver(resolver);
+        }
+        Schema compiled = factory.newSchema(new StreamSource(new StringReader(xsd)));
+        xsdSchemaCache.putIfAbsent(key, compiled);
+        return xsdSchemaCache.get(key);
     }
 
 }

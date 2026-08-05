@@ -112,6 +112,12 @@ public class SalvataggioFascicoliDao implements ISalvataggioFascicoliDao {
 
     //
     private static final String LOG_FASCICOLO_ERR = "Errore interno nella fase di salvataggio fascicolo: ";
+    private static final TransformerFactory TRANSFORMER_FACTORY;
+    static {
+        TRANSFORMER_FACTORY = TransformerFactory.newInstance();
+        TRANSFORMER_FACTORY.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        TRANSFORMER_FACTORY.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+    }
 
     @Inject
     MessaggiWSHelper messaggiWSHelper;
@@ -798,11 +804,7 @@ public class SalvataggioFascicoliDao implements ISalvataggioFascicoliDao {
             throws TransformerException {
         String xml = null;
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        // to be compliant, prohibit the use of all protocols by external entities:
-        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
-        Transformer transformer = transformerFactory.newTransformer();
+        Transformer transformer = TRANSFORMER_FACTORY.newTransformer();
         DOMSource source = new DOMSource(profilo);
         StreamResult result = new StreamResult(new StringWriter());
         transformer.transform(source, result);

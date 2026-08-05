@@ -39,6 +39,7 @@ import it.eng.parer.ws.xml.versfascicoloV3.ProfiloArchivisticoType;
 public class ProfileArchDataPrsr {
 
     private static final Logger log = LoggerFactory.getLogger(ProfileArchDataPrsr.class);
+    private static final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
 
     private ProfileArchDataPrsr() {
         throw new IllegalStateException("Utility class");
@@ -50,7 +51,7 @@ public class ProfileArchDataPrsr {
         try {
             String tmpString;
             Node tmpDati = pat.getAny();
-            XPath xpath = XPathFactory.newInstance().newXPath();
+            XPath xpath = XPATH_FACTORY.newXPath();
             //
             XPathExpression expr = xpath.compile(
                     "//" + selector + "/Classificazione" + "/IndiceClassificazione/text()");

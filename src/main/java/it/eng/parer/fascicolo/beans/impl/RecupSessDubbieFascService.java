@@ -62,6 +62,7 @@ import jakarta.transaction.Transactional;
 public class RecupSessDubbieFascService implements IRecupSessDubbieFascService {
 
     private static final Logger log = LoggerFactory.getLogger(RecupSessDubbieFascService.class);
+    private static final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
     //
     @Inject
     EntityManager entityManager;
@@ -206,8 +207,7 @@ public class RecupSessDubbieFascService implements IRecupSessDubbieFascService {
                 Node tmpDati = this.convertStringToDocument(versamento.getDatiXml().trim());
 
                 if (tmpDati != null) {
-                    XPathFactory xpathfactory = XPathFactory.newInstance();
-                    XPath xpath = xpathfactory.newXPath();
+                    XPath xpath = XPATH_FACTORY.newXPath();
 
                     XPathExpression expr = xpath
                             .compile("//Intestazione/Versatore/Ambiente/text()");

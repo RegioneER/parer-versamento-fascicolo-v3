@@ -47,6 +47,7 @@ import it.eng.parer.ws.xml.versfascicoloV3.ProfiloNormativoType;
 public class ProfileNormDataPrsr {
 
     private static final Logger log = LoggerFactory.getLogger(ProfileNormDataPrsr.class);
+    private static final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
 
     private ProfileNormDataPrsr() {
         throw new IllegalStateException("Utility class");
@@ -67,8 +68,7 @@ public class ProfileNormDataPrsr {
             //
             Node tmpnode = null;
             Node tmpDati = pnt.getAny();
-            XPathFactory xpathfactory = XPathFactory.newInstance();
-            XPath xpath = xpathfactory.newXPath();
+            XPath xpath = XPATH_FACTORY.newXPath();
 
             // soggetti
             XPathExpression expr = xpath.compile("//" + selector + "/Soggetti" + "/Ruolo");
